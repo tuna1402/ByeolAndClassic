@@ -3,6 +3,99 @@
 {% block title %}홈 | ByeolAndClassic{% endblock %}
 
 {% block content %}
-  <h2>홈</h2>
-  <p>별앤클래식 홈페이지에 오신 것을 환영합니다.</p>
+  <section class="py-5 text-center border-bottom">
+    <h2 class="display-5 fw-semibold">별앤클래식</h2>
+    <p class="lead text-muted">입시부터 전문 연주까지, 맞춤형 피아노 교육을 제공합니다.</p>
+    <div class="d-flex justify-content-center gap-3">
+      <a class="btn btn-primary" href="{% url 'enroll_form' %}">수강신청</a>
+      <a class="btn btn-outline-secondary" href="{% url 'contact_form' %}">문의하기</a>
+    </div>
+  </section>
+
+  <section class="py-5 border-bottom">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h3 class="h4 mb-0">News</h3>
+      <a href="{% url 'news_category' 'notice' %}">공지사항 더보기</a>
+    </div>
+    <div class="row g-4">
+      <div class="col-md-6">
+        <div class="card h-100">
+          <div class="card-body">
+            <h4 class="card-title">입시 뉴스</h4>
+            <p class="card-text text-muted">입시 일정과 준비 정보를 빠르게 안내합니다.</p>
+            <a class="card-link" href="{% url 'news_category' 'admission' %}">바로가기</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card h-100">
+          <div class="card-body">
+            <h4 class="card-title">콩쿨 뉴스</h4>
+            <p class="card-text text-muted">최신 콩쿨 일정과 공지사항을 확인하세요.</p>
+            <a class="card-link" href="{% url 'news_category' 'contest' %}">바로가기</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-5 border-bottom text-center">
+    <blockquote class="blockquote">
+      <p class="mb-3">"배움의 과정이 무대의 자신감을 만드는 순간을 함께합니다."</p>
+      <footer class="blockquote-footer">별앤클래식 스튜디오</footer>
+    </blockquote>
+  </section>
+
+  <section class="py-5 border-bottom">
+    <div class="row g-4">
+      <div class="col-md-4">
+        <h3 class="h5">문의하기</h3>
+        <p class="text-muted mb-1">전화 및 카카오 채널로 상담 가능</p>
+        <p class="mb-0">010-0000-0000</p>
+      </div>
+      <div class="col-md-4">
+        <h3 class="h5">운영 시간</h3>
+        <p class="text-muted mb-1">월~금 09:00~18:00</p>
+        <p class="mb-0">토요일 예약 운영</p>
+      </div>
+      <div class="col-md-4">
+        <h3 class="h5">찾아오시는 길</h3>
+        <p class="text-muted mb-1">서울시 강남구 예시로 123</p>
+        <a href="#">지도 보기</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-5">
+    <div class="row g-4">
+      <div class="col-md-3">
+        <h4 class="h6 text-uppercase">Studio</h4>
+        <ul class="list-unstyled">
+          <li><a href="{% url 'greeting' %}">소개</a></li>
+          <li><a href="{% url 'profile' %}">강사진</a></li>
+        </ul>
+      </div>
+      <div class="col-md-3">
+        <h4 class="h6 text-uppercase">Program</h4>
+        <ul class="list-unstyled">
+          <li><a href="{% url 'curriculum' %}">커리큘럼</a></li>
+          <li><a href="{% url 'masterclass' %}">마스터 클래스</a></li>
+        </ul>
+      </div>
+      <div class="col-md-3">
+        <h4 class="h6 text-uppercase">News</h4>
+        <ul class="list-unstyled">
+          <li><a href="{% url 'news_category' 'notice' %}">공지사항</a></li>
+          <li><a href="{% url 'news_category' 'contest' %}">콩쿨정보</a></li>
+        </ul>
+      </div>
+      <div class="col-md-3">
+        <h4 class="h6 text-uppercase">Contact</h4>
+        <ul class="list-unstyled">
+          <li><a href="{% url 'contact_form' %}">문의하기</a></li>
+          <li><a href="{% url 'enroll_form' %}">수강신청</a></li>
+        </ul>
+      </div>
+    </div>
+  </section>
 {% endblock %}
