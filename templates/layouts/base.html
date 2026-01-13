@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <title>{% block title %}ByeolAndClassic{% endblock %}</title>
+</head>
+<body>
+  <header>
+    <h1><a href="{% url 'home' %}">ByeolAndClassic</a></h1>
+    <nav>
+      <ul>
+        <li>
+          <span>별앤클래식</span>
+          <ul>
+            <li><a href="{% url 'greeting' %}">인삿말</a></li>
+            <li><a href="{% url 'profile' %}">프로필</a></li>
+            <li><a href="{% url 'awards' %}">수상내역</a></li>
+          </ul>
+        </li>
+        <li>
+          <span>뉴스</span>
+          <ul>
+            <li><a href="{% url 'news_category' category_code='notice' %}">공지사항</a></li>
+            <li><a href="{% url 'news_category' category_code='contest' %}">콩쿨정보</a></li>
+            <li><a href="{% url 'news_category' category_code='admission' %}">입시정보</a></li>
+          </ul>
+        </li>
+        <li><a href="{% url 'curriculum' %}">커리큘럼</a></li>
+        <li>
+          <span>음악사업</span>
+          <ul>
+            <li><a href="{% url 'accompanist' %}">반주자 매칭</a></li>
+            <li><a href="{% url 'soloist' %}">솔리스트 매칭</a></li>
+            <li><a href="{% url 'masterclass' %}">마스터 클래스</a></li>
+          </ul>
+        </li>
+        <li><a href="{% url 'enroll_form' %}">수강신청</a></li>
+        <li><a href="/admin/">Admin</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+</body>
+</html>

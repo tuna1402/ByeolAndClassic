@@ -1,0 +1,23 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}{{ category.name }} | ByeolAndClassic{% endblock %}
+
+{% block content %}
+  <h2>{{ category.name }}</h2>
+  {% if posts %}
+    <ul>
+      {% for post in posts %}
+        <li>
+          <a href="{% url 'news_detail' category_code=category.code slug=post.slug %}">
+            {{ post.title }}
+          </a>
+          {% if post.published_at %}
+            <small>{{ post.published_at|date:"Y-m-d" }}</small>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>등록된 게시글이 없습니다.</p>
+  {% endif %}
+{% endblock %}
