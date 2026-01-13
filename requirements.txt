@@ -1,0 +1,1 @@
+pip install "Django>=5,<6" gunicorn Pillow ruff pytest pytest-django
