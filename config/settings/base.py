@@ -95,3 +95,9 @@ LOGGING = {
     "handlers": {"console": {"class": "logging.StreamHandler"}},
     "root": {"handlers": ["console"], "level": "INFO"},
 }
+
+# ====== Email (Brevo) ======
+BREVO_API_KEY = env("BREVO_API_KEY", "")
+BREVO_SENDER_EMAIL = env("BREVO_SENDER_EMAIL", "")
+BREVO_SENDER_NAME = env("BREVO_SENDER_NAME", "ByeolAndClassic")
+BREVO_ADMIN_EMAIL = env("BREVO_ADMIN_EMAIL", "")
