@@ -22,7 +22,7 @@ def test_enroll_form_post_creates_application(client, monkeypatch):
             "phone": "010-0000-0000",
             "birth_date": "2000-01-01",
             "residence": "서울",
-            "purposes": ["hobby", "exam"],
+            "purposes": ["예술중", "음대입시"],
             "preferred_date": "2024-12-31",
             "message": "문의합니다.",
         },
@@ -32,4 +32,4 @@ def test_enroll_form_post_creates_application(client, monkeypatch):
     assert EnrollApplication.objects.count() == 1
     application = EnrollApplication.objects.get()
     assert application.name == "테스트"
-    assert application.purposes == ["hobby", "exam"]
+    assert application.purposes == ["예술중", "음대입시"]
