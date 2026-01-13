@@ -4,5 +4,41 @@
 
 {% block content %}
   <h2>수강신청</h2>
-  <p>다음 단계에서 폼 구현</p>
+  {% if success %}
+    <p>수강신청이 접수되었습니다. 빠르게 연락드리겠습니다.</p>
+  {% endif %}
+  <form method="post">
+    {% csrf_token %}
+    {% for error in form.non_field_errors %}<span>{{ error }}</span>{% endfor %}
+    <div>
+      {{ form.name.label_tag }} {{ form.name }}
+      {% for error in form.name.errors %}<span>{{ error }}</span>{% endfor %}
+    </div>
+    <div>
+      {{ form.phone.label_tag }} {{ form.phone }}
+      {% for error in form.phone.errors %}<span>{{ error }}</span>{% endfor %}
+    </div>
+    <div>
+      {{ form.birth_date.label_tag }} {{ form.birth_date }}
+      {% for error in form.birth_date.errors %}<span>{{ error }}</span>{% endfor %}
+    </div>
+    <div>
+      {{ form.residence.label_tag }} {{ form.residence }}
+      {% for error in form.residence.errors %}<span>{{ error }}</span>{% endfor %}
+    </div>
+    <div>
+      {{ form.purposes.label_tag }}
+      {{ form.purposes }}
+      {% for error in form.purposes.errors %}<span>{{ error }}</span>{% endfor %}
+    </div>
+    <div>
+      {{ form.preferred_date.label_tag }} {{ form.preferred_date }}
+      {% for error in form.preferred_date.errors %}<span>{{ error }}</span>{% endfor %}
+    </div>
+    <div>
+      {{ form.message.label_tag }} {{ form.message }}
+      {% for error in form.message.errors %}<span>{{ error }}</span>{% endfor %}
+    </div>
+    <button type="submit">신청하기</button>
+  </form>
 {% endblock %}
