@@ -17,23 +17,19 @@ db.sqlite3-journal
 media/
 staticfiles/
 *.pot
-*.pyc
 
-# Environment variables
+# Env vars
 .env
 .env.*
 !.env.example
 
-# OS / Editor
-.DS_Store
-Thumbs.db
+# Editor/OS
 .vscode/
 .idea/
+.DS_Store
+Thumbs.db
 
-# Packaging
+# Build
 build/
 dist/
 *.egg-info/
-
-# Node (템플릿 빌드에 사용한다면)
-node_modules/
