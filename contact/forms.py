@@ -13,3 +13,7 @@ class ContactForm(forms.ModelForm):
             "email": forms.EmailInput(attrs={"class": "form-control"}),
             "message": forms.Textarea(attrs={"rows": 5, "class": "form-control"}),
         }
+
+    def clean_phone(self):
+        phone = self.cleaned_data["phone"]
+        return phone.replace(" ", "")
