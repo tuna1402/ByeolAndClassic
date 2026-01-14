@@ -1,9 +1,11 @@
+from django.db.models import Q
 from django.shortcuts import render
 from django.utils import timezone
 
 from news.models import Post
 
 from .models import PageContent, PageKey
+from news.models import Post
 
 
 def home(request):

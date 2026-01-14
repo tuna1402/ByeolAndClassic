@@ -1,4 +1,5 @@
 from django.contrib.sitemaps import Sitemap
+from django.db.models import Q
 from django.utils import timezone
 
 from news.models import Post

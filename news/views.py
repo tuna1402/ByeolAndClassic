@@ -9,8 +9,10 @@ from .models import Category, Post
 def category_list(request, category_code):
     category = get_object_or_404(Category, code=category_code)
     now = timezone.now()
+    published_filter = Q(published_at__isnull=True) | Q(published_at__lte=now)
     posts = (
-        category.posts.filter(is_published=True, published_at__lte=now)
+        category.posts.filter(is_published=True)
+        .filter(published_filter)
         .select_related("category")
     )
     q = request.GET.get("q", "").strip()
@@ -43,11 +45,11 @@ def category_list(request, category_code):
 
 def detail(request, category_code, slug):
     now = timezone.now()
+    published_filter = Q(published_at__isnull=True) | Q(published_at__lte=now)
     post = get_object_or_404(
-        Post,
+        Post.objects.filter(published_filter),
         category__code=category_code,
         slug=slug,
         is_published=True,
-        published_at__lte=now,
     )
     return render(request, "news/detail.html", {"post": post})

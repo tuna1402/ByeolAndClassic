@@ -27,3 +27,6 @@ make run
 - `key`는 페이지와 1:1로 매핑되며 최초 생성 시에만 설정합니다.
 - `hero_image`와 `attachment`는 선택 사항이며 저장 후 즉시 프론트에서 노출됩니다.
 - DB에 레코드가 없으면 기존 템플릿 안내 문구가 그대로 렌더됩니다.
+
+## robots.txt
+- `static/robots.txt`의 Sitemap 주소는 운영 도메인 확정 후 `/sitemap.xml`을 절대 경로로 수정하세요.

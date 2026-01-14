@@ -10,6 +10,7 @@ sitemaps = {"posts": PostSitemap}
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("sitemap.xml", sitemap, {"sitemaps": SITEMAPS}, name="sitemap"),
     path("", include("pages.urls")),
     path("news/", include("news.urls")),
     path("contact/", include("contact.urls")),
