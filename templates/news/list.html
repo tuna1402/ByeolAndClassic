@@ -1,22 +1,93 @@
 {% extends "layouts/base.html" %}
 
-{% block title %}{{ category.name }} | ByeolAndClassic{% endblock %}
+{% block meta_title %}{{ category.name }} | ByeolAndClassic{% endblock %}
+{% block meta_description %}{{ category.name }} 관련 최신 소식을 확인하세요.{% endblock %}
 
 {% block content %}
   <h2>{{ category.name }}</h2>
-  {% if posts %}
-    <ul>
-      {% for post in posts %}
-        <li>
-          <a href="{% url 'news_detail' category_code=category.code slug=post.slug %}">
-            {{ post.title }}
-          </a>
-          {% if post.published_at %}
-            <small>{{ post.published_at|date:"Y-m-d" }}</small>
-          {% endif %}
+
+  <form method="get" class="row g-2 align-items-end mb-4">
+    <div class="col-sm-6 col-md-4">
+      <label class="form-label">검색</label>
+      <input
+        type="text"
+        name="q"
+        class="form-control"
+        placeholder="검색어를 입력하세요"
+        value="{{ q }}"
+      >
+    </div>
+    <div class="col-sm-4 col-md-3">
+      <label class="form-label">정렬</label>
+      <select name="sort" class="form-select">
+        <option value="latest" {% if sort == "latest" %}selected{% endif %}>최신순</option>
+        <option value="oldest" {% if sort == "oldest" %}selected{% endif %}>오래된순</option>
+      </select>
+    </div>
+    <div class="col-auto">
+      <button class="btn btn-primary" type="submit">검색</button>
+    </div>
+  </form>
+
+  {% if page_obj.object_list %}
+    <ul class="list-unstyled">
+      {% for post in page_obj %}
+        <li class="mb-4">
+          <div class="d-flex flex-column flex-md-row gap-3">
+            {% if post.thumbnail %}
+              <img
+                src="{{ post.thumbnail.url }}"
+                alt="{{ post.title }} 썸네일"
+                class="img-fluid rounded"
+                style="max-width: 140px;"
+              >
+            {% endif %}
+            <div>
+              <a href="{% url 'news_detail' category_code=category.code slug=post.slug %}" class="fw-semibold">
+                {{ post.title }}
+              </a>
+              {% if post.published_at %}
+                <div class="text-muted small">{{ post.published_at|date:"Y-m-d" }}</div>
+              {% endif %}
+              <p class="text-muted mb-0">{{ post.content|truncatechars:100 }}</p>
+            </div>
+          </div>
         </li>
       {% endfor %}
     </ul>
+
+    {% if paginator.num_pages > 1 %}
+      <nav aria-label="뉴스 페이지네이션">
+        <ul class="pagination justify-content-center">
+          <li class="page-item {% if not page_obj.has_previous %}disabled{% endif %}">
+            <a
+              class="page-link"
+              href="{% if page_obj.has_previous %}{% if querystring %}?{{ querystring }}&page={{ page_obj.previous_page_number }}{% else %}?page={{ page_obj.previous_page_number }}{% endif %}{% else %}#{% endif %}"
+            >
+              이전
+            </a>
+          </li>
+          {% for num in paginator.page_range %}
+            <li class="page-item {% if num == page_obj.number %}active{% endif %}">
+              <a
+                class="page-link"
+                href="{% if querystring %}?{{ querystring }}&page={{ num }}{% else %}?page={{ num }}{% endif %}"
+              >
+                {{ num }}
+              </a>
+            </li>
+          {% endfor %}
+          <li class="page-item {% if not page_obj.has_next %}disabled{% endif %}">
+            <a
+              class="page-link"
+              href="{% if page_obj.has_next %}{% if querystring %}?{{ querystring }}&page={{ page_obj.next_page_number }}{% else %}?page={{ page_obj.next_page_number }}{% endif %}{% else %}#{% endif %}"
+            >
+              다음
+            </a>
+          </li>
+        </ul>
+      </nav>
+    {% endif %}
   {% else %}
     <p>등록된 게시글이 없습니다.</p>
   {% endif %}
