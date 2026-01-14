@@ -1,0 +1,13 @@
+[Unit]
+Description=ByeolAndClassic Cloudflared Tunnel
+After=network.target
+
+[Service]
+Type=simple
+# Update paths for your user, repo location, and tunnel config.
+WorkingDirectory=/home/<user>/PianoAcademy
+ExecStart=/usr/bin/cloudflared tunnel --config /home/<user>/PianoAcademy/deploy/cloudflared-config.yml run
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

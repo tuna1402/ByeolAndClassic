@@ -1,0 +1,13 @@
+[Unit]
+Description=ByeolAndClassic Caddy Service
+After=network.target
+
+[Service]
+Type=simple
+# Update paths for your user and repo location.
+WorkingDirectory=/home/<user>/PianoAcademy
+ExecStart=/usr/bin/caddy run --config /home/<user>/PianoAcademy/deploy/Caddyfile
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

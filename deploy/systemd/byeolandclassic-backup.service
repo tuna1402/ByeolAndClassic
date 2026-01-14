@@ -1,0 +1,8 @@
+[Unit]
+Description=ByeolAndClassic Backup Service
+
+[Service]
+Type=oneshot
+# Update paths for your user and repo location.
+WorkingDirectory=/home/<user>/PianoAcademy
+ExecStart=/home/<user>/PianoAcademy/deploy/backup/backup.sh
