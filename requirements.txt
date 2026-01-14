@@ -5,3 +5,5 @@ ruff
 pytest
 pytest-django
 requests
+Markdown
+bleach

@@ -4,19 +4,21 @@
 {% block meta_description %}{{ post.content|striptags|truncatechars:140 }}{% endblock %}
 
 {% block content %}
-  <h2>{{ post.title }}</h2>
-  {% if post.published_at %}
-    <p>{{ post.published_at|date:"Y-m-d" }}</p>
-  {% endif %}
-  <div>
-    {{ post.content|linebreaks }}
-  </div>
   {% if post.thumbnail %}
-    <div>
-      <img src="{{ post.thumbnail.url }}" alt="{{ post.title }} 썸네일">
+    <div class="mb-4">
+      <img class="img-fluid rounded shadow-sm w-100" src="{{ post.thumbnail.url }}" alt="{{ post.title }} 썸네일">
     </div>
   {% endif %}
+  <h2>{{ post.title }}</h2>
+  {% if post.published_at %}
+    <p class="text-muted">{{ post.published_at|date:"Y-m-d" }}</p>
+  {% endif %}
+  <div class="news-content mb-4">
+    {{ post_html|safe }}
+  </div>
   {% if post.attachment %}
-    <p><a href="{{ post.attachment.url }}">첨부파일 다운로드</a></p>
+    <a class="btn btn-outline-primary" href="{{ post.attachment.url }}" download>
+      첨부파일 다운로드
+    </a>
   {% endif %}
 {% endblock %}
