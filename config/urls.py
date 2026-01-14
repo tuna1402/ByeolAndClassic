@@ -1,7 +1,12 @@
 from django.contrib import admin
+from django.contrib.sitemaps.views import sitemap
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+
+from .sitemaps import PostSitemap
+
+sitemaps = {"posts": PostSitemap}
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -9,6 +14,7 @@ urlpatterns = [
     path("news/", include("news.urls")),
     path("contact/", include("contact.urls")),
     path("enroll/", include("enroll.urls")),
+    path("sitemap.xml", sitemap, {"sitemaps": sitemaps}, name="sitemap"),
 ]
 
 # 개발 편의: runserver에서 media 서빙

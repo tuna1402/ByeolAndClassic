@@ -1,10 +1,37 @@
 from django.shortcuts import render
+from django.utils import timezone
+
+from news.models import Post
 
 from .models import PageContent, PageKey
 
 
 def home(request):
-    return render(request, "pages/home.html")
+    now = timezone.now()
+    base_queryset = Post.objects.filter(is_published=True, published_at__lte=now).select_related(
+        "category"
+    )
+    admission_latest = (
+        base_queryset.filter(category__code="admission")
+        .order_by("-published_at", "-created_at")[:3]
+    )
+    contest_latest = (
+        base_queryset.filter(category__code="contest")
+        .order_by("-published_at", "-created_at")[:3]
+    )
+    notice_latest = (
+        base_queryset.filter(category__code="notice")
+        .order_by("-published_at", "-created_at")[:3]
+    )
+    return render(
+        request,
+        "pages/home.html",
+        {
+            "admission_latest": admission_latest,
+            "contest_latest": contest_latest,
+            "notice_latest": notice_latest,
+        },
+    )
 
 
 def greeting(request):

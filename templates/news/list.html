@@ -1,22 +1,101 @@
 {% extends "layouts/base.html" %}
 
-{% block title %}{{ category.name }} | ByeolAndClassic{% endblock %}
+{% block meta_title %}{{ category.name }} | ByeolAndClassic{% endblock %}
+{% block meta_description %}{{ category.name }} 소식을 확인하세요.{% endblock %}
 
 {% block content %}
   <h2>{{ category.name }}</h2>
-  {% if posts %}
-    <ul>
-      {% for post in posts %}
-        <li>
-          <a href="{% url 'news_detail' category_code=category.code slug=post.slug %}">
-            {{ post.title }}
-          </a>
-          {% if post.published_at %}
-            <small>{{ post.published_at|date:"Y-m-d" }}</small>
-          {% endif %}
+  <form method="get" class="row g-2 align-items-end mb-4">
+    <div class="col-12 col-md-6">
+      <label class="form-label" for="news-search">검색</label>
+      <input
+        id="news-search"
+        name="q"
+        type="text"
+        class="form-control"
+        value="{{ q }}"
+        placeholder="제목 또는 본문 검색"
+      >
+    </div>
+    <div class="col-6 col-md-3">
+      <label class="form-label" for="news-sort">정렬</label>
+      <select id="news-sort" name="sort" class="form-select">
+        <option value="latest" {% if sort != "oldest" %}selected{% endif %}>최신순</option>
+        <option value="oldest" {% if sort == "oldest" %}selected{% endif %}>오래된순</option>
+      </select>
+    </div>
+    <div class="col-6 col-md-3">
+      <button class="btn btn-primary w-100" type="submit">검색</button>
+    </div>
+  </form>
+
+  {% if page_obj.object_list %}
+    <ul class="list-unstyled">
+      {% for post in page_obj %}
+        <li class="border-bottom pb-3 mb-3">
+          <div class="d-flex gap-3">
+            {% if post.thumbnail %}
+              <a href="{% url 'news_detail' category_code=category.code slug=post.slug %}">
+                <img class="img-thumbnail" src="{{ post.thumbnail.url }}" alt="{{ post.title }} 썸네일" style="max-width: 120px;">
+              </a>
+            {% endif %}
+            <div>
+              <a href="{% url 'news_detail' category_code=category.code slug=post.slug %}">
+                <strong>{{ post.title }}</strong>
+              </a>
+              {% if post.published_at %}
+                <small class="text-muted ms-2">{{ post.published_at|date:"Y-m-d" }}</small>
+              {% endif %}
+              {% if post.content %}
+                <p class="text-muted small mt-2 mb-0">{{ post.content|striptags|truncatechars:100 }}</p>
+              {% endif %}
+            </div>
+          </div>
         </li>
       {% endfor %}
     </ul>
+
+    {% if page_obj.paginator.num_pages > 1 %}
+      <nav aria-label="뉴스 페이지네이션">
+        <ul class="pagination justify-content-center">
+          {% if page_obj.has_previous %}
+            <li class="page-item">
+              <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if querystring %}&{{ querystring }}{% endif %}" aria-label="이전">
+                &laquo;
+              </a>
+            </li>
+          {% else %}
+            <li class="page-item disabled">
+              <span class="page-link" aria-hidden="true">&laquo;</span>
+            </li>
+          {% endif %}
+
+          {% for num in page_obj.paginator.page_range %}
+            {% if num == page_obj.number %}
+              <li class="page-item active" aria-current="page">
+                <span class="page-link">{{ num }}</span>
+              </li>
+            {% else %}
+              <li class="page-item">
+                <a class="page-link" href="?page={{ num }}{% if querystring %}&{{ querystring }}{% endif %}">{{ num }}</a>
+              </li>
+            {% endif %}
+          {% endfor %}
+
+          {% if page_obj.has_next %}
+            <li class="page-item">
+              <a class="page-link" href="?page={{ page_obj.next_page_number }}{% if querystring %}&{{ querystring }}{% endif %}" aria-label="다음">
+                &raquo;
+              </a>
+            </li>
+          {% else %}
+            <li class="page-item disabled">
+              <span class="page-link" aria-hidden="true">&raquo;</span>
+            </li>
+          {% endif %}
+        </ul>
+      </nav>
+    {% endif %}
   {% else %}
     <p>등록된 게시글이 없습니다.</p>
   {% endif %}
