@@ -4,6 +4,7 @@ from django.shortcuts import get_object_or_404, render
 from django.utils import timezone
 
 from .models import Category, Post
+from .utils import render_markdown_safe
 
 
 def category_list(request, category_code):
@@ -52,4 +53,12 @@ def detail(request, category_code, slug):
         slug=slug,
         is_published=True,
     )
-    return render(request, "news/detail.html", {"post": post})
+    post_html = render_markdown_safe(post.content)
+    return render(
+        request,
+        "news/detail.html",
+        {
+            "post": post,
+            "post_html": post_html,
+        },
+    )
