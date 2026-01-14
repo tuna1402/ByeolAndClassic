@@ -1,7 +1,7 @@
 {% extends "layouts/base.html" %}
 
 {% block meta_title %}홈 | ByeolAndClassic{% endblock %}
-{% block meta_description %}별앤클래식 피아노 아카데미의 최신 뉴스와 프로그램 소식을 확인하세요.{% endblock %}
+{% block meta_description %}별앤클래식 피아노 아카데미의 최신 소식과 프로그램을 확인하세요.{% endblock %}
 
 {% block content %}
   <header class="masthead">
@@ -32,17 +32,19 @@
               </span>
               <h4 class="my-3">입시 뉴스</h4>
               <p class="text-muted">입시 일정, 전형 변화, 준비 전략을 안내합니다.</p>
-              <ul class="list-unstyled text-start small mb-3">
-                {% for post in admission_latest %}
-                  <li>
-                    <a href="{% url 'news_detail' category_code='admission' slug=post.slug %}">
-                      {{ post.title }}
-                    </a>
-                  </li>
-                {% empty %}
-                  <li class="text-muted">아직 준비 중입니다.</li>
-                {% endfor %}
-              </ul>
+              {% if admission_latest %}
+                <ul class="list-unstyled text-start small mt-3">
+                  {% for post in admission_latest %}
+                    <li class="mb-2">
+                      <a href="{% url 'news_detail' category_code=post.category.code slug=post.slug %}">
+                        {{ post.title }}
+                      </a>
+                    </li>
+                  {% endfor %}
+                </ul>
+              {% else %}
+                <p class="text-muted small mt-3">입시 뉴스가 준비중입니다.</p>
+              {% endif %}
               <a class="btn btn-link" href="{% url 'news_category' 'admission' %}">입시 뉴스 보기</a>
             </div>
           </div>
@@ -56,39 +58,40 @@
               </span>
               <h4 class="my-3">콩쿨 뉴스</h4>
               <p class="text-muted">국내외 콩쿨 일정과 지원 정보를 모았습니다.</p>
-              <ul class="list-unstyled text-start small mb-3">
-                {% for post in contest_latest %}
-                  <li>
-                    <a href="{% url 'news_detail' category_code='contest' slug=post.slug %}">
-                      {{ post.title }}
-                    </a>
-                  </li>
-                {% empty %}
-                  <li class="text-muted">아직 준비 중입니다.</li>
-                {% endfor %}
-              </ul>
+              {% if contest_latest %}
+                <ul class="list-unstyled text-start small mt-3">
+                  {% for post in contest_latest %}
+                    <li class="mb-2">
+                      <a href="{% url 'news_detail' category_code=post.category.code slug=post.slug %}">
+                        {{ post.title }}
+                      </a>
+                    </li>
+                  {% endfor %}
+                </ul>
+              {% else %}
+                <p class="text-muted small mt-3">콩쿨 뉴스가 준비중입니다.</p>
+              {% endif %}
               <a class="btn btn-link" href="{% url 'news_category' 'contest' %}">콩쿨 뉴스 보기</a>
             </div>
           </div>
         </div>
       </div>
-      <div class="row justify-content-center mt-3">
-        <div class="col-lg-8">
-          <div class="d-flex justify-content-between align-items-center mb-2">
-            <h4 class="text-uppercase mb-0">공지사항</h4>
-            <a class="btn btn-outline-primary btn-sm" href="{% url 'news_category' 'notice' %}">더보기</a>
-          </div>
-          <ul class="list-unstyled text-start small">
-            {% for post in notice_latest %}
-              <li>
-                <a href="{% url 'news_detail' category_code='notice' slug=post.slug %}">
-                  {{ post.title }}
-                </a>
-              </li>
-            {% empty %}
-              <li class="text-muted">아직 준비 중입니다.</li>
-            {% endfor %}
-          </ul>
+      <div class="text-center">
+        <a class="btn btn-outline-primary" href="{% url 'news_category' 'notice' %}">공지사항 더보기</a>
+        <div class="mt-4">
+          {% if notice_latest %}
+            <ul class="list-unstyled small">
+              {% for post in notice_latest %}
+                <li class="mb-2">
+                  <a href="{% url 'news_detail' category_code=post.category.code slug=post.slug %}">
+                    {{ post.title }}
+                  </a>
+                </li>
+              {% endfor %}
+            </ul>
+          {% else %}
+            <p class="text-muted small mt-3">공지사항이 준비중입니다.</p>
+          {% endif %}
         </div>
       </div>
     </div>

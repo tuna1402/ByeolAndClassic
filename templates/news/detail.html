@@ -1,7 +1,7 @@
 {% extends "layouts/base.html" %}
 
 {% block meta_title %}{{ post.title }} | ByeolAndClassic{% endblock %}
-{% block meta_description %}{{ post.content|striptags|truncatechars:120 }}{% endblock %}
+{% block meta_description %}{{ post.content|striptags|truncatechars:140 }}{% endblock %}
 
 {% block content %}
   <h2>{{ post.title }}</h2>

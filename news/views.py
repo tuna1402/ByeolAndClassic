@@ -1,6 +1,4 @@
-from urllib.parse import urlencode
-
-from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
+from django.core.paginator import Paginator
 from django.db.models import Q
 from django.shortcuts import get_object_or_404, render
 from django.utils import timezone
@@ -18,39 +16,31 @@ def category_list(request, category_code):
         .select_related("category")
     )
     q = request.GET.get("q", "").strip()
+    sort = request.GET.get("sort", "latest")
     if q:
         posts = posts.filter(Q(title__icontains=q) | Q(content__icontains=q))
-
-    sort = request.GET.get("sort", "latest")
     if sort == "oldest":
         posts = posts.order_by("published_at", "created_at")
     else:
-        sort = "latest"
         posts = posts.order_by("-published_at", "-created_at")
 
     paginator = Paginator(posts, 10)
-    page_number = request.GET.get("page", 1)
-    try:
-        page_obj = paginator.page(page_number)
-    except (EmptyPage, PageNotAnInteger):
-        page_obj = paginator.page(1)
+    page_obj = paginator.get_page(request.GET.get("page"))
+    query_params = request.GET.copy()
+    query_params.pop("page", None)
+    querystring = query_params.urlencode()
 
-    query_params = {}
-    if q:
-        query_params["q"] = q
-    if sort:
-        query_params["sort"] = sort
-    querystring = urlencode(query_params)
-
-    context = {
-        "category": category,
-        "page_obj": page_obj,
-        "paginator": paginator,
-        "q": q,
-        "sort": sort,
-        "querystring": querystring,
-    }
-    return render(request, "news/list.html", context)
+    return render(
+        request,
+        "news/list.html",
+        {
+            "category": category,
+            "page_obj": page_obj,
+            "q": q,
+            "sort": sort,
+            "querystring": querystring,
+        },
+    )
 
 
 def detail(request, category_code, slug):

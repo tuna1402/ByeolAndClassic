@@ -2,17 +2,16 @@ from django.db.models import Q
 from django.shortcuts import render
 from django.utils import timezone
 
+from news.models import Post
+
 from .models import PageContent, PageKey
 from news.models import Post
 
 
 def home(request):
     now = timezone.now()
-    published_filter = Q(published_at__isnull=True) | Q(published_at__lte=now)
-    base_queryset = (
-        Post.objects.filter(is_published=True)
-        .filter(published_filter)
-        .select_related("category")
+    base_queryset = Post.objects.filter(is_published=True, published_at__lte=now).select_related(
+        "category"
     )
     admission_latest = (
         base_queryset.filter(category__code="admission")
@@ -26,12 +25,15 @@ def home(request):
         base_queryset.filter(category__code="notice")
         .order_by("-published_at", "-created_at")[:3]
     )
-    context = {
-        "admission_latest": admission_latest,
-        "contest_latest": contest_latest,
-        "notice_latest": notice_latest,
-    }
-    return render(request, "pages/home.html", context)
+    return render(
+        request,
+        "pages/home.html",
+        {
+            "admission_latest": admission_latest,
+            "contest_latest": contest_latest,
+            "notice_latest": notice_latest,
+        },
+    )
 
 
 def greeting(request):

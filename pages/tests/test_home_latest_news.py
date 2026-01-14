@@ -1,28 +1,44 @@
-import pytest
+from django.test import TestCase
 from django.urls import reverse
 from django.utils import timezone
 
 from news.models import Category, Post
 
-pytestmark = pytest.mark.django_db
 
+class HomeLatestNewsTests(TestCase):
+    def setUp(self):
+        self.admission, _ = Category.objects.get_or_create(code="admission", name="입시정보")
+        self.contest, _ = Category.objects.get_or_create(code="contest", name="콩쿨정보")
+        self.notice, _ = Category.objects.get_or_create(code="notice", name="공지사항")
 
-def test_home_renders_latest_news(client):
-    category, _ = Category.objects.get_or_create(
-        code="admission",
-        defaults={"name": "입시정보"},
-    )
-    post = Post.objects.create(
-        category=category,
-        title="입시 일정 공지",
-        slug="admission-news",
-        content="테스트 콘텐츠",
-        is_published=True,
-        published_at=timezone.now(),
-    )
+    def test_home_renders_latest_news(self):
+        now = timezone.now()
+        admission_post = Post.objects.create(
+            category=self.admission,
+            title="입시 소식",
+            slug="admission-news",
+            content="입시 안내",
+            is_published=True,
+            published_at=now,
+        )
+        contest_post = Post.objects.create(
+            category=self.contest,
+            title="콩쿨 소식",
+            slug="contest-news",
+            content="콩쿨 안내",
+            is_published=True,
+            published_at=now,
+        )
+        notice_post = Post.objects.create(
+            category=self.notice,
+            title="공지 안내",
+            slug="notice-news",
+            content="공지 안내",
+            is_published=True,
+            published_at=now,
+        )
 
-    url = reverse("home")
-    res = client.get(url)
-
-    assert res.status_code == 200
-    assert post.title in res.content.decode("utf-8")
+        response = self.client.get(reverse("home"))
+        self.assertContains(response, admission_post.title)
+        self.assertContains(response, contest_post.title)
+        self.assertContains(response, notice_post.title)
