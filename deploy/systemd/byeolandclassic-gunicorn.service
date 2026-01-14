@@ -1,0 +1,14 @@
+[Unit]
+Description=ByeolAndClassic Gunicorn Service
+After=network.target
+
+[Service]
+Type=simple
+# Update paths for your user and repo location.
+WorkingDirectory=/home/<user>/PianoAcademy
+EnvironmentFile=/home/<user>/PianoAcademy/.env
+ExecStart=/home/<user>/PianoAcademy/deploy/run_gunicorn.sh
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

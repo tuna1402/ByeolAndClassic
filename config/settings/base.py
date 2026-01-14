@@ -11,6 +11,11 @@ SECRET_KEY = env("SECRET_KEY", "dev-secret-key-change-me")
 DEBUG = env("DEBUG", "1") == "1"
 
 ALLOWED_HOSTS = [h.strip() for h in env("ALLOWED_HOSTS", "localhost,127.0.0.1").split(",") if h.strip()]
+CSRF_TRUSTED_ORIGINS = [
+    origin.strip()
+    for origin in env("CSRF_TRUSTED_ORIGINS", "").split(",")
+    if origin.strip()
+]
 
 # ====== Apps ======
 INSTALLED_APPS = [

@@ -1,0 +1,17 @@
+:8080 {
+  encode gzip
+
+  handle_path /static/* {
+    root * ./staticfiles
+    file_server
+  }
+
+  handle_path /media/* {
+    root * ./media
+    file_server
+  }
+
+  handle {
+    reverse_proxy 127.0.0.1:8000
+  }
+}
