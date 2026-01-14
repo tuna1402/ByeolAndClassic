@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.shortcuts import redirect, render
 
 from contact.forms import ContactForm
-from core.services.email import send_contact_email
+from contact.services.brevo import send_contact_email
 
 logger = logging.getLogger(__name__)
 
@@ -15,14 +15,7 @@ def form(request):
         if form.is_valid():
             message = form.save()
             try:
-                send_contact_email(
-                    {
-                        "name": message.name,
-                        "phone": message.phone,
-                        "email": message.email,
-                        "message": message.message,
-                    }
-                )
+                send_contact_email(message)
                 logger.info("Contact email sent for message_id=%s", message.id)
             except Exception:
                 logger.exception("Contact email failed for message_id=%s", message.id)
