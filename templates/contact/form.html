@@ -1,1 +1,66 @@
-<h1>Contact</h1>
+{% extends "layouts/base.html" %}
+
+{% block title %}문의하기 | ByeolAndClassic{% endblock %}
+
+{% block content %}
+<section class="page-section" id="contact-form">
+  <div class="container">
+    <div class="text-center">
+      <h2 class="section-heading text-uppercase">문의하기</h2>
+      <p class="section-subheading text-muted">궁금한 사항을 남겨주시면 빠르게 안내해 드립니다.</p>
+    </div>
+
+    {% if messages %}
+      <div class="mb-4">
+        {% for message in messages %}
+          <div class="alert alert-success" role="alert">{{ message }}</div>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    <form method="post" class="row g-3">
+      {% csrf_token %}
+
+      {% if form.non_field_errors %}
+        <div class="col-12">
+          <div class="alert alert-danger" role="alert">
+            {{ form.non_field_errors }}
+          </div>
+        </div>
+      {% endif %}
+
+      <div class="col-md-6">
+        <label class="form-label" for="{{ form.name.id_for_label }}">이름 *</label>
+        {{ form.name }}
+        {% if form.name.errors %}
+          <div class="text-danger small">{{ form.name.errors }}</div>
+        {% endif %}
+      </div>
+      <div class="col-md-6">
+        <label class="form-label" for="{{ form.phone.id_for_label }}">연락처 *</label>
+        {{ form.phone }}
+        {% if form.phone.errors %}
+          <div class="text-danger small">{{ form.phone.errors }}</div>
+        {% endif %}
+      </div>
+      <div class="col-12">
+        <label class="form-label" for="{{ form.email.id_for_label }}">이메일</label>
+        {{ form.email }}
+        {% if form.email.errors %}
+          <div class="text-danger small">{{ form.email.errors }}</div>
+        {% endif %}
+      </div>
+      <div class="col-12">
+        <label class="form-label" for="{{ form.message.id_for_label }}">문의사항 *</label>
+        {{ form.message }}
+        {% if form.message.errors %}
+          <div class="text-danger small">{{ form.message.errors }}</div>
+        {% endif %}
+      </div>
+      <div class="col-12 text-center">
+        <button class="btn btn-primary btn-xl text-uppercase" type="submit">문의 접수</button>
+      </div>
+    </form>
+  </div>
+</section>
+{% endblock %}

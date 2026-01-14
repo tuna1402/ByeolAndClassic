@@ -4,3 +4,4 @@ Pillow
 ruff
 pytest
 pytest-django
+requests
