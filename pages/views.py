@@ -1,33 +1,42 @@
 from django.shortcuts import render
 
+from .models import PageContent, PageKey
+
 
 def home(request):
     return render(request, "pages/home.html")
 
 
 def greeting(request):
-    return render(request, "pages/greeting.html")
+    page = PageContent.objects.filter(key=PageKey.GREETING).first()
+    return render(request, "pages/greeting.html", {"page": page})
 
 
 def profile(request):
-    return render(request, "pages/profile.html")
+    page = PageContent.objects.filter(key=PageKey.PROFILE).first()
+    return render(request, "pages/profile.html", {"page": page})
 
 
 def awards(request):
-    return render(request, "pages/awards.html")
+    page = PageContent.objects.filter(key=PageKey.AWARDS).first()
+    return render(request, "pages/awards.html", {"page": page})
 
 
 def curriculum(request):
-    return render(request, "pages/curriculum.html")
+    page = PageContent.objects.filter(key=PageKey.CURRICULUM).first()
+    return render(request, "pages/curriculum.html", {"page": page})
 
 
 def accompanist(request):
-    return render(request, "pages/accompanist.html")
+    page = PageContent.objects.filter(key=PageKey.ACCOMPANIST).first()
+    return render(request, "pages/accompanist.html", {"page": page})
 
 
 def soloist(request):
-    return render(request, "pages/soloist.html")
+    page = PageContent.objects.filter(key=PageKey.SOLOIST).first()
+    return render(request, "pages/soloist.html", {"page": page})
 
 
 def masterclass(request):
-    return render(request, "pages/masterclass.html")
+    page = PageContent.objects.filter(key=PageKey.MASTERCLASS).first()
+    return render(request, "pages/masterclass.html", {"page": page})

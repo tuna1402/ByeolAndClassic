@@ -1,15 +1,34 @@
 {% extends "layouts/base.html" %}
 
-{% block title %}인삿말 | ByeolAndClassic{% endblock %}
+{% block title %}{% if page %}{{ page.title }}{% else %}인삿말{% endif %} | ByeolAndClassic{% endblock %}
 
 {% block content %}
   <section class="page-section">
     <div class="container">
-      <div class="text-center mb-5">
-        <h1 class="section-heading text-uppercase">인삿말</h1>
-        <h2 class="section-subheading text-muted">별앤클래식에 오신 것을 환영합니다.</h2>
-      </div>
-      <p>별앤클래식 인삿말 페이지입니다.</p>
+      {% if page %}
+        <div class="text-center mb-5">
+          <h1 class="section-heading text-uppercase">{{ page.title }}</h1>
+        </div>
+        {% if page.hero_image %}
+          <div class="text-center mb-4">
+            <img class="img-fluid rounded" src="{{ page.hero_image.url }}" alt="{{ page.title }}" />
+          </div>
+        {% endif %}
+        {% if page.content %}
+          <p>{{ page.content|linebreaksbr }}</p>
+        {% endif %}
+        {% if page.attachment %}
+          <div class="mt-4">
+            <a class="btn btn-outline-secondary" href="{{ page.attachment.url }}">첨부파일 다운로드</a>
+          </div>
+        {% endif %}
+      {% else %}
+        <div class="text-center mb-5">
+          <h1 class="section-heading text-uppercase">인삿말</h1>
+          <h2 class="section-subheading text-muted">별앤클래식에 오신 것을 환영합니다.</h2>
+        </div>
+        <p>별앤클래식 인삿말 페이지입니다.</p>
+      {% endif %}
     </div>
   </section>
 {% endblock %}
