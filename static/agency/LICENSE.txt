@@ -1,0 +1,5 @@
+Start Bootstrap Agency theme
+https://startbootstrap.com/theme/agency
+
+The Agency theme is licensed under the MIT License.
+This project includes styling inspired by the Agency theme structure.
