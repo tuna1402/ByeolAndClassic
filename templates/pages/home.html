@@ -11,9 +11,9 @@
 {% block content %}
   <section class="main-visual split-visual">
     <div class="container">
-      <div class="row align-items-stretch g-4">
-        <div class="col-lg-6">
-          <div class="banner-left">
+      <div class="row align-items-stretch g-5">
+        <div class="col-lg-7">
+          <div class="banner-left banner-card">
             <div id="homeBannerCarousel" class="carousel slide" data-bs-ride="false">
               <div class="carousel-inner">
                 {% if banner_slides %}
@@ -61,9 +61,36 @@
                 </button>
               {% endif %}
             </div>
+            {% if banner_slides|length > 1 %}
+              <div class="banner-indicator" aria-label="배너 페이지 이동">
+                <button
+                  class="banner-indicator-btn"
+                  type="button"
+                  data-bs-target="#homeBannerCarousel"
+                  data-bs-slide="prev"
+                  aria-label="이전 배너"
+                >
+                  <span class="banner-indicator-icon">‹</span>
+                </button>
+                <span class="banner-indicator-text">
+                  <span class="banner-indicator-current">1</span>
+                  /
+                  <span class="banner-indicator-total">{{ banner_slides|length }}</span>
+                </span>
+                <button
+                  class="banner-indicator-btn"
+                  type="button"
+                  data-bs-target="#homeBannerCarousel"
+                  data-bs-slide="next"
+                  aria-label="다음 배너"
+                >
+                  <span class="banner-indicator-icon">›</span>
+                </button>
+              </div>
+            {% endif %}
           </div>
         </div>
-        <div class="col-lg-6">
+        <div class="col-lg-5">
           <div class="banner-right">
             <div class="banner-eyebrow">
               <span class="badge">2026 신입 모집</span>
@@ -78,11 +105,34 @@
               <a class="btn btn-dark" href="{% url 'enroll_form' %}">수강신청</a>
               <a class="btn btn-outline-dark" href="{% url 'contact_form' %}">문의하기</a>
             </div>
+            <div class="banner-dots" aria-hidden="true">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
             <div class="quick-links">
-              <a class="quick-link" href="{% url 'curriculum' %}">커리큘럼</a>
-              <a class="quick-link" href="{% url 'news_category' 'admission' %}">입시 뉴스</a>
-              <a class="quick-link" href="{% url 'news_category' 'contest' %}">콩쿨 뉴스</a>
-              <a class="quick-link" href="{% url 'news_category' 'notice' %}">공지사항</a>
+              <a class="quick-card" href="{% url 'curriculum' %}">
+                <span class="quick-icon"><i class="fas fa-book"></i></span>
+                <span class="quick-label">커리큘럼</span>
+              </a>
+              <a class="quick-card" href="{% url 'curriculum' %}">
+                <span class="quick-icon"><i class="fas fa-layer-group"></i></span>
+                <span class="quick-label">교재 안내</span>
+              </a>
+              <a class="quick-card" href="{% url 'news_category' 'contest' %}">
+                <span class="quick-icon"><i class="fas fa-folder-open"></i></span>
+                <span class="quick-label">자료실</span>
+              </a>
+              <a class="quick-card" href="{% url 'enroll_form' %}">
+                <span class="quick-icon"><i class="fas fa-play-circle"></i></span>
+                <span class="quick-label">강의 보기</span>
+              </a>
+            </div>
+            <div class="banner-foot">
+              <p>이번 달 상담 일정이 빠르게 마감되고 있어요.</p>
+              <a class="banner-foot-link" href="{% url 'contact_form' %}">
+                상담 예약하기 <span aria-hidden="true">→</span>
+              </a>
             </div>
           </div>
         </div>
@@ -215,4 +265,28 @@
       </div>
     </div>
   </section>
+{% endblock %}
+
+{% block extra_scripts %}
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const carousel = document.getElementById('homeBannerCarousel');
+      const indicator = document.querySelector('.banner-indicator');
+      if (!carousel || !indicator) {
+        return;
+      }
+
+      const current = indicator.querySelector('.banner-indicator-current');
+      if (current) {
+        current.textContent = '1';
+      }
+
+      carousel.addEventListener('slid.bs.carousel', (event) => {
+        if (!current) {
+          return;
+        }
+        current.textContent = String(event.to + 1);
+      });
+    });
+  </script>
 {% endblock %}
