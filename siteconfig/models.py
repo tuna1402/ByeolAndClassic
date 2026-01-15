@@ -1,4 +1,7 @@
+from django.core.exceptions import ValidationError
 from django.db import models
+
+MAX_HOME_BANNER_SLIDES = 5
 
 
 class SiteBrandSettings(models.Model):
@@ -20,6 +23,29 @@ class SiteBrandSettings(models.Model):
 
     def __str__(self) -> str:
         return self.site_name
+
+
+class HomeBannerSlide(models.Model):
+    image = models.ImageField(upload_to="brand/banners/")
+    title = models.CharField(max_length=120, blank=True)
+    is_active = models.BooleanField(default=True)
+    sort_order = models.PositiveSmallIntegerField(default=1)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ["sort_order", "-created_at"]
+        verbose_name = "홈 배너 슬라이드"
+        verbose_name_plural = "홈 배너(슬라이드)"
+
+    def __str__(self) -> str:
+        return self.title or f"홈 배너 슬라이드 #{self.pk or '신규'}"
+
+    def clean(self) -> None:
+        super().clean()
+        existing_count = HomeBannerSlide.objects.exclude(pk=self.pk).count()
+        if existing_count >= MAX_HOME_BANNER_SLIDES:
+            raise ValidationError({"image": "홈 배너 슬라이드는 최대 5장까지 등록할 수 있습니다."})
 
 
 def get_site_brand_settings() -> "SiteBrandSettings":
