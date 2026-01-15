@@ -4,7 +4,7 @@
 {% block meta_description %}별앤클래식 피아노 아카데미의 최신 소식과 프로그램을 확인하세요.{% endblock %}
 
 {% block content %}
-  <header class="masthead">
+  <header class="masthead"{% if site_brand and site_brand.masthead_hero_image %} style="background-image: url('{{ site_brand.masthead_hero_image.url }}');"{% endif %}>
     <div class="container">
       <div class="masthead-subheading">별앤클래식 피아노 아카데미</div>
       <div class="masthead-heading text-uppercase">입시부터 전문 연주까지</div>
