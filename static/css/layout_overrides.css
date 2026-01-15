@@ -5,12 +5,12 @@ body {
 .navbar {
   background: #fff !important;
   border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-  padding-top: 1rem;
-  padding-bottom: 1rem;
+  padding-top: 0.85rem;
+  padding-bottom: 0.85rem;
 }
 
 .navbar .navbar-brand img {
-  height: 40px;
+  height: 52px;
   width: auto;
 }
 
@@ -21,7 +21,7 @@ body {
 }
 
 .navbar .nav-link {
-  padding: 0.9rem 1rem;
+  padding: 0.65rem 0.25rem;
   font-weight: 600;
   color: #111;
 }
@@ -29,6 +29,13 @@ body {
 .navbar .nav-link:hover,
 .navbar .nav-link:focus {
   color: #0f172a;
+}
+
+.navbar .navbar-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
 }
 
 .site-footer {
@@ -87,7 +94,27 @@ body {
     padding: 0.65rem 0.75rem;
   }
 
+  .navbar .navbar-nav {
+    align-items: flex-start;
+  }
+
+  .navbar .navbar-brand img {
+    height: 44px;
+  }
+
   .footer-main {
     padding: 48px 0;
+  }
+}
+
+@media (min-width: 992px) {
+  .navbar .navbar-nav {
+    gap: 24px;
+  }
+}
+
+@media (max-width: 576px) {
+  .navbar .navbar-nav {
+    gap: 15px;
   }
 }
