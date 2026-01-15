@@ -57,6 +57,34 @@ h6,
   background: linear-gradient(135deg, rgba(33, 37, 41, 0.95), rgba(33, 37, 41, 0.75));
 }
 
+.home-banner {
+  min-height: 70vh;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.home-banner::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(115deg, rgba(17, 24, 39, 0.85), rgba(17, 24, 39, 0.55));
+}
+
+.home-banner .container {
+  position: relative;
+  z-index: 1;
+}
+
+.home-banner-kicker {
+  font-weight: 600;
+  letter-spacing: 0.1rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
 .masthead .masthead-subheading {
   font-size: 1.25rem;
   font-weight: 400;
@@ -115,6 +143,11 @@ h6,
   border-width: 2px;
 }
 
+.home-quick-links {
+  background-color: #fff;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
 .info-card,
 .testimonial {
   padding: 2rem 1.5rem;
@@ -154,5 +187,11 @@ h6,
 @media (min-width: 992px) {
   .masthead {
     padding: 9rem 0 7rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .home-banner {
+    min-height: 58vh;
   }
 }

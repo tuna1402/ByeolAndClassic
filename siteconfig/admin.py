@@ -13,12 +13,12 @@ class SiteBrandSettingsAdmin(admin.ModelAdmin):
         "created_at",
         "updated_at",
         "navbar_logo_preview",
-        "masthead_hero_preview",
+        "masthead_banner_preview",
     )
     fieldsets = (
         ("기본", {"fields": ("site_name",)}),
         ("Navbar-brand", {"fields": ("navbar_logo", "navbar_logo_preview")}),
-        ("Masthead", {"fields": ("masthead_hero_image", "masthead_hero_preview")}),
+        ("메인 배너", {"fields": ("masthead_banner_image", "masthead_banner_preview")}),
         ("타임스탬프", {"fields": ("created_at", "updated_at")}),
     )
 
@@ -37,16 +37,16 @@ class SiteBrandSettingsAdmin(admin.ModelAdmin):
             f'<img src="{obj.navbar_logo.url}" alt="{obj.site_name}" style="height: 48px;" />'
         )
 
-    def masthead_hero_preview(self, obj):
-        if not obj.masthead_hero_image:
+    def masthead_banner_preview(self, obj):
+        if not obj.masthead_banner_image:
             return "미등록"
         return mark_safe(
             """
             <div>
               <img src="{url}" alt="{name}" style="max-height: 120px; max-width: 100%;" />
             </div>
-            """.format(url=obj.masthead_hero_image.url, name=obj.site_name)
+            """.format(url=obj.masthead_banner_image.url, name=obj.site_name)
         )
 
     navbar_logo_preview.short_description = "Navbar 로고 미리보기"
-    masthead_hero_preview.short_description = "Masthead 이미지 미리보기"
+    masthead_banner_preview.short_description = "배너 이미지 미리보기"

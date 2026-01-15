@@ -13,7 +13,7 @@ def home(request):
     )
     admission_latest = (
         base_queryset.filter(category__code="admission")
-        .order_by("-published_at", "-created_at")[:3]
+        .order_by("-published_at", "-created_at")[:5]
     )
     contest_latest = (
         base_queryset.filter(category__code="contest")
