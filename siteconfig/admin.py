@@ -1,9 +1,10 @@
-from django.contrib import admin
+from django.contrib import admin, messages
+from django.core.exceptions import ValidationError
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.utils.safestring import mark_safe
 
-from .models import SiteBrandSettings, get_site_brand_settings
+from .models import HomeBannerSlide, SiteBrandSettings, get_site_brand_settings
 
 
 @admin.register(SiteBrandSettings)
@@ -50,3 +51,31 @@ class SiteBrandSettingsAdmin(admin.ModelAdmin):
 
     navbar_logo_preview.short_description = "Navbar 로고 미리보기"
     main_banner_preview.short_description = "메인 배너 이미지 미리보기"
+
+
+@admin.register(HomeBannerSlide)
+class HomeBannerSlideAdmin(admin.ModelAdmin):
+    list_display = ("thumbnail_preview", "title", "is_active", "sort_order", "created_at")
+    list_editable = ("is_active", "sort_order")
+    list_filter = ("is_active",)
+    ordering = ("sort_order",)
+    search_fields = ("title",)
+    fields = ("image", "title", "is_active", "sort_order", "thumbnail_preview")
+    readonly_fields = ("thumbnail_preview",)
+
+    def thumbnail_preview(self, obj):
+        if not obj.image:
+            return "미등록"
+        return mark_safe(
+            f'<img src="{obj.image.url}" alt="{obj.title or "홈 배너"}" style="height: 64px;" />'
+        )
+
+    def save_model(self, request, obj, form, change):
+        try:
+            obj.full_clean()
+        except ValidationError as exc:
+            self.message_user(request, exc.message_dict.get("image", exc.messages)[0], messages.ERROR)
+            return
+        super().save_model(request, obj, form, change)
+
+    thumbnail_preview.short_description = "이미지 미리보기"

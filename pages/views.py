@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.utils import timezone
 
 from news.models import Post
+from siteconfig.models import HomeBannerSlide
 
 from .models import PageContent, PageKey
 
@@ -23,6 +24,9 @@ def home(request):
         base_queryset.filter(category__code="notice")
         .order_by("-published_at", "-created_at")[:1]
     )
+    banner_slides = (
+        HomeBannerSlide.objects.filter(is_active=True).order_by("sort_order")[:5]
+    )
     return render(
         request,
         "pages/home.html",
@@ -30,6 +34,7 @@ def home(request):
             "admission_latest": admission_latest,
             "contest_latest": contest_latest,
             "notice_latest": notice_latest,
+            "banner_slides": banner_slides,
         },
     )
 
