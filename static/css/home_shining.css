@@ -2,7 +2,7 @@
   position: relative;
   overflow: hidden;
   background: #0f172a;
-  min-height: 64vh;
+  min-height: 54vh;
 }
 
 .banner-media {
@@ -38,7 +38,7 @@
   align-items: center;
   text-align: center;
   color: #fff;
-  padding: 3.5rem 1.25rem;
+  padding: 3.5rem 1.5rem;
   gap: 1.25rem;
   max-width: 1040px;
   margin: 0 auto;
@@ -66,16 +66,16 @@
   font-weight: 700;
   letter-spacing: -0.02em;
   font-size: clamp(2rem, 3vw, 3rem);
-  margin: 0;
+  margin: 0 0 0.9rem;
   line-height: 1.2;
 }
 
 .banner-desc {
-  max-width: 640px;
+  max-width: 880px;
   font-size: 1.05rem;
   color: rgba(255, 255, 255, 0.85);
   line-height: 1.7;
-  margin: 0;
+  margin: 0 0 1.25rem;
 }
 
 .banner-actions {
@@ -92,7 +92,7 @@
 }
 
 .quick-links {
-  margin-top: 1.75rem;
+  margin-top: 1.1rem;
   display: flex;
   gap: 1rem;
   flex-wrap: wrap;
@@ -101,17 +101,21 @@
 
 @media (min-width: 992px) {
   .main-visual {
-    min-height: 82vh;
+    min-height: 54vh;
   }
 
   .banner-copy {
-    padding: 6rem 1.5rem;
+    padding: 3.5rem 1.5rem;
   }
 }
 
 @media (max-width: 768px) {
   .main-visual {
-    min-height: 64vh;
+    min-height: 44vh;
+  }
+
+  .banner-copy {
+    padding: 2.25rem 1rem;
   }
 
   .banner-title {
