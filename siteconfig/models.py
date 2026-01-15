@@ -4,12 +4,12 @@ from django.db import models
 class SiteBrandSettings(models.Model):
     site_name = models.CharField(max_length=100, default="별앤클래식")
     navbar_logo = models.ImageField(upload_to="brand/", blank=True, null=True)
-    masthead_banner_image = models.ImageField(
+    main_banner_image = models.ImageField(
         "메인 배너 이미지",
         upload_to="brand/",
         blank=True,
         null=True,
-        help_text="홈 상단 배너 배경에 사용되는 이미지입니다.",
+        help_text="홈 상단 메인 배너에 사용되는 이미지입니다.",
     )
     updated_at = models.DateTimeField(auto_now=True)
     created_at = models.DateTimeField(auto_now_add=True)

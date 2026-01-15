@@ -1,95 +1,122 @@
 {% extends "layouts/base.html" %}
+{% load static %}
 
 {% block meta_title %}홈 | ByeolAndClassic{% endblock %}
 {% block meta_description %}별앤클래식 피아노 아카데미의 최신 소식과 프로그램을 확인하세요.{% endblock %}
 
-{% block content %}
-  <header class="masthead home-banner"{% if site_brand and site_brand.masthead_banner_image %} style="background-image: url('{{ site_brand.masthead_banner_image.url }}');"{% endif %}>
-    <div class="container">
-      <div class="row align-items-center">
-        <div class="col-lg-7 text-center text-lg-start">
-          <p class="home-banner-kicker text-uppercase mb-2">2026 입시 대비 · 선착순 상담</p>
-          <h1 class="masthead-heading text-uppercase">입시부터 전문 연주까지</h1>
-          <p class="masthead-description">학생의 목표와 무대 경험에 맞춘 맞춤형 피아노 교육을 제공합니다.</p>
-          <div class="d-flex flex-column flex-sm-row gap-3 justify-content-center justify-content-lg-start">
-            <a class="btn btn-primary btn-xl text-uppercase" href="{% url 'enroll_form' %}">수강신청</a>
-            <a class="btn btn-outline-light btn-xl text-uppercase" href="{% url 'contact_form' %}">문의하기</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </header>
+{% block extra_head %}
+  <link rel="stylesheet" href="{% static 'css/home_shining.css' %}">
+{% endblock %}
 
-  <section class="home-quick-links py-4">
-    <div class="container">
-      <div class="d-flex flex-wrap justify-content-center gap-3">
-        <a class="btn btn-outline-primary rounded-pill px-4" href="{% url 'curriculum' %}">커리큘럼</a>
-        <a class="btn btn-outline-primary rounded-pill px-4" href="{% url 'news_category' 'admission' %}">입시뉴스</a>
-        <a class="btn btn-outline-primary rounded-pill px-4" href="{% url 'news_category' 'contest' %}">콩쿨뉴스</a>
-        <a class="btn btn-outline-primary rounded-pill px-4" href="{% url 'contact_form' %}">문의하기</a>
+{% block content %}
+  <section class="main-visual">
+    <div class="banner-media">
+      {% if site_brand and site_brand.main_banner_image %}
+        <img
+          class="banner-img"
+          src="{{ site_brand.main_banner_image.url }}"
+          alt="{{ site_brand.site_name|default:'별앤클래식' }}"
+        >
+      {% else %}
+        <div class="banner-fallback"></div>
+      {% endif %}
+      <div class="banner-overlay"></div>
+    </div>
+    <div class="banner-copy container">
+      <div class="banner-eyebrow">
+        <span class="badge">2026 신입 모집</span>
+        <span class="sub">선착순 상담 예약</span>
+      </div>
+      <h1 class="banner-title">
+        입시부터 전문 연주까지<br>
+        맞춤형 피아노 교육
+      </h1>
+      <p class="banner-desc">학생의 목표와 무대 경험에 맞춘 커리큘럼을 제공합니다.</p>
+      <div class="banner-actions">
+        <a class="btn btn-light" href="{% url 'enroll_form' %}">수강신청</a>
+        <a class="btn btn-outline-light" href="{% url 'contact_form' %}">문의하기</a>
+      </div>
+      <div class="quick-links">
+        <a class="quick-link" href="{% url 'curriculum' %}">커리큘럼</a>
+        <a class="quick-link" href="{% url 'news_category' 'admission' %}">입시 뉴스</a>
+        <a class="quick-link" href="{% url 'news_category' 'contest' %}">콩쿨 뉴스</a>
+        <a class="quick-link" href="{% url 'news_category' 'notice' %}">공지사항</a>
       </div>
     </div>
   </section>
 
-  <section class="page-section" id="program">
+  <section class="page-section highlight-section">
     <div class="container">
-      <div class="text-center">
-        <h2 class="section-heading text-uppercase">프로그램 · 로드맵</h2>
-        <h3 class="section-subheading text-muted">학생의 목표에 맞춘 맞춤형 로드맵을 설계합니다.</h3>
+      <div class="highlight-card">
+        <div class="highlight-media" aria-hidden="true">
+          <div class="highlight-media-inner">
+            <span>LIVE CLASS</span>
+          </div>
+        </div>
+        <div class="highlight-content">
+          <p class="highlight-eyebrow">신규 클래스 · 선착순 모집</p>
+          <h2>2026 입시 대비 집중 클래스</h2>
+          <p>
+            실기와 이론, 무대 경험까지 한 번에 설계하는 집중 커리큘럼으로
+            상위권 합격 전략을 준비합니다.
+          </p>
+          <a class="btn btn-primary" href="{% url 'enroll_form' %}">수강신청 바로가기</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="page-section roadmap-section">
+    <div class="container">
+      <div class="section-title text-center">
+        <h2>레벨 맞춤 수업 로드맵</h2>
+        <p>초급부터 입시, 전문 연주까지 단계별 커리큘럼을 제공합니다.</p>
       </div>
       <div class="row g-4">
-        <div class="col-md-6">
-          <div class="card h-100 border-0 shadow-sm">
-            <div class="card-body">
-              <h4 class="card-title">입시 레슨 로드맵</h4>
-              <p class="card-text text-muted">전형별 대비 전략과 실기 준비를 체계적으로 안내합니다.</p>
-              <a class="btn btn-outline-primary" href="{% url 'curriculum' %}">커리큘럼 보기</a>
-            </div>
-          </div>
+        <div class="col-md-4">
+          <article class="info-card">
+            <h3>기초 · 예비 레벨</h3>
+            <p>기본기와 표현력을 체계적으로 다지는 맞춤 레슨.</p>
+            <span class="info-tag">1:1 집중</span>
+          </article>
         </div>
-        <div class="col-md-6">
-          <div class="card h-100 border-0 shadow-sm">
-            <div class="card-body">
-              <h4 class="card-title">콩쿨 대비 클래스</h4>
-              <p class="card-text text-muted">콩쿨 일정과 목표에 맞춘 집중 트레이닝을 제공합니다.</p>
-              {% if contest_latest %}
-                <ul class="list-unstyled small mb-3">
-                  {% for post in contest_latest %}
-                    <li class="mb-1">
-                      <a href="{% url 'news_detail' category_code=post.category.code slug=post.slug %}">
-                        {{ post.title }}
-                      </a>
-                    </li>
-                  {% endfor %}
-                </ul>
-              {% else %}
-                <p class="text-muted small mb-3">콩쿨 뉴스가 준비중입니다.</p>
-              {% endif %}
-              <a class="btn btn-outline-primary" href="{% url 'enroll_form' %}">수강신청</a>
-            </div>
-          </div>
+        <div class="col-md-4">
+          <article class="info-card">
+            <h3>입시/콩쿨 집중</h3>
+            <p>전형별 실전 과제와 모의 레슨을 통해 합격률을 높입니다.</p>
+            <span class="info-tag">실전 대비</span>
+          </article>
+        </div>
+        <div class="col-md-4">
+          <article class="info-card">
+            <h3>전문 연주 과정</h3>
+            <p>무대 경험과 레퍼토리 확장을 위한 심화 트레이닝.</p>
+            <span class="info-tag">무대 강화</span>
+          </article>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="page-section bg-light" id="admission-report">
+  <section class="page-section report-section bg-light" id="admission-report">
     <div class="container">
-      <div class="d-flex flex-wrap justify-content-between align-items-end mb-4">
+      <div class="section-header">
         <div>
-          <h2 class="section-heading text-uppercase">입시 리포트</h2>
-          <p class="section-subheading text-muted mb-0">최근 입시 뉴스와 주요 소식을 모았습니다.</p>
+          <h2>입시 리포트</h2>
+          <p>최신 입시 정보를 한눈에 확인하세요.</p>
         </div>
-        <a class="btn btn-outline-primary" href="{% url 'news_category' 'admission' %}">MORE</a>
+        <a class="more-view" href="{% url 'news_category' 'admission' %}">
+          MORE VIEW <i class="fas fa-arrow-right"></i>
+        </a>
       </div>
       {% if admission_latest %}
-        <ul class="list-group list-group-flush">
+        <ul class="report-list">
           {% for post in admission_latest %}
-            <li class="list-group-item d-flex justify-content-between align-items-center">
+            <li>
               <a href="{% url 'news_detail' category_code=post.category.code slug=post.slug %}">
                 {{ post.title }}
               </a>
-              <span class="text-muted small">{{ post.published_at|date:"Y.m.d" }}</span>
+              <span>{{ post.published_at|date:"Y.m.d" }}</span>
             </li>
           {% endfor %}
         </ul>
@@ -99,37 +126,48 @@
     </div>
   </section>
 
-  <section class="page-section" id="notice">
+  <section class="page-section notice-section">
     <div class="container">
-      <div class="d-flex flex-wrap justify-content-between align-items-end mb-4">
-        <div>
-          <h2 class="section-heading text-uppercase">공지</h2>
-          <p class="section-subheading text-muted mb-0">학원 소식과 공지를 확인하세요.</p>
-        </div>
-        <a class="btn btn-outline-primary" href="{% url 'news_category' 'notice' %}">MORE</a>
-      </div>
-      {% if notice_latest %}
-        <ul class="list-group list-group-flush">
-          {% for post in notice_latest %}
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-              <a href="{% url 'news_detail' category_code=post.category.code slug=post.slug %}">
-                {{ post.title }}
+      <div class="notice-grid">
+        <div class="notice-card">
+          <div class="notice-header">
+            <h3>공지</h3>
+            <a class="more-view" href="{% url 'news_category' 'notice' %}">MORE VIEW</a>
+          </div>
+          {% if notice_latest %}
+            {% for post in notice_latest %}
+              <a
+                class="notice-item"
+                href="{% url 'news_detail' category_code=post.category.code slug=post.slug %}"
+              >
+                <span class="notice-title">{{ post.title }}</span>
+                <span class="notice-date">{{ post.published_at|date:"Y.m.d" }}</span>
               </a>
-              <span class="text-muted small">{{ post.published_at|date:"Y.m.d" }}</span>
-            </li>
-          {% endfor %}
-        </ul>
-      {% else %}
-        <p class="text-muted">공지사항이 준비중입니다.</p>
-      {% endif %}
-    </div>
-  </section>
-
-  <section class="page-section bg-light" id="contact-cta">
-    <div class="container text-center">
-      <h2 class="section-heading text-uppercase">문의하기</h2>
-      <p class="section-subheading text-muted">상담 및 방문 예약을 빠르게 도와드립니다.</p>
-      <a class="btn btn-primary btn-xl text-uppercase" href="{% url 'contact_form' %}">상담 신청하기</a>
+            {% endfor %}
+          {% else %}
+            <p class="text-muted">공지사항이 준비중입니다.</p>
+          {% endif %}
+        </div>
+        <div class="notice-card">
+          <div class="notice-header">
+            <h3>자료실</h3>
+            <a class="more-view" href="{% url 'news_category' 'contest' %}">MORE VIEW</a>
+          </div>
+          {% if contest_latest %}
+            {% for post in contest_latest %}
+              <a
+                class="notice-item"
+                href="{% url 'news_detail' category_code=post.category.code slug=post.slug %}"
+              >
+                <span class="notice-title">{{ post.title }}</span>
+                <span class="notice-date">{{ post.published_at|date:"Y.m.d" }}</span>
+              </a>
+            {% endfor %}
+          {% else %}
+            <p class="text-muted">자료실 콘텐츠가 준비중입니다.</p>
+          {% endif %}
+        </div>
+      </div>
     </div>
   </section>
 {% endblock %}

@@ -17,11 +17,11 @@ def home(request):
     )
     contest_latest = (
         base_queryset.filter(category__code="contest")
-        .order_by("-published_at", "-created_at")[:3]
+        .order_by("-published_at", "-created_at")[:1]
     )
     notice_latest = (
         base_queryset.filter(category__code="notice")
-        .order_by("-published_at", "-created_at")[:3]
+        .order_by("-published_at", "-created_at")[:1]
     )
     return render(
         request,
