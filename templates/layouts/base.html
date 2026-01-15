@@ -26,10 +26,11 @@
     referrerpolicy="no-referrer"
   >
   <link rel="stylesheet" href="{% static 'agency/css/agency.css' %}">
+  <link rel="stylesheet" href="{% static 'css/layout_overrides.css' %}">
   {% block extra_head %}{% endblock %}
 </head>
 <body id="page-top">
-  <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
     <div class="container">
       <a class="navbar-brand" href="{% url 'home' %}">
         {% if site_brand and site_brand.navbar_logo %}
@@ -116,18 +117,52 @@
 
   {% block content %}{% endblock %}
 
-  <footer class="footer py-4">
-    <div class="container">
-      <div class="row align-items-center">
-        <div class="col-lg-4 text-lg-start">Copyright &copy; ByeolAndClassic 2024</div>
-        <div class="col-lg-4 my-3 my-lg-0">
-          <a class="btn btn-dark btn-social mx-2" href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-          <a class="btn btn-dark btn-social mx-2" href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
-          <a class="btn btn-dark btn-social mx-2" href="#" aria-label="KakaoTalk"><i class="fas fa-comment"></i></a>
+  <footer class="site-footer">
+    <div class="footer-top">
+      <div class="container">
+        <div class="row align-items-center gy-2">
+          <div class="col-md">
+            <a class="footer-link me-3" href="#">이용약관</a>
+            <a class="footer-link" href="#">개인정보취급방침</a>
+            <!-- TODO: terms/privacy routes are not ready yet -->
+          </div>
+          <div class="col-md text-md-end">
+            <span class="footer-call">대표전화 1234-5678</span>
+          </div>
         </div>
-        <div class="col-lg-4 text-lg-end">
-          <a class="link-dark text-decoration-none me-3" href="#">Privacy Policy</a>
-          <a class="link-dark text-decoration-none" href="#">Terms of Use</a>
+      </div>
+    </div>
+    <div class="footer-main">
+      <div class="container">
+        <div class="row gy-4 align-items-start">
+          <div class="col-lg-5">
+            <div class="footer-brand">BYEOL&amp;CLASSIC</div>
+            <p class="footer-text mt-3">
+              별앤클래식 피아노 아카데미는 입시부터 전문 연주까지 학생 맞춤형 프로그램을 제공합니다.
+            </p>
+          </div>
+          <div class="col-lg-7">
+            <div class="footer-title">COMPANY INFO</div>
+            <p class="footer-text">
+              주소: 서울시 ○○구 ○○로 123<br>
+              사업자등록번호: 000-00-00000<br>
+              대표: 홍길동 · 이메일: hello@byeolclassic.com<br>
+              <!-- TODO: 회사 정보는 관리자에서 관리 가능하도록 확장 예정 -->
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container">
+        <div class="row align-items-center gy-2">
+          <div class="col-md">
+            © 별앤클래식 피아노 아카데미
+          </div>
+          <div class="col-md text-md-end">
+            <a class="footer-link me-3" href="/admin/">ADMIN</a>
+            <a class="footer-link" href="#">HDWEB</a>
+          </div>
         </div>
       </div>
     </div>
