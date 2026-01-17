@@ -4,7 +4,13 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.utils.safestring import mark_safe
 
-from .models import HomeBannerSlide, SiteBrandSettings, get_site_brand_settings
+from .models import (
+    AwardCertificate,
+    HomeBannerSlide,
+    RoadmapImageCard,
+    SiteBrandSettings,
+    get_site_brand_settings,
+)
 
 
 @admin.register(SiteBrandSettings)
@@ -77,5 +83,42 @@ class HomeBannerSlideAdmin(admin.ModelAdmin):
             self.message_user(request, exc.message_dict.get("image", exc.messages)[0], messages.ERROR)
             return
         super().save_model(request, obj, form, change)
+
+    thumbnail_preview.short_description = "이미지 미리보기"
+
+
+@admin.register(RoadmapImageCard)
+class RoadmapImageCardAdmin(admin.ModelAdmin):
+    list_display = ("thumbnail_preview", "is_active", "sort_order", "created_at")
+    list_editable = ("is_active", "sort_order")
+    ordering = ("sort_order",)
+    fields = ("image", "is_active", "sort_order", "thumbnail_preview")
+    readonly_fields = ("thumbnail_preview",)
+
+    def thumbnail_preview(self, obj):
+        if not obj.image:
+            return "미등록"
+        return mark_safe(
+            f'<img src="{obj.image.url}" alt="로드맵 이미지" style="height: 64px;" />'
+        )
+
+    thumbnail_preview.short_description = "이미지 미리보기"
+
+
+@admin.register(AwardCertificate)
+class AwardCertificateAdmin(admin.ModelAdmin):
+    list_display = ("thumbnail_preview", "title", "is_active", "sort_order")
+    list_editable = ("is_active", "sort_order")
+    ordering = ("sort_order",)
+    fields = ("title", "image", "is_active", "sort_order", "thumbnail_preview")
+    readonly_fields = ("thumbnail_preview",)
+
+    def thumbnail_preview(self, obj):
+        if not obj.image:
+            return "미등록"
+        alt_text = obj.title or "수상 경력"
+        return mark_safe(
+            f'<img src="{obj.image.url}" alt="{alt_text}" style="height: 64px;" />'
+        )
 
     thumbnail_preview.short_description = "이미지 미리보기"
