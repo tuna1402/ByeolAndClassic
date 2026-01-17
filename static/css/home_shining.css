@@ -410,93 +410,134 @@
   gap: 14px;
 }
 
-.roadmap-card {
+.roadmap-image-card {
   border: 1px solid rgba(0, 0, 0, 0.08);
   border-radius: 14px;
-  padding: 16px 18px;
+  padding: 12px;
   background: #f8f9fb;
 }
 
-.roadmap-card .title {
-  font-weight: 800;
-  margin-bottom: 0.25rem;
+.roadmap-image-card img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 10px;
 }
 
-.roadmap-card .desc {
-  margin: 0;
-  opacity: 0.8;
-}
-
-.quote-promo {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-  align-items: stretch;
+.roadmap-empty {
+  border: 1px dashed rgba(0, 0, 0, 0.2);
+  border-radius: 14px;
+  padding: 18px;
+  text-align: center;
+  color: rgba(0, 0, 0, 0.6);
+  background: #fbfbfc;
 }
 
 @media (max-width: 991px) {
-  .quote-promo {
-    grid-template-columns: 1fr;
-  }
-
   .roadmap-panel,
   .highlight-panel {
     padding: 18px;
   }
 }
 
-.quote-box {
-  position: relative;
-  border-radius: 18px;
-  padding: 28px 26px;
-  background: #151a23;
-  color: rgba(255, 255, 255, 0.9);
-  overflow: hidden;
+.about-text-section {
+  padding: 96px 0;
+  background: #fff;
+  text-align: center;
 }
 
-.quote-mark {
-  position: absolute;
-  top: 10px;
-  left: 18px;
-  font-size: 64px;
+.about-kicker {
+  color: #2f6bff;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  font-size: 1.1rem;
+  margin-bottom: 18px;
+}
+
+.about-title {
   font-weight: 900;
-  opacity: 0.18;
-  line-height: 1;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  font-size: clamp(2rem, 3.2vw, 3rem);
+  margin: 0 auto 22px;
+  max-width: 980px;
+  color: #111;
 }
 
-.quote-text {
-  font-size: 1.25rem;
-  font-weight: 900;
-  letter-spacing: -0.02em;
-  line-height: 1.35;
-  margin: 0 0 0.75rem;
-}
-
-.quote-author {
-  margin: 0;
-  opacity: 0.75;
-  font-weight: 700;
-}
-
-.promo-text {
-  border-radius: 18px;
-  padding: 28px 26px;
-  background: #f6f7f9;
-  border: 1px solid rgba(0, 0, 0, 0.08);
-}
-
-.promo-head {
-  font-size: 1.35rem;
-  font-weight: 900;
-  letter-spacing: -0.02em;
-  margin: 0 0 0.5rem;
-}
-
-.promo-sub {
-  margin: 0;
-  opacity: 0.85;
-  line-height: 1.7;
+.about-desc {
+  margin: 0 auto;
+  max-width: 760px;
+  color: rgba(0, 0, 0, 0.68);
+  font-size: 1.05rem;
+  line-height: 2;
   font-weight: 600;
+}
+
+.awards-section {
+  padding: 70px 0 90px;
+  background: #f6f7f9;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.awards-head {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.awards-title {
+  font-weight: 800;
+  margin-bottom: 0.4rem;
+}
+
+.awards-sub {
+  color: rgba(0, 0, 0, 0.65);
+  margin: 0;
+}
+
+.award-frame {
+  max-width: 520px;
+  margin: 0 auto;
+  border-radius: 18px;
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.08);
+  padding: 18px;
+}
+
+.award-frame img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 12px;
+}
+
+.award-empty {
+  text-align: center;
+  padding: 40px;
+  border-radius: 18px;
+  border: 1px dashed rgba(0, 0, 0, 0.2);
+  background: #fff;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.awards-carousel .carousel-control-prev,
+.awards-carousel .carousel-control-next {
+  width: 48px;
+  height: 48px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 999px;
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.12);
+  opacity: 1;
+}
+
+.awards-carousel .carousel-control-prev {
+  left: 10px;
+}
+
+.awards-carousel .carousel-control-next {
+  right: 10px;
 }
 
 .info-tag {
