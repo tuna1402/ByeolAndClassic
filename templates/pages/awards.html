@@ -1,34 +1,70 @@
 {% extends "layouts/base.html" %}
 
-{% block meta_title %}{% if page %}{{ page.title }}{% else %}수상내역{% endif %} | ByeolAndClassic{% endblock %}
+{% block meta_title %}자격증 | ByeolAndClassic{% endblock %}
 
 {% block content %}
-  <section class="page-section">
-    <div class="container">
-      {% if page %}
-        <div class="text-center mb-5">
-          <h1 class="section-heading text-uppercase">{{ page.title }}</h1>
-        </div>
-        {% if page.hero_image %}
-          <div class="text-center mb-4">
-            <img class="img-fluid rounded" src="{{ page.hero_image.url }}" alt="{{ page.title }}" />
+  <section class="about-page awards-page">
+    <div class="container about-container">
+      <div class="about-layout">
+        <aside class="about-sidebar">
+          <div class="about-subnav">
+            <div class="about-subnav-label">소개 서브메뉴</div>
+            <ul class="nav nav-pills about-nav" role="tablist">
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'greeting' %}">인사말</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'profile' %}">프로필</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{% url 'awards' %}">자격증</a>
+              </li>
+            </ul>
           </div>
-        {% endif %}
-        {% if page.content %}
-          <p>{{ page.content|linebreaksbr }}</p>
-        {% endif %}
-        {% if page.attachment %}
-          <div class="mt-4">
-            <a class="btn btn-outline-secondary" href="{{ page.attachment.url }}">첨부파일 다운로드</a>
-          </div>
-        {% endif %}
-      {% else %}
-        <div class="text-center mb-5">
-          <h1 class="section-heading text-uppercase">수상내역</h1>
-          <h2 class="section-subheading text-muted">별앤클래식의 주요 수상 소식을 전합니다.</h2>
+        </aside>
+
+        <div class="about-main">
+          <section class="about-hero awards-hero">
+            <div class="about-label">ABOUT</div>
+            <h1 class="about-title">자격증</h1>
+            <p class="about-summary awards-summary">
+              별앤클래식의 전문성과 교육 역량을 보여주는 인증 자료를 아카이브 형태로 정리했습니다.
+            </p>
+          </section>
+
+          <section class="about-content awards-content">
+            {% if award_certificates %}
+              <div class="awards-gallery">
+                {% for certificate in award_certificates %}
+                  <article class="awards-certificate-card awards-certificate-card-{{ forloop.counter }}">
+                    <div class="awards-certificate-frame">
+                      <img
+                        class="awards-certificate-image"
+                        src="{{ certificate.image.url }}"
+                        alt="{{ certificate.title|default:'별앤클래식 자격증' }}"
+                      >
+                    </div>
+                    <div class="awards-certificate-meta">
+                      <h2 class="awards-certificate-title">
+                        {% if certificate.title %}{{ certificate.title }}{% else %}별앤클래식 자격증{% endif %}
+                      </h2>
+                      {% if certificate.year %}
+                        <p class="awards-certificate-year">{{ certificate.year }}</p>
+                      {% endif %}
+                    </div>
+                  </article>
+                {% endfor %}
+              </div>
+            {% else %}
+              <div class="about-card card">
+                <div class="card-body p-4 p-md-5">
+                  <p class="mb-0">등록된 자격증 이미지가 없습니다.</p>
+                </div>
+              </div>
+            {% endif %}
+          </section>
         </div>
-        <p>별앤클래식 수상내역 페이지입니다.</p>
-      {% endif %}
+      </div>
     </div>
   </section>
 {% endblock %}

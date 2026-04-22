@@ -51,12 +51,19 @@ def send_contact_email(payload: dict) -> None:
 
 
 def send_enroll_email(payload: dict) -> None:
-    sender_email = getattr(settings, "BREVO_SENDER_EMAIL", "")
+    sender_email = getattr(settings, "BREVO_SENDER_EMAIL", "") or getattr(
+        settings, "CONTACT_FROM_EMAIL", ""
+    )
     sender_name = getattr(settings, "BREVO_SENDER_NAME", "ByeolAndClassic")
-    recipient_email = getattr(settings, "BREVO_ADMIN_EMAIL", "")
+    recipient_email = getattr(settings, "BREVO_ADMIN_EMAIL", "") or getattr(
+        settings, "CONTACT_TO_EMAIL", ""
+    )
 
     if not sender_email or not recipient_email:
-        raise ValueError("BREVO_SENDER_EMAIL or BREVO_ADMIN_EMAIL is missing.")
+        raise ValueError(
+            "Missing sender/recipient for enroll mail. "
+            "Set BREVO_SENDER_EMAIL/BREVO_ADMIN_EMAIL or CONTACT_FROM_EMAIL/CONTACT_TO_EMAIL."
+        )
 
     body = {
         "sender": {"name": sender_name, "email": sender_email},
@@ -68,7 +75,13 @@ def send_enroll_email(payload: dict) -> None:
             f"연락처: {payload['phone']}\n"
             f"생년월일: {payload['birth_date']}\n"
             f"거주지: {payload['residence']}\n"
-            f"수강 목적: {', '.join(payload['purposes'])}\n"
+            f"상담 유형: {', '.join(payload['consultation_types'])}\n"
+            f"레벨테스트 연주곡: {payload['level_test_piece']}\n"
+            f"희망 학교: {payload['career_school']}\n"
+            f"수상내역: {payload['awards_history']}\n"
+            f"피아노 연습량: {payload['practice_time']}\n"
+            f"학교 성적: {payload['school_grade']}\n"
+            f"성적표 지참 가능 여부: {'가능' if payload['transcript_available'] else '불가'}\n"
             f"희망일: {payload['preferred_date']}\n"
             f"문의 내용: {payload['message']}\n"
         ),

@@ -4,99 +4,166 @@
 {% block meta_description %}{{ category.name }} 소식을 확인하세요.{% endblock %}
 
 {% block content %}
-  <h2>{{ category.name }}</h2>
-  <form method="get" class="row g-2 align-items-end mb-4">
-    <div class="col-12 col-md-6">
-      <label class="form-label" for="news-search">검색</label>
-      <input
-        id="news-search"
-        name="q"
-        type="text"
-        class="form-control"
-        value="{{ q }}"
-        placeholder="제목 또는 본문 검색"
-      >
-    </div>
-    <div class="col-6 col-md-3">
-      <label class="form-label" for="news-sort">정렬</label>
-      <select id="news-sort" name="sort" class="form-select">
-        <option value="latest" {% if sort != "oldest" %}selected{% endif %}>최신순</option>
-        <option value="oldest" {% if sort == "oldest" %}selected{% endif %}>오래된순</option>
-      </select>
-    </div>
-    <div class="col-6 col-md-3">
-      <button class="btn btn-primary w-100" type="submit">검색</button>
-    </div>
-  </form>
-
-  {% if page_obj.object_list %}
-    <ul class="list-unstyled">
-      {% for post in page_obj %}
-        <li class="border-bottom pb-3 mb-3">
-          <div class="d-flex gap-3">
-            {% if post.thumbnail %}
-              <a href="{% url 'news_detail' category_code=category.code slug=post.slug %}">
-                <img class="img-thumbnail" src="{{ post.thumbnail.url }}" alt="{{ post.title }} 썸네일" style="max-width: 120px;">
-              </a>
-            {% endif %}
-            <div>
-              <a href="{% url 'news_detail' category_code=category.code slug=post.slug %}">
-                <strong>{{ post.title }}</strong>
-              </a>
-              {% if post.published_at %}
-                <small class="text-muted ms-2">{{ post.published_at|date:"Y-m-d" }}</small>
-              {% endif %}
-              {% if post.content %}
-                <p class="text-muted small mt-2 mb-0">{{ post.content|striptags|truncatechars:100 }}</p>
-              {% endif %}
-            </div>
+  <section class="about-page news-page">
+    <div class="container about-container">
+      <div class="about-layout">
+        <aside class="about-sidebar">
+          <div class="about-subnav">
+            <div class="about-subnav-label">뉴스 서브메뉴</div>
+            <ul class="nav nav-pills about-nav" role="tablist">
+              <li class="nav-item">
+                <a class="nav-link {% if category.code == 'notice' %}active{% endif %}" href="{% url 'news_category' category_code='notice' %}">공지사항</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link {% if category.code == 'contest' %}active{% endif %}" href="{% url 'news_category' category_code='contest' %}">콩쿨정보</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link {% if category.code == 'admission' %}active{% endif %}" href="{% url 'news_category' category_code='admission' %}">입시정보</a>
+              </li>
+            </ul>
           </div>
-        </li>
-      {% endfor %}
-    </ul>
+        </aside>
+        <div class="about-main">
+          <section class="about-hero">
+            <div class="about-label">NEWS</div>
+            <h1 class="about-title">{{ category.name }}</h1>
+            <p class="about-summary text-muted">{{ category.name }} 소식을 빠르게 확인하세요.</p>
+          </section>
+          <section class="about-content">
+            <div class="about-card card">
+              <div class="card-body p-4 p-md-5">
+                <form method="get" class="row g-2 align-items-end mb-4">
+                  <div class="col-12 col-md-6">
+                    <label class="form-label" for="news-search">검색</label>
+                    <input
+                      id="news-search"
+                      name="q"
+                      type="text"
+                      class="form-control"
+                      value="{{ q }}"
+                      placeholder="제목 또는 본문 검색"
+                    >
+                  </div>
+                  <div class="col-6 col-md-3">
+                    <label class="form-label" for="news-sort">정렬</label>
+                    <select id="news-sort" name="sort" class="form-select">
+                      <option value="latest" {% if sort != "oldest" %}selected{% endif %}>최신순</option>
+                      <option value="oldest" {% if sort == "oldest" %}selected{% endif %}>오래된순</option>
+                    </select>
+                  </div>
+                  <div class="col-6 col-md-3">
+                    <button class="btn btn-primary w-100" type="submit">검색</button>
+                  </div>
+                </form>
 
-    {% if page_obj.paginator.num_pages > 1 %}
-      <nav aria-label="뉴스 페이지네이션">
-        <ul class="pagination justify-content-center">
-          {% if page_obj.has_previous %}
-            <li class="page-item">
-              <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if querystring %}&{{ querystring }}{% endif %}" aria-label="이전">
-                &laquo;
-              </a>
-            </li>
-          {% else %}
-            <li class="page-item disabled">
-              <span class="page-link" aria-hidden="true">&laquo;</span>
-            </li>
-          {% endif %}
+                {% if page_obj.object_list %}
+                  {% if category.code == "notice" or category.code == "contest" or category.code == "admission" %}
+                    <div class="table-responsive">
+                      <table class="table notice-table">
+                        <thead>
+                          <tr>
+                            <th scope="col">제목</th>
+                            <th scope="col">작성자</th>
+                            <th scope="col">작성일</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {% for post in page_obj %}
+                            <tr>
+                              <td class="notice-title">
+                                <a href="{% url 'news_detail' category_code=category.code slug=post.slug %}">
+                                  {{ post.title }}
+                                </a>
+                              </td>
+                              <td class="notice-author text-muted">{{ post.author_name|default:"관리자" }}</td>
+                              <td class="notice-date text-muted">
+                                {% if post.published_at %}
+                                  {{ post.published_at|date:"Y-m-d" }}
+                                {% else %}
+                                  {{ post.created_at|date:"Y-m-d" }}
+                                {% endif %}
+                              </td>
+                            </tr>
+                          {% endfor %}
+                        </tbody>
+                      </table>
+                    </div>
+                  {% else %}
+                    <ul class="list-unstyled">
+                      {% for post in page_obj %}
+                        <li class="border-bottom pb-3 mb-3">
+                          <div class="d-flex gap-3">
+                            {% if post.thumbnail %}
+                              <a href="{% url 'news_detail' category_code=category.code slug=post.slug %}">
+                                <img class="img-thumbnail" src="{{ post.thumbnail.url }}" alt="{{ post.title }} 썸네일" style="max-width: 120px;">
+                              </a>
+                            {% endif %}
+                            <div>
+                              <a href="{% url 'news_detail' category_code=category.code slug=post.slug %}">
+                                <strong>{{ post.title }}</strong>
+                              </a>
+                              {% if post.published_at %}
+                                <small class="text-muted ms-2">{{ post.published_at|date:"Y-m-d" }}</small>
+                              {% endif %}
+                              {% if post.content %}
+                                <p class="text-muted small mt-2 mb-0">{{ post.content|striptags|truncatechars:100 }}</p>
+                              {% endif %}
+                            </div>
+                          </div>
+                        </li>
+                      {% endfor %}
+                    </ul>
+                  {% endif %}
 
-          {% for num in page_obj.paginator.page_range %}
-            {% if num == page_obj.number %}
-              <li class="page-item active" aria-current="page">
-                <span class="page-link">{{ num }}</span>
-              </li>
-            {% else %}
-              <li class="page-item">
-                <a class="page-link" href="?page={{ num }}{% if querystring %}&{{ querystring }}{% endif %}">{{ num }}</a>
-              </li>
-            {% endif %}
-          {% endfor %}
+                  {% if page_obj.paginator.num_pages > 1 %}
+                    <nav aria-label="뉴스 페이지네이션">
+                      <ul class="pagination justify-content-center">
+                        {% if page_obj.has_previous %}
+                          <li class="page-item">
+                            <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if querystring %}&{{ querystring }}{% endif %}" aria-label="이전">
+                              &laquo;
+                            </a>
+                          </li>
+                        {% else %}
+                          <li class="page-item disabled">
+                            <span class="page-link" aria-hidden="true">&laquo;</span>
+                          </li>
+                        {% endif %}
 
-          {% if page_obj.has_next %}
-            <li class="page-item">
-              <a class="page-link" href="?page={{ page_obj.next_page_number }}{% if querystring %}&{{ querystring }}{% endif %}" aria-label="다음">
-                &raquo;
-              </a>
-            </li>
-          {% else %}
-            <li class="page-item disabled">
-              <span class="page-link" aria-hidden="true">&raquo;</span>
-            </li>
-          {% endif %}
-        </ul>
-      </nav>
-    {% endif %}
-  {% else %}
-    <p>등록된 게시글이 없습니다.</p>
-  {% endif %}
+                        {% for num in page_obj.paginator.page_range %}
+                          {% if num == page_obj.number %}
+                            <li class="page-item active" aria-current="page">
+                              <span class="page-link">{{ num }}</span>
+                            </li>
+                          {% else %}
+                            <li class="page-item">
+                              <a class="page-link" href="?page={{ num }}{% if querystring %}&{{ querystring }}{% endif %}">{{ num }}</a>
+                            </li>
+                          {% endif %}
+                        {% endfor %}
+
+                        {% if page_obj.has_next %}
+                          <li class="page-item">
+                            <a class="page-link" href="?page={{ page_obj.next_page_number }}{% if querystring %}&{{ querystring }}{% endif %}" aria-label="다음">
+                              &raquo;
+                            </a>
+                          </li>
+                        {% else %}
+                          <li class="page-item disabled">
+                            <span class="page-link" aria-hidden="true">&raquo;</span>
+                          </li>
+                        {% endif %}
+                      </ul>
+                    </nav>
+                  {% endif %}
+                {% else %}
+                  <p>등록된 게시글이 없습니다.</p>
+                {% endif %}
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </section>
 {% endblock %}

@@ -1,34 +1,59 @@
 {% extends "layouts/base.html" %}
 
-{% block meta_title %}{% if page %}{{ page.title }}{% else %}프로필{% endif %} | ByeolAndClassic{% endblock %}
+{% block meta_title %}{% if page and page.title %}{{ page.title }}{% else %}프로필{% endif %} | ByeolAndClassic{% endblock %}
 
 {% block content %}
-  <section class="page-section">
-    <div class="container">
-      {% if page %}
-        <div class="text-center mb-5">
-          <h1 class="section-heading text-uppercase">{{ page.title }}</h1>
-        </div>
-        {% if page.hero_image %}
-          <div class="text-center mb-4">
-            <img class="img-fluid rounded" src="{{ page.hero_image.url }}" alt="{{ page.title }}" />
+  <section class="about-page profile-page">
+    <div class="container about-container">
+      <div class="about-layout">
+        <aside class="about-sidebar">
+          <div class="about-subnav">
+            <div class="about-subnav-label">소개 서브메뉴</div>
+            <ul class="nav nav-pills about-nav" role="tablist">
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'greeting' %}">인사말</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{% url 'profile' %}">프로필</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'awards' %}">자격증</a>
+              </li>
+            </ul>
           </div>
-        {% endif %}
-        {% if page.content %}
-          <p>{{ page.content|linebreaksbr }}</p>
-        {% endif %}
-        {% if page.attachment %}
-          <div class="mt-4">
-            <a class="btn btn-outline-secondary" href="{{ page.attachment.url }}">첨부파일 다운로드</a>
-          </div>
-        {% endif %}
-      {% else %}
-        <div class="text-center mb-5">
-          <h1 class="section-heading text-uppercase">프로필</h1>
-          <h2 class="section-subheading text-muted">강사진 및 스튜디오 정보를 소개합니다.</h2>
+        </aside>
+        <div class="about-main">
+          <section class="about-hero profile-hero">
+            <div class="profile-hero-kicker">PROFILE</div>
+            <h1 class="about-title profile-hero-title">{% if page and page.title %}{{ page.title }}{% else %}프로필{% endif %}</h1>
+            <p class="about-summary profile-hero-summary">
+              연주자, 기획자, 교육자로서의 경험을 바탕으로 깊이 있는 연주 교육과 입시 지도를 이어가고 있습니다.
+            </p>
+          </section>
+
+          <section class="about-content profile-content">
+            <div class="profile-story-grid">
+              <article class="profile-story-card profile-story-article">
+                <div class="profile-story-icon"><i class="fa-solid fa-note-sticky" aria-hidden="true"></i></div>
+                <h2 class="profile-story-title">교육자 프로필</h2>
+                <p class="profile-story-text">
+                  피아니스트 김별은 전남예술고등학교를 실기 우수자로 졸업하며 일찍이 뛰어난 음악적 재능을 인정받았고, 재학 중 호남예술제 콩쿨에 입상하며 연주자로서의 두각을 나타냈다. 이후 전남대학교 음악학과에 실기장학생으로 입학하여 학문과 연주를 병행하였으며, 광주우수콩쿨, 피아노학회 콩쿠르 입상, 국제 모차르트 콩쿠르 2위 수상 등 다수의 대회에서 우수한 성과를 거두며 연주자로서의 전문성을 확립하였다.
+                </p>
+                <p class="profile-story-text">
+                  현재 숙명여자대학교 피아노과 석사과정에 재학 중이며, 광명 필하모닉 오케스트라 협연을 비롯해 듀엣 앙상블 활동, 현 함평교회 피아노 반주자로서 다양한 무대에서 활발한 연주 활동을 이어가고 있다. 또한 앙상블 인의 대표로서 연주와 공연 기획을 병행하며 음악적 영역을 확장하고 있다.
+                </p>
+                <p class="profile-story-text">
+                  문화예술 기획 분야에서도 활발한 행보를 이어가고 있다. 문화예술 기획 공연 단체 아트리움(ARTRIUM)을 운영하였으며, 광주문화재단 개인 기획 연주회 Inspiration(2025.8)을 개최하였다. 또한 전남대학교병원 정기 봉사 연주회(2023~2024)에 참여하며 지역사회와 함께하는 예술 활동을 실천하고 있다. 이와 함께 ‘낭만시대’ 문화예술 학술 모임을 기획·주관하고, 전공생을 위한 서양 음악사 특강을 진행하는 등 연구·학술 및 문화예술 확산에도 힘쓰고 있다.
+                </p>
+                <p class="profile-story-text">
+                  교육자로서도 풍부한 경험과 검증된 성과를 갖추고 있다. 피아노 지도 경력 15년을 바탕으로 국립목포대학교, 광신대학교 합격생을 배출하였으며, 2024학년도 광주예술중학교 합격생을 비롯해 다수의 콩쿠르 입상자를 지도하였다. 또한 전남대 피아노 지도사, 콩쿨 우수지도사, 음악 심리 지도사 자격증을 보유하고 있으며, 체계적인 커리큘럼과 밀도 높은 실기 지도를 통해 연주자와 교육자로서의 역량을 함께 펼쳐가고 있다.
+                </p>
+              </article>
+            </div>
+          </section>
+
         </div>
-        <p>별앤클래식 프로필 페이지입니다.</p>
-      {% endif %}
+      </div>
     </div>
   </section>
 {% endblock %}

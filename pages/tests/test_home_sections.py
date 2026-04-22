@@ -5,7 +5,7 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 from django.urls import reverse
 from PIL import Image
 
-from siteconfig.models import AwardCertificate, RoadmapImageCard
+from siteconfig.models import AwardCertificate, HomeExamExpertImage, RoadmapImageCard
 
 pytestmark = pytest.mark.django_db
 
@@ -38,6 +38,18 @@ def test_home_ok_with_roadmap_and_awards(client):
     image_file = _make_test_image()
     RoadmapImageCard.objects.create(image=image_file)
     AwardCertificate.objects.create(image=_make_test_image(name="award.jpg"), title="테스트")
+    HomeExamExpertImage.objects.create(
+        image=_make_test_image(name="expert.jpg"),
+        alt_text="입시 전문가 이미지",
+    )
+
+    response = client.get(reverse("home"))
+
+    assert response.status_code == 200
+
+
+def test_home_ok_without_exam_expert_images(client):
+    HomeExamExpertImage.objects.all().delete()
 
     response = client.get(reverse("home"))
 

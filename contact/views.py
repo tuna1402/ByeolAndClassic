@@ -17,12 +17,16 @@ def form(request):
             try:
                 send_contact_email(message)
                 logger.info("Contact email sent for message_id=%s", message.id)
+                messages.success(
+                    request,
+                    "문의가 접수되었습니다. 담당자가 확인 후 연락드리겠습니다.",
+                )
             except Exception:
                 logger.exception("Contact email failed for message_id=%s", message.id)
-            messages.success(
-                request,
-                "문의가 접수되었습니다. 담당자가 확인 후 연락드리겠습니다.",
-            )
+                messages.warning(
+                    request,
+                    "문의는 정상 접수되었지만 메일 전송에 실패했습니다. 관리자에게 확인해주세요.",
+                )
             return redirect("contact_done")
     else:
         form = ContactForm()

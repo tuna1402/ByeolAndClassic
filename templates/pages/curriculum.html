@@ -1,34 +1,195 @@
 {% extends "layouts/base.html" %}
 
 {% block meta_title %}{% if page %}{{ page.title }}{% else %}커리큘럼{% endif %} | ByeolAndClassic{% endblock %}
+{% block body_class %}curriculum-page{% endblock %}
 
 {% block content %}
-  <section class="page-section">
+  <section class="curriculum-hero">
     <div class="container">
-      {% if page %}
-        <div class="text-center mb-5">
-          <h1 class="section-heading text-uppercase">{{ page.title }}</h1>
+      <div class="curriculum-hero-inner text-center">
+        <p class="curriculum-kicker mb-2">BYEOL&CLASSIC PIANO ACADEMY</p>
+        <h1 class="curriculum-title mb-3">커리큘럼</h1>
+        <p class="curriculum-subtitle mb-0">입시 단계에 맞춘 체계적인 실기 및 이론 지도</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="curriculum-tabs-section">
+    <div class="container">
+      <div class="curriculum-surface">
+        <ul class="nav nav-pills curriculum-tabs mb-4" id="curriculumTab" role="tablist">
+          {% for track in curriculum_tracks %}
+            <li class="nav-item" role="presentation">
+              <button
+                class="nav-link {% if track.key == default_track_key %}active{% endif %}"
+                id="track-{{ track.key }}-tab"
+                data-bs-toggle="tab"
+                data-bs-target="#track-{{ track.key }}"
+                type="button"
+                role="tab"
+                aria-controls="track-{{ track.key }}"
+                aria-selected="{% if track.key == default_track_key %}true{% else %}false{% endif %}"
+              >
+                {{ track.label }}
+              </button>
+            </li>
+          {% endfor %}
+        </ul>
+
+        <div class="tab-content" id="curriculumTabContent">
+          {% for track in curriculum_tracks %}
+            <div
+              class="tab-pane fade {% if track.key == default_track_key %}show active{% endif %}"
+              id="track-{{ track.key }}"
+              role="tabpanel"
+              aria-labelledby="track-{{ track.key }}-tab"
+              tabindex="0"
+            >
+              <div class="row g-4">
+                <div class="col-lg-4">
+                  <article class="curriculum-card h-100">
+                    <h3 class="curriculum-card-title">실기</h3>
+                    <ul class="curriculum-list mb-0">
+                      {% for item in track.practice %}
+                        <li>{{ item }}</li>
+                      {% endfor %}
+                    </ul>
+                  </article>
+                </div>
+                <div class="col-lg-4">
+                  <article class="curriculum-card h-100">
+                    <h3 class="curriculum-card-title">이론</h3>
+                    <ul class="curriculum-list mb-0">
+                      {% for item in track.theory %}
+                        <li>{{ item }}</li>
+                      {% endfor %}
+                    </ul>
+                  </article>
+                </div>
+                {% if track.special %}
+                  <div class="col-lg-4">
+                    <article class="curriculum-card h-100 is-special">
+                      <h3 class="curriculum-card-title">특화</h3>
+                      <ul class="curriculum-list mb-0">
+                        {% for item in track.special %}
+                          <li>{{ item }}</li>
+                        {% endfor %}
+                      </ul>
+                    </article>
+                  </div>
+                {% endif %}
+              </div>
+            </div>
+          {% endfor %}
         </div>
-        {% if page.hero_image %}
-          <div class="text-center mb-4">
-            <img class="img-fluid rounded" src="{{ page.hero_image.url }}" alt="{{ page.title }}" />
+
+        {% if page and page.attachment %}
+          <div class="curriculum-attachment text-end mt-4">
+            <a class="btn btn-outline-secondary" href="{{ page.attachment.url }}">수업 안내 PDF 다운로드</a>
           </div>
         {% endif %}
-        {% if page.content %}
-          <p>{{ page.content|linebreaksbr }}</p>
-        {% endif %}
-        {% if page.attachment %}
-          <div class="mt-4">
-            <a class="btn btn-outline-secondary" href="{{ page.attachment.url }}">첨부파일 다운로드</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="curriculum-policy-section">
+    <div class="container">
+      <div class="section-header text-center mb-4">
+        <h2 class="curriculum-section-title mb-2">수업 안내</h2>
+        <p class="curriculum-section-subtitle mb-0">운영 정책을 미리 확인하시고 상담 시 편하게 문의해주세요.</p>
+      </div>
+      <div class="row g-3 g-lg-4">
+        {% for policy in lesson_policies %}
+          <div class="col-md-6 col-xl-3">
+            <article class="policy-card h-100">
+              <div class="policy-icon-wrap">
+                <i class="{{ policy.icon }}" aria-hidden="true"></i>
+              </div>
+              <h3 class="policy-title">{{ policy.title }}</h3>
+              <p class="policy-desc mb-0">{{ policy.description }}</p>
+            </article>
           </div>
-        {% endif %}
-      {% else %}
-        <div class="text-center mb-5">
-          <h1 class="section-heading text-uppercase">커리큘럼</h1>
-          <h2 class="section-subheading text-muted">맞춤형 교육 과정을 소개합니다.</h2>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <section class="curriculum-pricing-section">
+    <div class="container">
+      <div class="section-header text-center mb-4">
+        <h2 class="curriculum-section-title mb-2">비용 안내</h2>
+        <p class="curriculum-section-subtitle mb-0">별앤클래식의 기본 상담 및 레슨 비용을 안내드립니다.</p>
+      </div>
+      <div class="row g-3 g-lg-4">
+        <div class="col-md-4">
+          <article class="pricing-card h-100">
+            <h3 class="pricing-title">입시 레슨</h3>
+            <p class="pricing-desc">
+              목표 학교와 현재 실력에 맞춰 실기 곡 준비, 테크닉 보완, 입시 방향 설정을 함께 진행합니다.
+            </p>
+            <div class="pricing-meta">
+              <p class="pricing-meta-item">
+                <i class="fa-regular fa-clock" aria-hidden="true"></i>
+                <span>50분</span>
+              </p>
+              <p class="pricing-meta-item pricing-price mb-0">
+                <i class="fa-solid fa-tag" aria-hidden="true"></i>
+                <span>120,000원</span>
+              </p>
+            </div>
+          </article>
         </div>
-        <p>별앤클래식 커리큘럼 페이지입니다.</p>
-      {% endif %}
+        <div class="col-md-4">
+          <article class="pricing-card h-100">
+            <h3 class="pricing-title">레벨 테스트</h3>
+            <p class="pricing-desc">
+              현재 연주 수준과 보완이 필요한 부분을 확인하고, 이후 레슨 또는 입시 준비 방향을 안내합니다.
+            </p>
+            <div class="pricing-meta">
+              <p class="pricing-meta-item">
+                <i class="fa-regular fa-clock" aria-hidden="true"></i>
+                <span>30분</span>
+              </p>
+              <p class="pricing-meta-item pricing-price mb-0">
+                <i class="fa-solid fa-tag" aria-hidden="true"></i>
+                <span>20,000원</span>
+              </p>
+            </div>
+          </article>
+        </div>
+        <div class="col-md-4">
+          <article class="pricing-card h-100">
+            <h3 class="pricing-title">입시 컨설팅</h3>
+            <p class="pricing-desc">
+              학교별 준비 전략, 시기별 계획, 지원 방향과 실전 준비 흐름을 상담을 통해 구체적으로 설계합니다.
+            </p>
+            <div class="pricing-meta">
+              <p class="pricing-meta-item">
+                <i class="fa-regular fa-clock" aria-hidden="true"></i>
+                <span>40분</span>
+              </p>
+              <p class="pricing-meta-item pricing-price mb-0">
+                <i class="fa-solid fa-tag" aria-hidden="true"></i>
+                <span>50,000원</span>
+              </p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="curriculum-cta-section">
+    <div class="container">
+      <div class="curriculum-cta-box text-center">
+        <h2 class="curriculum-cta-title mb-3">맞춤형 커리큘럼 상담</h2>
+        <p class="curriculum-cta-copy mb-4">
+          학생의 입시 목표에 맞춘 맞춤형 커리큘럼, 상담을 통해 함께 설계해보세요.
+        </p>
+        <div>
+          <a class="btn curriculum-cta-btn" href="{% url cta_url_name %}">상담 예약하기</a>
+        </div>
+      </div>
     </div>
   </section>
 {% endblock %}

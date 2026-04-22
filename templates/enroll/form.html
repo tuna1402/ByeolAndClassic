@@ -1,44 +1,190 @@
 {% extends "layouts/base.html" %}
 
-{% block meta_title %}수강신청 | ByeolAndClassic{% endblock %}
+{% block meta_title %}상담신청 | ByeolAndClassic{% endblock %}
 
 {% block content %}
-  <h2>수강신청</h2>
-  {% if success %}
-    <p>수강신청이 접수되었습니다. 빠르게 연락드리겠습니다.</p>
-  {% endif %}
-  <form method="post">
-    {% csrf_token %}
-    {% for error in form.non_field_errors %}<span>{{ error }}</span>{% endfor %}
-    <div>
-      {{ form.name.label_tag }} {{ form.name }}
-      {% for error in form.name.errors %}<span>{{ error }}</span>{% endfor %}
+  <section class="enroll-section container-fluid py-5">
+    <div class="row justify-content-center enroll-row">
+      <div class="col-12 col-lg-8 enroll-column">
+        <div class="mb-4 text-center">
+          <h2 class="enroll-title mb-3">상담 신청서</h2>
+          <p class="enroll-lead text-muted mb-0">필수 항목을 작성해 주시면 빠르게 상담 도와드리겠습니다.</p>
+        </div>
+        <div class="enroll-card card">
+          <div class="card-body p-4 p-md-5">
+            {% if success %}
+              <div class="alert alert-success enroll-success" role="alert">
+                상담 신청이 접수되었습니다. 빠르게 연락드리겠습니다.
+              </div>
+            {% endif %}
+            {% if form.non_field_errors %}
+              <div class="alert alert-danger" role="alert">
+                {% for error in form.non_field_errors %}<div>{{ error }}</div>{% endfor %}
+              </div>
+            {% endif %}
+            <form class="enroll-form" method="post" novalidate>
+              {% csrf_token %}
+              <div class="mb-4">
+                <label class="form-label" for="{{ form.name.id_for_label }}">
+                  수강생 이름을 알려주세요. <span class="text-danger">*</span>
+                </label>
+                {{ form.name }}
+                {% for error in form.name.errors %}<div class="invalid-feedback d-block">{{ error }}</div>{% endfor %}
+              </div>
+              <div class="mb-4">
+                <label class="form-label" for="{{ form.phone.id_for_label }}">
+                  연락드릴 전화번호는 무엇인가요? <span class="text-danger">*</span>
+                </label>
+                {{ form.phone }}
+                {% for error in form.phone.errors %}<div class="invalid-feedback d-block">{{ error }}</div>{% endfor %}
+              </div>
+              <div class="mb-4">
+                <label class="form-label" for="{{ form.birth_date.id_for_label }}">
+                  생년월일이 어떻게 되시나요? <span class="text-danger">*</span>
+                </label>
+                {{ form.birth_date }}
+                {% for error in form.birth_date.errors %}<div class="invalid-feedback d-block">{{ error }}</div>{% endfor %}
+              </div>
+              <div class="mb-4">
+                <label class="form-label" for="{{ form.residence.id_for_label }}">
+                  거주지는 어디인가요? <span class="text-danger">*</span>
+                </label>
+                {{ form.residence }}
+                {% for error in form.residence.errors %}<div class="invalid-feedback d-block">{{ error }}</div>{% endfor %}
+              </div>
+              <div class="mb-4">
+                <div class="form-label">
+                  어떤 상담을 원하시나요? <span class="text-danger">*</span>
+                </div>
+                <div class="enroll-checklist">
+                  {% for radio in form.consultation_types %}
+                    <div class="form-check">
+                      {{ radio.tag }}
+                      <label class="form-check-label" for="{{ radio.id_for_label }}">{{ radio.choice_label }}</label>
+                    </div>
+                  {% endfor %}
+                </div>
+                {% for error in form.consultation_types.errors %}<div class="invalid-feedback d-block">{{ error }}</div>{% endfor %}
+              </div>
+              <div class="enroll-shared d-none">
+                <div class="mb-4">
+                  <label class="form-label" for="{{ form.level_test_piece.id_for_label }}">
+                    레벨테스트 연주곡을 알려주세요. <span class="text-danger">*</span>
+                  </label>
+                  {{ form.level_test_piece }}
+                  {% for error in form.level_test_piece.errors %}<div class="invalid-feedback d-block">{{ error }}</div>{% endfor %}
+                </div>
+                <div class="mb-4">
+                  <label class="form-label" for="{{ form.career_school.id_for_label }}">
+                    희망하는 학교를 알려주세요. <span class="text-danger">*</span>
+                  </label>
+                  {{ form.career_school }}
+                  <div class="form-text">희망하는 학교 예시: OO예술중, OO예술고, OO대학/대학원</div>
+                  {% for error in form.career_school.errors %}<div class="invalid-feedback d-block">{{ error }}</div>{% endfor %}
+                </div>
+              </div>
+              <div class="enroll-admission d-none">
+                <div class="mb-4">
+                  <label class="form-label" for="{{ form.awards_history.id_for_label }}">
+                    수상내역을 알려주세요. <span class="text-danger">*</span>
+                  </label>
+                  {{ form.awards_history }}
+                  {% for error in form.awards_history.errors %}<div class="invalid-feedback d-block">{{ error }}</div>{% endfor %}
+                </div>
+                <div class="mb-4">
+                  <div class="form-label">
+                    피아노 연습량을 선택해 주세요. <span class="text-danger">*</span>
+                  </div>
+                  <div class="enroll-checklist">
+                    {% for radio in form.practice_time %}
+                      <div class="form-check">
+                        {{ radio.tag }}
+                        <label class="form-check-label" for="{{ radio.id_for_label }}">{{ radio.choice_label }}</label>
+                      </div>
+                    {% endfor %}
+                  </div>
+                  {% for error in form.practice_time.errors %}<div class="invalid-feedback d-block">{{ error }}</div>{% endfor %}
+                </div>
+                <div class="mb-4">
+                  <div class="form-label">
+                    학교 성적을 선택해 주세요. <span class="text-danger">*</span>
+                  </div>
+                  <div class="enroll-checklist">
+                    {% for radio in form.school_grade %}
+                      <div class="form-check">
+                        {{ radio.tag }}
+                        <label class="form-check-label" for="{{ radio.id_for_label }}">{{ radio.choice_label }}</label>
+                      </div>
+                    {% endfor %}
+                  </div>
+                  {% for error in form.school_grade.errors %}<div class="invalid-feedback d-block">{{ error }}</div>{% endfor %}
+                </div>
+              </div>
+              <div class="mb-4 enroll-consulting d-none">
+                <div class="form-check">
+                  {{ form.transcript_available }}
+                  <label class="form-check-label" for="{{ form.transcript_available.id_for_label }}">
+                    성적표 지참 가능 여부
+                  </label>
+                </div>
+                {% for error in form.transcript_available.errors %}<div class="invalid-feedback d-block">{{ error }}</div>{% endfor %}
+              </div>
+              <div class="mb-4">
+                <label class="form-label" for="{{ form.preferred_date.id_for_label }}">
+                  희망 상담 시작일은 언제인가요? <span class="text-danger">*</span>
+                </label>
+                <p class="text-danger small mb-2">문자로 발송된 계좌로 입금이 완료되면 상담일정이 예약됩니다.</p>
+                {{ form.preferred_date }}
+                {% for error in form.preferred_date.errors %}<div class="invalid-feedback d-block">{{ error }}</div>{% endfor %}
+              </div>
+              <div class="mb-4">
+                <label class="form-label" for="{{ form.message.id_for_label }}">
+                  추가로 전하고 싶은 내용이 있나요? <span class="text-muted">(선택)</span>
+                </label>
+                {{ form.message }}
+                {% for error in form.message.errors %}<div class="invalid-feedback d-block">{{ error }}</div>{% endfor %}
+              </div>
+              <div class="enroll-submit">
+                <button type="submit" class="btn btn-primary btn-lg">상담 신청하기</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
-    <div>
-      {{ form.phone.label_tag }} {{ form.phone }}
-      {% for error in form.phone.errors %}<span>{{ error }}</span>{% endfor %}
-    </div>
-    <div>
-      {{ form.birth_date.label_tag }} {{ form.birth_date }}
-      {% for error in form.birth_date.errors %}<span>{{ error }}</span>{% endfor %}
-    </div>
-    <div>
-      {{ form.residence.label_tag }} {{ form.residence }}
-      {% for error in form.residence.errors %}<span>{{ error }}</span>{% endfor %}
-    </div>
-    <div>
-      {{ form.purposes.label_tag }}
-      {{ form.purposes }}
-      {% for error in form.purposes.errors %}<span>{{ error }}</span>{% endfor %}
-    </div>
-    <div>
-      {{ form.preferred_date.label_tag }} {{ form.preferred_date }}
-      {% for error in form.preferred_date.errors %}<span>{{ error }}</span>{% endfor %}
-    </div>
-    <div>
-      {{ form.message.label_tag }} {{ form.message }}
-      {% for error in form.message.errors %}<span>{{ error }}</span>{% endfor %}
-    </div>
-    <button type="submit">신청하기</button>
-  </form>
+  </section>
+  <script>
+    (() => {
+      const section = document.querySelector(".enroll-section");
+      if (!section) return;
+      const consultationRadios = section.querySelectorAll(
+        'input[type="radio"][name="consultation_types"]'
+      );
+      const sharedFields = section.querySelector(".enroll-shared");
+      const admissionFields = section.querySelector(".enroll-admission");
+      const consultingFields = section.querySelector(".enroll-consulting");
+      if (!sharedFields) return;
+
+      const selectedConsultation = () => {
+        const checked = Array.from(consultationRadios).find((input) => input.checked);
+        return checked ? checked.value : "";
+      };
+
+      const toggleFields = () => {
+        const selected = selectedConsultation();
+        const admissionSelected = selected === "입시수강상담";
+        const consultingSelected = selected === "입시컨설팅";
+        sharedFields.classList.toggle("d-none", !(admissionSelected || consultingSelected));
+        if (admissionFields) {
+          admissionFields.classList.toggle("d-none", !admissionSelected);
+        }
+        if (consultingFields) {
+          consultingFields.classList.toggle("d-none", !consultingSelected);
+        }
+      };
+
+      consultationRadios.forEach((input) => input.addEventListener("change", toggleFields));
+      toggleFields();
+    })();
+  </script>
 {% endblock %}

@@ -9,8 +9,12 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Roboto+Slab:wght@300;400;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&family=Noto+Serif+KR:wght@400;600;700&family=Playfair+Display:wght@400;600;700&family=Source+Sans+3:wght@400;500;600;700&display=swap"
     rel="stylesheet"
+  >
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/pretendard.css"
   >
   <link
     href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
@@ -29,20 +33,11 @@
   <link rel="stylesheet" href="{% static 'css/layout_overrides.css' %}">
   {% block extra_head %}{% endblock %}
 </head>
-<body id="page-top">
+<body id="page-top" class="{% block body_class %}{% endblock %}">
   <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
     <div class="container">
       <a class="navbar-brand" href="{% url 'home' %}">
-        {% if site_brand and site_brand.navbar_logo %}
-          <img
-            src="{{ site_brand.navbar_logo.url }}"
-            alt="{{ site_brand.site_name }}"
-            title="{{ site_brand.site_name }}"
-            class="img-fluid"
-          >
-        {% else %}
-          {{ site_brand.site_name|default:"ByeolAndClassic" }}
-        {% endif %}
+        <img src="{% static 'article.png' %}" alt="별앤클래식 피아노 아카데미 로고">
       </a>
       <button
         class="navbar-toggler"
@@ -57,7 +52,7 @@
         <i class="fas fa-bars ms-1"></i>
       </button>
       <div class="collapse navbar-collapse" id="navbarResponsive">
-        <ul class="navbar-nav text-uppercase mx-auto py-4 py-lg-0">
+        <ul class="navbar-nav text-uppercase mx-auto py-4 py-lg-0 nav-center">
           <li class="nav-item dropdown">
             <a
               class="nav-link dropdown-toggle"
@@ -66,12 +61,12 @@
               data-bs-toggle="dropdown"
               aria-expanded="false"
             >
-              별앤클래식
+              소개
             </a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="{% url 'greeting' %}">인삿말</a></li>
+              <li><a class="dropdown-item" href="{% url 'greeting' %}">인사말</a></li>
               <li><a class="dropdown-item" href="{% url 'profile' %}">프로필</a></li>
-              <li><a class="dropdown-item" href="{% url 'awards' %}">수상내역</a></li>
+              <li><a class="dropdown-item" href="{% url 'awards' %}">자격증</a></li>
             </ul>
           </li>
           <li class="nav-item dropdown">
@@ -91,76 +86,38 @@
             </ul>
           </li>
           <li class="nav-item"><a class="nav-link" href="{% url 'curriculum' %}">커리큘럼</a></li>
-          <li class="nav-item dropdown">
-            <a
-              class="nav-link dropdown-toggle"
-              href="#"
-              role="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              음악사업
-            </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="{% url 'accompanist' %}">반주자 매칭</a></li>
-              <li><a class="dropdown-item" href="{% url 'soloist' %}">솔리스트 매칭</a></li>
-              <li><a class="dropdown-item" href="{% url 'masterclass' %}">마스터 클래스</a></li>
-            </ul>
-          </li>
-          <li class="nav-item"><a class="nav-link" href="{% url 'enroll_form' %}">수강신청</a></li>
-          <li class="nav-item"><a class="nav-link" href="/admin/">Admin</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'enroll_form' %}">상담신청</a></li>
         </ul>
       </div>
     </div>
   </nav>
 
-  {% block content %}{% endblock %}
+  <main class="site-main">
+    {% block content %}{% endblock %}
+  </main>
 
   <footer class="site-footer">
-    <div class="footer-top">
-      <div class="container">
-        <div class="row align-items-center gy-2">
-          <div class="col-md">
-            <a class="footer-link me-3" href="#">이용약관</a>
-            <a class="footer-link" href="#">개인정보취급방침</a>
-            <!-- TODO: terms/privacy routes are not ready yet -->
-          </div>
-          <div class="col-md text-md-end">
-            <span class="footer-call">대표전화 1234-5678</span>
-          </div>
-        </div>
-      </div>
-    </div>
     <div class="footer-main">
       <div class="container">
-        <div class="row gy-4 align-items-start">
-          <div class="col-lg-5">
-            <div class="footer-brand">BYEOL&amp;CLASSIC</div>
-            <p class="footer-text mt-3">
-              별앤클래식 피아노 아카데미는 입시부터 전문 연주까지 학생 맞춤형 프로그램을 제공합니다.
-            </p>
+        <div class="row gy-4 align-items-stretch">
+          <div class="col-lg-6 footer-panel footer-panel-left">
+            <div>
+              <div class="footer-brand">BYEOL&amp;CLASSIC</div>
+              <p class="footer-text mt-3">
+                별앤클래식 피아노 아카데미는 입시부터 전문 연주까지 학생 맞춤형 프로그램을 제공합니다.
+              </p>
+            </div>
           </div>
-          <div class="col-lg-7">
-            <div class="footer-title">COMPANY INFO</div>
+          <div class="col-lg-6 footer-panel">
+            <div class="footer-title">CONTACT</div>
             <p class="footer-text">
-              주소: 서울시 ○○구 ○○로 123<br>
-              사업자등록번호: 000-00-00000<br>
-              대표: 홍길동 · 이메일: hello@byeolclassic.com<br>
-              <!-- TODO: 회사 정보는 관리자에서 관리 가능하도록 확장 예정 -->
+              <i class="fa-regular fa-clock" aria-hidden="true"></i>
+              평일 10:00 - 19:00<br>
+              <i class="fa-solid fa-phone" aria-hidden="true"></i>
+              010-8217-5450<br>
+              <i class="fa-regular fa-envelope" aria-hidden="true"></i>
+              byeolclassic@naver.com
             </p>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <div class="container">
-        <div class="row align-items-center gy-2">
-          <div class="col-md">
-            © 별앤클래식 피아노 아카데미
-          </div>
-          <div class="col-md text-md-end">
-            <a class="footer-link me-3" href="/admin/">ADMIN</a>
-            <a class="footer-link" href="#">HDWEB</a>
           </div>
         </div>
       </div>

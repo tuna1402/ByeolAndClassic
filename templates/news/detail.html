@@ -4,21 +4,68 @@
 {% block meta_description %}{{ post.content|striptags|truncatechars:140 }}{% endblock %}
 
 {% block content %}
-  {% if post.thumbnail %}
-    <div class="mb-4">
-      <img class="img-fluid rounded shadow-sm w-100" src="{{ post.thumbnail.url }}" alt="{{ post.title }} 썸네일">
+  <section class="about-page news-page">
+    <div class="container about-container">
+      <div class="about-layout">
+        <aside class="about-sidebar">
+          <div class="about-subnav">
+            <div class="about-subnav-label">뉴스 서브메뉴</div>
+            <ul class="nav nav-pills about-nav" role="tablist">
+              <li class="nav-item">
+                <a class="nav-link {% if post.category.code == 'notice' %}active{% endif %}" href="{% url 'news_category' category_code='notice' %}">공지사항</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link {% if post.category.code == 'contest' %}active{% endif %}" href="{% url 'news_category' category_code='contest' %}">콩쿨정보</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link {% if post.category.code == 'admission' %}active{% endif %}" href="{% url 'news_category' category_code='admission' %}">입시정보</a>
+              </li>
+            </ul>
+          </div>
+        </aside>
+        <div class="about-main">
+          <section class="about-hero">
+            <div class="about-label">NEWS</div>
+            <h1 class="about-title">{{ post.category.name }}</h1>
+            <p class="about-summary text-muted">뉴스 상세 내용을 확인하세요.</p>
+          </section>
+          <section class="about-content">
+            <div class="about-card card">
+              <div class="card-body p-4 p-md-5">
+                <div class="news-editor mb-4">
+                  <div class="news-editor-label">콘텐츠 작성 영역</div>
+                  <div class="news-editor-body text-muted">게시글을 작성하거나 편집할 때 필요한 레이아웃 영역입니다.</div>
+                </div>
+                {% if post.thumbnail %}
+                  <div class="mb-4">
+                    <img class="img-fluid rounded shadow-sm w-100" src="{{ post.thumbnail.url }}" alt="{{ post.title }} 썸네일">
+                  </div>
+                {% endif %}
+                <h2>{{ post.title }}</h2>
+                <div class="news-meta text-muted mb-3">
+                  <span>작성자: {{ post.author_name|default:"관리자" }}</span>
+                  <span class="ms-3">
+                    작성일:
+                    {% if post.published_at %}
+                      {{ post.published_at|date:"Y-m-d" }}
+                    {% else %}
+                      {{ post.created_at|date:"Y-m-d" }}
+                    {% endif %}
+                  </span>
+                </div>
+                <div class="news-content mb-4">
+                  {{ post_html|safe }}
+                </div>
+                {% if post.attachment %}
+                  <a class="btn btn-outline-primary" href="{{ post.attachment.url }}" download>
+                    첨부파일 다운로드
+                  </a>
+                {% endif %}
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
     </div>
-  {% endif %}
-  <h2>{{ post.title }}</h2>
-  {% if post.published_at %}
-    <p class="text-muted">{{ post.published_at|date:"Y-m-d" }}</p>
-  {% endif %}
-  <div class="news-content mb-4">
-    {{ post_html|safe }}
-  </div>
-  {% if post.attachment %}
-    <a class="btn btn-outline-primary" href="{{ post.attachment.url }}" download>
-      첨부파일 다운로드
-    </a>
-  {% endif %}
+  </section>
 {% endblock %}

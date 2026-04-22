@@ -3,311 +3,410 @@
 
 {% block meta_title %}홈 | ByeolAndClassic{% endblock %}
 {% block meta_description %}별앤클래식 피아노 아카데미의 최신 소식과 프로그램을 확인하세요.{% endblock %}
-
 {% block extra_head %}
-  <link rel="stylesheet" href="{% static 'css/home_shining.css' %}">
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+  >
 {% endblock %}
 
 {% block content %}
-  <section class="main-visual split-visual">
-    <div class="container">
-      <div class="row align-items-stretch g-5">
-        <div class="col-lg-7">
-          <div class="banner-left banner-card">
-            <div id="homeBannerCarousel" class="carousel slide" data-bs-ride="false">
-              <div class="carousel-inner">
-                {% if banner_slides %}
-                  {% for slide in banner_slides %}
-                    <div class="carousel-item {% if forloop.first %}active{% endif %}">
-                      <img
-                        src="{{ slide.image.url }}"
-                        class="d-block w-100 banner-img"
-                        alt="{{ slide.title|default:'메인 배너' }}"
-                      >
-                    </div>
-                  {% endfor %}
-                {% elif site_brand and site_brand.main_banner_image %}
-                  <div class="carousel-item active">
-                    <img
-                      src="{{ site_brand.main_banner_image.url }}"
-                      class="d-block w-100 banner-img"
-                      alt="{{ site_brand.site_name|default:'별앤클래식' }}"
-                    >
-                  </div>
-                {% else %}
-                  <div class="carousel-item active">
-                    <div class="banner-placeholder"></div>
-                  </div>
-                {% endif %}
-              </div>
-              {% if banner_slides|length > 1 %}
-                <button
-                  class="carousel-control-prev"
-                  type="button"
-                  data-bs-target="#homeBannerCarousel"
-                  data-bs-slide="prev"
-                >
-                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                  <span class="visually-hidden">Previous</span>
-                </button>
-                <button
-                  class="carousel-control-next"
-                  type="button"
-                  data-bs-target="#homeBannerCarousel"
-                  data-bs-slide="next"
-                >
-                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                  <span class="visually-hidden">Next</span>
-                </button>
-              {% endif %}
-            </div>
-            {% if banner_slides|length > 1 %}
-              <div class="banner-indicator" aria-label="배너 페이지 이동">
-                <button
-                  class="banner-indicator-btn"
-                  type="button"
-                  data-bs-target="#homeBannerCarousel"
-                  data-bs-slide="prev"
-                  aria-label="이전 배너"
-                >
-                  <span class="banner-indicator-icon">‹</span>
-                </button>
-                <span class="banner-indicator-text">
-                  <span class="banner-indicator-current">1</span>
-                  /
-                  <span class="banner-indicator-total">{{ banner_slides|length }}</span>
-                </span>
-                <button
-                  class="banner-indicator-btn"
-                  type="button"
-                  data-bs-target="#homeBannerCarousel"
-                  data-bs-slide="next"
-                  aria-label="다음 배너"
-                >
-                  <span class="banner-indicator-icon">›</span>
-                </button>
-              </div>
-            {% endif %}
-          </div>
-        </div>
-        <div class="col-lg-5">
-          <div class="banner-right">
-            <div class="banner-eyebrow">
-              <span class="badge">2026 신입 모집</span>
-              <span class="sub">선착순 상담 예약</span>
-            </div>
-            <h1 class="banner-title">
-              입시부터 전문 연주까지<br>
-              맞춤형 피아노 교육
-            </h1>
-            <p class="banner-desc">학생의 목표와 무대 경험에 맞춘 커리큘럼을 제공합니다.</p>
-            <div class="banner-actions">
-              <a class="btn btn-dark" href="{% url 'enroll_form' %}">수강신청</a>
-              <a class="btn btn-outline-dark" href="{% url 'contact_form' %}">문의하기</a>
-            </div>
-            <div class="banner-dots" aria-hidden="true">
-              <span></span>
-              <span></span>
-              <span></span>
-            </div>
-            <div class="quick-links">
-              <a class="quick-card" href="{% url 'curriculum' %}">
-                <span class="quick-icon"><i class="fas fa-book"></i></span>
-                <span class="quick-label">커리큘럼</span>
-              </a>
-              <a class="quick-card" href="{% url 'curriculum' %}">
-                <span class="quick-icon"><i class="fas fa-layer-group"></i></span>
-                <span class="quick-label">교재 안내</span>
-              </a>
-              <a class="quick-card" href="{% url 'news_category' 'contest' %}">
-                <span class="quick-icon"><i class="fas fa-folder-open"></i></span>
-                <span class="quick-label">자료실</span>
-              </a>
-              <a class="quick-card" href="{% url 'enroll_form' %}">
-                <span class="quick-icon"><i class="fas fa-play-circle"></i></span>
-                <span class="quick-label">강의 보기</span>
-              </a>
-            </div>
-            <div class="banner-foot">
-              <p>이번 달 상담 일정이 빠르게 마감되고 있어요.</p>
-              <a class="banner-foot-link" href="{% url 'contact_form' %}">
-                상담 예약하기 <span aria-hidden="true">→</span>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
+  <section class="home-hero-video-section">
+    <div class="home-hero-video-wrap">
+      <video class="home-hero-video" autoplay muted loop playsinline>
+        {% if hero_video and hero_video.video %}
+          <source src="{{ hero_video.video.url }}" type="video/mp4">
+        {% else %}
+          <source src="{% static 'mmmp4.mp4' %}" type="video/mp4">
+        {% endif %}
+      </video>
     </div>
   </section>
 
-  <section class="page-section roadmap-highlight-section">
+  <section class="philosophy-section">
     <div class="container">
-      <div class="section-heading-wrap">
-        <h2 class="section-heading">로드맵 &amp; 하이라이트</h2>
-        <p class="section-subheading">입시/콩쿨 목표에 맞춘 커리큘럼과 최신 소식을 한눈에 확인하세요.</p>
-      </div>
-
-      <div class="row g-4 align-items-stretch">
-        <div class="col-lg-6">
-          <div class="roadmap-panel h-100">
-            <div class="roadmap-cards">
-              {% for item in roadmap_images %}
-                <div class="roadmap-image-card">
-                  <img src="{{ item.image.url }}" alt="로드맵" loading="lazy">
-                </div>
-              {% empty %}
-                <div class="roadmap-empty">로드맵 이미지를 Admin에서 등록해주세요.</div>
-              {% endfor %}
-            </div>
-          </div>
-        </div>
-
-        <div class="col-lg-6">
-          <div class="highlight-panel h-100">
-            <h3 class="panel-title">하이라이트</h3>
-            <p class="panel-desc">최근 소식과 핵심 프로그램을 빠르게 확인하세요.</p>
-
-            <div class="highlight-card">
-              <div class="highlight-media" aria-hidden="true">
-                <div class="highlight-media-inner">
-                  <span>LIVE CLASS</span>
-                </div>
-              </div>
-              <div class="highlight-content">
-                <p class="highlight-eyebrow">신규 클래스 · 선착순 모집</p>
-                <h2>2026 입시 대비 집중 클래스</h2>
-                <p>
-                  실기와 이론, 무대 경험까지 한 번에 설계하는 집중 커리큘럼으로
-                  상위권 합격 전략을 준비합니다.
-                </p>
-                <a class="btn btn-primary" href="{% url 'enroll_form' %}">수강신청 바로가기</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-  <section class="about-text-section">
-    <div class="container about-text-wrap">
-      <div class="about-kicker">ABOUT</div>
-      <h2 class="about-title">비즈니스 성공의 가치를 탐구하며 전략을 수립합니다</h2>
-      <p class="about-desc">
-        트렌디한 디자인 시스템의 UX 통합가이드라인의<br>
-        비즈니스 성공의 가치를 탐구하며 추구에 관하여 전략을 수립하여<br>
-        커뮤니케이션 활동 추구 및 마케팅과 방향에 디자인의 본질의 스마트한 공간의 활동을 진행합니다.
+      <p class="philosophy-kicker">PHILOSOPHY</p>
+      <h2 class="philosophy-title">입시만 위한 연주가 아닌<br>음악을 이해하는 연주</h2>
+      <p class="philosophy-text">
+        별앤클래식은 단순히 악보를 정확히 연주하는 것을 넘어,
+        음악의 시대와 작곡가, 표현의 본질을 이해하며<br>
+        자기만의 음악을 만들어가는 연주자를 길러냅니다.
       </p>
     </div>
   </section>
 
-  <section class="awards-section">
+  <section class="home-strength">
     <div class="container">
-      <div class="awards-head">
-        <h3 class="awards-title">수상 경력</h3>
-        <p class="awards-sub">상장/인증서 이미지를 Admin에서 등록해 관리할 수 있습니다.</p>
-      </div>
+      <p class="section-kicker">WHY CHOOSE US</p>
+      <h2 class="section-title"><i class="fa-regular fa-lightbulb" aria-hidden="true"></i> 왜 별&amp;클래식인가</h2>
+      <p class="section-subtitle">입시 전문 음악 교육 시스템</p>
 
-      <div
-        id="awardsCarousel"
-        class="carousel slide awards-carousel"
-        data-bs-ride="carousel"
-        data-bs-interval="3500"
-      >
-        <div class="carousel-inner">
-          {% for a in awards %}
-            <div class="carousel-item {% if forloop.first %}active{% endif %}">
-              <div class="award-frame">
-                <img src="{{ a.image.url }}" alt="{{ a.title|default:'수상 경력' }}" loading="lazy">
-              </div>
-            </div>
-          {% empty %}
-            <div class="carousel-item active">
-              <div class="award-empty">수상 경력 이미지를 Admin에서 등록해주세요.</div>
-            </div>
-          {% endfor %}
+      <div class="row g-4 strength-grid">
+        <div class="col-12 col-md-6">
+          <article class="strength-feature">
+            <div class="strength-icon" aria-hidden="true"><i class="fa-solid fa-music"></i></div>
+            <h3 class="strength-title">음악 이해 중심 교육</h3>
+            <p class="strength-desc">단순히 악보를 연주하는 것이 아닌 작곡가, 시대, 음악 구조를 이해하는 교육을 통해 해석의 깊이와 표현력을 갖춘 연주자로 성장하도록 지도합니다.</p>
+          </article>
         </div>
-
-        {% if awards|length > 1 %}
-          <button class="carousel-control-prev" type="button" data-bs-target="#awardsCarousel" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-          </button>
-          <button class="carousel-control-next" type="button" data-bs-target="#awardsCarousel" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-          </button>
-        {% endif %}
+        <div class="col-12 col-md-6">
+          <article class="strength-feature">
+            <div class="strength-icon" aria-hidden="true"><i class="fa-regular fa-user"></i></div>
+            <h3 class="strength-title">1:1 맞춤 레슨</h3>
+            <p class="strength-desc">학생의 현재 수준, 목표 학교, 준비 기간을 종합 진단하여 개인별 커리큘럼과 레슨 속도를 세밀하게 설계합니다.</p>
+          </article>
+        </div>
+        <div class="col-12 col-md-6">
+          <article class="strength-feature">
+            <div class="strength-icon" aria-hidden="true"><i class="fa-solid fa-microphone-lines"></i></div>
+            <h3 class="strength-title">입시 실전 대비</h3>
+            <p class="strength-desc">모의 오디션, 레퍼토리 점검, 무대 동선 훈련까지 포함한 실전형 프로그램으로 입시 당일의 긴장감과 평가 환경에 대응하도록 준비합니다.</p>
+          </article>
+        </div>
+        <div class="col-12 col-md-6">
+          <article class="strength-feature">
+            <div class="strength-icon" aria-hidden="true"><i class="fa-solid fa-route"></i></div>
+            <h3 class="strength-title">체계적인 커리큘럼</h3>
+            <p class="strength-desc">예술중 → 예술고 → 음대 → 대학원으로 이어지는 단계별 학습 구조를 기반으로 장기 로드맵에 맞춘 전문 입시 지도를 제공합니다.</p>
+          </article>
+        </div>
       </div>
     </div>
   </section>
 
-  <section class="page-section report-section bg-light" id="admission-report">
+  <section class="home-curriculum">
     <div class="container">
-      <div class="section-header">
-        <div>
-          <h2>입시 리포트</h2>
-          <p>최신 입시 정보를 한눈에 확인하세요.</p>
+      <p class="section-kicker">HOW TO INSTRUCT</p>
+      <h2 class="section-title">커리큘럼</h2>
+      <p class="section-subtitle">입시 단계에 맞춘 체계적인 실기 및 이론 지도</p>
+
+      <div class="row g-4 g-xl-5 align-items-stretch curriculum-layout">
+        <div class="col-12 col-lg-5">
+          <div class="curriculum-visual">
+            <div class="curriculum-visual-frame">
+              <div class="curriculum-visual-postbar">
+                <div class="curriculum-visual-profile">
+                  <span class="curriculum-visual-avatar" aria-hidden="true"></span>
+                  <div class="curriculum-visual-meta">
+                    <strong>byeolandclassic</strong>
+                    <span>Piano Academy</span>
+                  </div>
+                </div>
+                <i class="fa-solid fa-ellipsis" aria-hidden="true"></i>
+              </div>
+              <div class="curriculum-visual-media">
+                <img
+                  class="curriculum-visual-image"
+                  src="{% static 'curriculum.jpg' %}"
+                  alt="커리큘럼 소개 이미지"
+                >
+              </div>
+              <div class="curriculum-visual-caption">
+                <div class="curriculum-visual-actions" aria-hidden="true">
+                  <div class="curriculum-visual-actions-left">
+                    <span><i class="fa-regular fa-heart"></i> 248</span>
+                    <span><i class="fa-regular fa-comment"></i> 18</span>
+                    <span><i class="fa-regular fa-paper-plane"></i> 12</span>
+                  </div>
+                  <span class="curriculum-visual-save"><i class="fa-regular fa-bookmark"></i></span>
+                </div>
+                <p class="curriculum-visual-text">체계적인 단계별 피아노 입시 지도</p>
+                <p class="curriculum-visual-subtext">예술중부터 대학원까지, 학생 수준에 맞춘 단계별 실기·이론 커리큘럼을 설계합니다.</p>
+              </div>
+            </div>
+          </div>
         </div>
-        <a class="more-view" href="{% url 'news_category' 'admission' %}">
-          MORE VIEW <i class="fas fa-arrow-right"></i>
-        </a>
+
+        <div class="col-12 col-lg-7">
+          <div class="row g-4 curriculum-grid">
+            <div class="col-12 col-md-6">
+              <article class="curriculum-item-card">
+                <div class="curriculum-item-head">
+                  <span class="curriculum-item-icon" aria-hidden="true"><i class="fa-solid fa-seedling"></i></span>
+                  <h3>예술중 입시</h3>
+                </div>
+                <div class="curriculum-item-body">
+                  <h4>실기</h4>
+                  <ul>
+                    <li>스케일 훈련</li>
+                    <li>입시곡 레슨</li>
+                    <li>기본 레퍼토리</li>
+                  </ul>
+                  <h4>이론</h4>
+                  <ul>
+                    <li>시창</li>
+                    <li>청음</li>
+                  </ul>
+                </div>
+              </article>
+            </div>
+
+            <div class="col-12 col-md-6">
+              <article class="curriculum-item-card">
+                <div class="curriculum-item-head">
+                  <span class="curriculum-item-icon" aria-hidden="true"><i class="fa-solid fa-book-open"></i></span>
+                  <h3>예술고 입시</h3>
+                </div>
+                <div class="curriculum-item-body">
+                  <h4>실기</h4>
+                  <ul>
+                    <li>심화 스케일</li>
+                    <li>입시곡 완성</li>
+                    <li>에튀드 집중</li>
+                  </ul>
+                  <h4>이론</h4>
+                  <ul>
+                    <li>시창</li>
+                    <li>청음</li>
+                  </ul>
+                </div>
+              </article>
+            </div>
+
+            <div class="col-12 col-md-6">
+              <article class="curriculum-item-card">
+                <div class="curriculum-item-head">
+                  <span class="curriculum-item-icon" aria-hidden="true"><i class="fa-solid fa-medal"></i></span>
+                  <h3>예대 입시</h3>
+                </div>
+                <div class="curriculum-item-body">
+                  <h4>실기</h4>
+                  <ul>
+                    <li>입시 레퍼토리</li>
+                    <li>반주 훈련</li>
+                    <li>소나타 준비</li>
+                  </ul>
+                  <h4>이론</h4>
+                  <ul>
+                    <li>시창·청음</li>
+                    <li>건반화성</li>
+                  </ul>
+                </div>
+              </article>
+            </div>
+
+            <div class="col-12 col-md-6">
+              <article class="curriculum-item-card">
+                <div class="curriculum-item-head">
+                  <span class="curriculum-item-icon" aria-hidden="true"><i class="fa-solid fa-trophy"></i></span>
+                  <h3>대학원 과정</h3>
+                </div>
+                <div class="curriculum-item-body">
+                  <h4>실기</h4>
+                  <ul>
+                    <li>전공 레퍼토리</li>
+                    <li>연주 해석</li>
+                    <li>오디션 대비</li>
+                  </ul>
+                  <h4>이론</h4>
+                  <ul>
+                    <li>음악사</li>
+                    <li>연구 준비</li>
+                  </ul>
+                </div>
+              </article>
+            </div>
+          </div>
+        </div>
       </div>
-      {% if admission_latest %}
-        <ul class="report-list">
-          {% for post in admission_latest %}
-            <li>
-              <a href="{% url 'news_detail' category_code=post.category.code slug=post.slug %}">
-                {{ post.title }}
-              </a>
-              <span>{{ post.published_at|date:"Y.m.d" }}</span>
-            </li>
+    </div>
+  </section>
+
+  <section class="home-results">
+    <div class="container">
+      <p class="section-kicker">WITH 별&amp;클래식</p>
+      <h2 class="section-title"><i class="fa-solid fa-trophy" aria-hidden="true"></i> 합격 및 수상 성과</h2>
+      <p class="section-subtitle">별앤클래식에서 길러낸 결과</p>
+
+      {% comment %}
+      <div class="results-slider-wrap">
+        <div class="swiper results-swiper">
+          <div class="swiper-wrapper">
+            {% for certificate in awards %}
+              <div class="swiper-slide">
+                <article class="results-slide-card">
+                  <div class="results-slide-media">
+                    <img src="{{ certificate.image.url }}" alt="{{ certificate.title|default:'수상 자격증' }}">
+                  </div>
+                  {% if certificate.title %}
+                    <h3 class="results-slide-title">{{ certificate.title }}</h3>
+                  {% endif %}
+                  {% if certificate.year %}
+                    <p class="results-slide-year">{{ certificate.year }}</p>
+                  {% endif %}
+                </article>
+              </div>
+            {% empty %}
+              <div class="swiper-slide">
+                <article class="results-slide-card results-slide-card-empty">
+                  <p>등록된 자격증 이미지가 없습니다.</p>
+                </article>
+              </div>
+            {% endfor %}
+          </div>
+
+          <div class="results-swiper-button-prev" aria-label="이전 슬라이드">
+            <i class="fa-solid fa-chevron-left"></i>
+          </div>
+          <div class="results-swiper-button-next" aria-label="다음 슬라이드">
+            <i class="fa-solid fa-chevron-right"></i>
+          </div>
+          <div class="results-swiper-pagination"></div>
+        </div>
+      </div>
+      {% endcomment %}
+
+      <div class="results-static-wrap">
+        <img src="{% static 'winner.png' %}" alt="합격 및 수상 성과 이미지" class="results-static-image">
+      </div>
+    </div>
+  </section>
+
+  <section class="home-exam-expert">
+    <div class="container">
+      <div class="home-exam-expert-divider" aria-hidden="true"></div>
+      <h2 class="home-exam-expert-title">15년 경험의 입시 전문가와 함께하는 피아노 입시 준비</h2>
+      <p class="home-exam-expert-text">
+        수많은 입시 경험과 음악계 네트워크를 기반으로<br>
+        학생의 목표 학교와 실력에 맞는 전략적인 입시 준비를 설계합니다.<br>
+        빠르게 변화하는 입시 트렌드를 반영한 전문 지도로 합격 가능성을 높입니다.
+      </p>
+      {% if exam_expert_images %}
+        <div class="home-exam-expert-gallery">
+          {% for image in exam_expert_images %}
+            <figure class="home-exam-expert-gallery-item">
+              <img
+                src="{{ image.image.url }}"
+                alt="{{ image.alt_text|default:'피아노 입시 전문가 안내 이미지' }}"
+              >
+            </figure>
           {% endfor %}
-        </ul>
-      {% else %}
-        <p class="text-muted">입시 리포트가 준비중입니다.</p>
+        </div>
       {% endif %}
     </div>
   </section>
 
-  <section class="page-section notice-section">
+  <section
+    class="home-footer-hero{% if footer_hero and footer_hero.image %} has-bg{% endif %}"
+    {% if footer_hero and footer_hero.image %}
+      style="--home-footer-hero-bg: url('{{ footer_hero.image.url }}');"
+    {% endif %}
+  >
     <div class="container">
-      <div class="notice-grid">
-        <div class="notice-card">
-          <div class="notice-header">
-            <h3>공지</h3>
-            <a class="more-view" href="{% url 'news_category' 'notice' %}">MORE VIEW</a>
-          </div>
-          {% if notice_latest %}
-            {% for post in notice_latest %}
-              <a
-                class="notice-item"
-                href="{% url 'news_detail' category_code=post.category.code slug=post.slug %}"
-              >
-                <span class="notice-title">{{ post.title }}</span>
-                <span class="notice-date">{{ post.published_at|date:"Y.m.d" }}</span>
-              </a>
-            {% endfor %}
+      <div class="home-footer-hero-inner">
+        <p class="section-kicker">CONTACT US</p>
+        <h2 class="home-footer-hero-title">
+          {% if footer_hero and footer_hero.title %}
+            {{ footer_hero.title }}
           {% else %}
-            <p class="text-muted">공지사항이 준비중입니다.</p>
+            상담으로 시작하는 입시 준비
           {% endif %}
-        </div>
-        <div class="notice-card">
-          <div class="notice-header">
-            <h3>자료실</h3>
-            <a class="more-view" href="{% url 'news_category' 'contest' %}">MORE VIEW</a>
-          </div>
-          {% if contest_latest %}
-            {% for post in contest_latest %}
-              <a
-                class="notice-item"
-                href="{% url 'news_detail' category_code=post.category.code slug=post.slug %}"
-              >
-                <span class="notice-title">{{ post.title }}</span>
-                <span class="notice-date">{{ post.published_at|date:"Y.m.d" }}</span>
-              </a>
-            {% endfor %}
+        </h2>
+        <p class="home-footer-hero-subtitle">
+          {% if footer_hero and footer_hero.subtitle %}
+            {{ footer_hero.subtitle }}
           {% else %}
-            <p class="text-muted">자료실 콘텐츠가 준비중입니다.</p>
+            맞춤형 커리큘럼 상담으로 목표 학교 합격 로드맵을 설계해보세요.
           {% endif %}
+        </p>
+        <a
+          class="home-footer-hero-cta"
+          href="{% if footer_hero and footer_hero.cta_url %}{{ footer_hero.cta_url }}{% else %}{% url 'enroll_form' %}{% endif %}"
+        >
+          {% if footer_hero and footer_hero.cta_label %}
+            {{ footer_hero.cta_label }}
+          {% else %}
+            상담 신청하기
+          {% endif %}
+        </a>
+      </div>
+
+      <div class="home-news">
+        <div class="home-news-grid">
+          <div class="home-news-card">
+            <div class="home-news-card-header">
+              <h3>공지사항</h3>
+              <a class="home-news-button" href="{% url 'news_category' category_code='notice' %}">바로가기</a>
+            </div>
+            <ul class="home-news-list">
+              {% if notice_latest %}
+                {% for post in notice_latest %}
+                  <li>
+                    <a class="home-news-item-link" href="{% url 'news_detail' category_code=post.category.code slug=post.slug %}">
+                      <span class="home-news-item-title">{{ post.title|truncatechars:20 }}</span>
+                      <span class="home-news-item-date">
+                        {% if post.published_at %}
+                          {{ post.published_at|date:"Y.m.d" }}
+                        {% else %}
+                          {{ post.created_at|date:"Y.m.d" }}
+                        {% endif %}
+                      </span>
+                    </a>
+                  </li>
+                {% endfor %}
+              {% else %}
+                <li>
+                  <span class="home-news-item-title text-muted">등록된 게시글이 없습니다.</span>
+                </li>
+              {% endif %}
+            </ul>
+          </div>
+          <div class="home-news-card">
+            <div class="home-news-card-header">
+              <h3>입시뉴스</h3>
+              <a class="home-news-button" href="{% url 'news_category' category_code='admission' %}">바로가기</a>
+            </div>
+            <ul class="home-news-list">
+              {% if admission_latest %}
+                {% for post in admission_latest %}
+                  <li>
+                    <a class="home-news-item-link" href="{% url 'news_detail' category_code=post.category.code slug=post.slug %}">
+                      <span class="home-news-item-title">{{ post.title|truncatechars:20 }}</span>
+                      <span class="home-news-item-date">
+                        {% if post.published_at %}
+                          {{ post.published_at|date:"Y.m.d" }}
+                        {% else %}
+                          {{ post.created_at|date:"Y.m.d" }}
+                        {% endif %}
+                      </span>
+                    </a>
+                  </li>
+                {% endfor %}
+              {% else %}
+                <li>
+                  <span class="home-news-item-title text-muted">등록된 게시글이 없습니다.</span>
+                </li>
+              {% endif %}
+            </ul>
+          </div>
+          <div class="home-news-card">
+            <div class="home-news-card-header">
+              <h3>콩쿨뉴스</h3>
+              <a class="home-news-button" href="{% url 'news_category' category_code='contest' %}">바로가기</a>
+            </div>
+            <ul class="home-news-list">
+              {% if contest_latest %}
+                {% for post in contest_latest %}
+                  <li>
+                    <a class="home-news-item-link" href="{% url 'news_detail' category_code=post.category.code slug=post.slug %}">
+                      <span class="home-news-item-title">{{ post.title|truncatechars:20 }}</span>
+                      <span class="home-news-item-date">
+                        {% if post.published_at %}
+                          {{ post.published_at|date:"Y.m.d" }}
+                        {% else %}
+                          {{ post.created_at|date:"Y.m.d" }}
+                        {% endif %}
+                      </span>
+                    </a>
+                  </li>
+                {% endfor %}
+              {% else %}
+                <li>
+                  <span class="home-news-item-title text-muted">등록된 게시글이 없습니다.</span>
+                </li>
+              {% endif %}
+            </ul>
+          </div>
         </div>
       </div>
     </div>
@@ -315,25 +414,35 @@
 {% endblock %}
 
 {% block extra_scripts %}
+  {% comment %}
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const carousel = document.getElementById('homeBannerCarousel');
-      const indicator = document.querySelector('.banner-indicator');
-      if (!carousel || !indicator) {
-        return;
-      }
-
-      const current = indicator.querySelector('.banner-indicator-current');
-      if (current) {
-        current.textContent = '1';
-      }
-
-      carousel.addEventListener('slid.bs.carousel', (event) => {
-        if (!current) {
-          return;
+    document.addEventListener("DOMContentLoaded", function () {
+      const el = document.querySelector(".results-swiper");
+      if (!el) return;
+      new Swiper(el, {
+        slidesPerView: 1,
+        spaceBetween: 24,
+        loop: true,
+        autoplay: {
+          delay: 4000,
+          disableOnInteraction: false,
+          pauseOnMouseEnter: true
+        },
+        navigation: {
+          nextEl: ".results-swiper-button-next",
+          prevEl: ".results-swiper-button-prev"
+        },
+        pagination: {
+          el: ".results-swiper-pagination",
+          clickable: true
+        },
+        breakpoints: {
+          768: { slidesPerView: 2 },
+          1200: { slidesPerView: 3 }
         }
-        current.textContent = String(event.to + 1);
       });
     });
   </script>
+  {% endcomment %}
 {% endblock %}

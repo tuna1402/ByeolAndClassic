@@ -3,12 +3,43 @@ import os
 
 BASE_DIR = Path(__file__).resolve().parents[2]
 
+
+def _load_env_file(path: Path) -> None:
+    if not path.exists():
+        return
+    for raw_line in path.read_text(encoding="utf-8").splitlines():
+        line = raw_line.strip()
+        if not line or line.startswith("#") or "=" not in line:
+            continue
+        key, value = line.split("=", 1)
+        key = key.strip()
+        value = value.strip().strip('"').strip("'")
+        if key:
+            os.environ.setdefault(key, value)
+
+
+_load_env_file(BASE_DIR / ".env")
+
 # ====== ENV (간단 버전) ======
 def env(key: str, default: str = "") -> str:
     return os.environ.get(key, default)
 
+
+def env_bool(key: str, default: bool = False) -> bool:
+    value = os.environ.get(key)
+    if value is None:
+        return default
+    return value.strip().lower() in {"1", "true", "yes", "on"}
+
+
+def env_int(key: str, default: int = 0) -> int:
+    value = os.environ.get(key)
+    if value is None:
+        return default
+    return int(value)
+
 SECRET_KEY = env("SECRET_KEY", "dev-secret-key-change-me")
-DEBUG = env("DEBUG", "1") == "1"
+DEBUG = env_bool("DEBUG", True)
 
 ALLOWED_HOSTS = [h.strip() for h in env("ALLOWED_HOSTS", "localhost,127.0.0.1").split(",") if h.strip()]
 CSRF_TRUSTED_ORIGINS = [
@@ -57,7 +88,6 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
-                "siteconfig.context_processors.site_brand",
             ],
         },
     },
