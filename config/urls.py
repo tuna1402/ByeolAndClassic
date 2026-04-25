@@ -4,12 +4,7 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
-from .sitemaps import StaticViewSitemap, PostSitemap
-
-sitemaps = {
-    "static": StaticViewSitemap,
-    "posts": PostSitemap,
-}
+from .sitemaps import sitemaps
 
 urlpatterns = [
     path("admin/", admin.site.urls),
