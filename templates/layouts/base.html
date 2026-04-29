@@ -94,7 +94,7 @@
     </div>
   </nav>
 
-  <main class="site-main">
+  <main class="site-main {% block site_main_class %}{% endblock %}">
     {% block content %}{% endblock %}
   </main>
 

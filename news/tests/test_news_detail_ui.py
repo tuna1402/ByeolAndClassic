@@ -59,9 +59,11 @@ class NewsDetailUITests(TestCase):
 
                 self.assertEqual(response.status_code, 200)
                 html = response.content.decode("utf-8")
+                self.assertIn('class="site-main news-detail-page"', html)
+                self.assertIn('href="/static/css/layout_overrides.css"', html)
                 self.assertIn("news-detail-hero", html)
-                self.assertIn("news-detail-sidebar-card", html)
-                self.assertIn("news-detail-card", html)
+                self.assertIn("news-detail-category-card", html)
+                self.assertIn("news-detail-article-card", html)
                 self.assertIn(summary, html)
                 self.assertIn(f"{name} 상세 테스트", html)
                 self.assertIn("작성일", html)
