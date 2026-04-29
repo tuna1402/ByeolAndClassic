@@ -1,69 +1,110 @@
 {% extends "layouts/base.html" %}
 
+{% block body_class %}news-detail-body{% endblock %}
 {% block meta_title %}{{ post.title }} | ByeolAndClassic{% endblock %}
 {% block meta_description %}{{ post.content|striptags|truncatechars:140 }}{% endblock %}
 
 {% block content %}
-  <section class="about-page news-page">
-    <div class="container about-container">
-      <div class="about-layout">
-        <aside class="about-sidebar">
-          <div class="about-subnav">
-            <div class="about-subnav-label">뉴스 서브메뉴</div>
-            <ul class="nav nav-pills about-nav" role="tablist">
-              <li class="nav-item">
-                <a class="nav-link {% if post.category.code == 'notice' %}active{% endif %}" href="{% url 'news_category' category_code='notice' %}">공지사항</a>
+  <section class="news-detail-page">
+    <header class="news-detail-hero">
+      <div class="container news-detail-container">
+        <p class="news-detail-hero-label">NEWS</p>
+        <h1 class="news-detail-hero-title">{{ post.category.name }}</h1>
+        <p class="news-detail-hero-summary">
+          {% if post.category.code == "notice" %}
+            별앤클래식의 공지사항과 입시 관련 소식을 확인하세요.
+          {% elif post.category.code == "contest" %}
+            피아노 콩쿨 일정과 준비에 필요한 정보를 확인하세요.
+          {% elif post.category.code == "admission" %}
+            예중·예고 피아노 입시 준비에 필요한 정보를 확인하세요.
+          {% else %}
+            별앤클래식의 새로운 소식을 확인하세요.
+          {% endif %}
+        </p>
+      </div>
+    </header>
+
+    <div class="container news-detail-container">
+      <div class="news-detail-layout">
+        <aside class="news-detail-sidebar" aria-label="뉴스 카테고리">
+          <nav class="news-detail-sidebar-card">
+            <h2 class="news-detail-sidebar-title">뉴스 카테고리</h2>
+            <ul class="news-detail-category-list">
+              <li>
+                <a
+                  class="news-detail-category-link {% if post.category.code == 'notice' %}is-active{% endif %}"
+                  {% if post.category.code == 'notice' %}aria-current="page"{% endif %}
+                  href="{% url 'news_category' category_code='notice' %}"
+                >
+                  공지사항
+                </a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link {% if post.category.code == 'contest' %}active{% endif %}" href="{% url 'news_category' category_code='contest' %}">콩쿨정보</a>
+              <li>
+                <a
+                  class="news-detail-category-link {% if post.category.code == 'contest' %}is-active{% endif %}"
+                  {% if post.category.code == 'contest' %}aria-current="page"{% endif %}
+                  href="{% url 'news_category' category_code='contest' %}"
+                >
+                  콩쿨정보
+                </a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link {% if post.category.code == 'admission' %}active{% endif %}" href="{% url 'news_category' category_code='admission' %}">입시정보</a>
+              <li>
+                <a
+                  class="news-detail-category-link {% if post.category.code == 'admission' %}is-active{% endif %}"
+                  {% if post.category.code == 'admission' %}aria-current="page"{% endif %}
+                  href="{% url 'news_category' category_code='admission' %}"
+                >
+                  입시정보
+                </a>
               </li>
             </ul>
-          </div>
+          </nav>
         </aside>
-        <div class="about-main">
-          <section class="about-hero">
-            <div class="about-label">NEWS</div>
-            <h1 class="about-title">{{ post.category.name }}</h1>
-            <p class="about-summary text-muted">뉴스 상세 내용을 확인하세요.</p>
-          </section>
-          <section class="about-content">
-            <div class="about-card card">
-              <div class="card-body p-4 p-md-5">
-                <div class="news-editor mb-4">
-                  <div class="news-editor-label">콘텐츠 작성 영역</div>
-                  <div class="news-editor-body text-muted">게시글을 작성하거나 편집할 때 필요한 레이아웃 영역입니다.</div>
-                </div>
-                {% if post.thumbnail %}
-                  <div class="mb-4">
-                    <img class="img-fluid rounded shadow-sm w-100" src="{{ post.thumbnail.url }}" alt="{{ post.title }} 썸네일">
-                  </div>
-                {% endif %}
-                <h2>{{ post.title }}</h2>
-                <div class="news-meta text-muted mb-3">
-                  <span>작성자: {{ post.author_name|default:"관리자" }}</span>
-                  <span class="ms-3">
-                    작성일:
-                    {% if post.published_at %}
-                      {{ post.published_at|date:"Y-m-d" }}
-                    {% else %}
-                      {{ post.created_at|date:"Y-m-d" }}
-                    {% endif %}
-                  </span>
-                </div>
-                <div class="news-content mb-4">
-                  {{ post_html|safe }}
-                </div>
-                {% if post.attachment %}
-                  <a class="btn btn-outline-primary" href="{{ post.attachment.url }}" download>
-                    첨부파일 다운로드
-                  </a>
-                {% endif %}
+
+        <div class="news-detail-main">
+          <article class="news-detail-card">
+            <header class="news-detail-article-header">
+              <span class="news-detail-badge news-detail-badge--{{ post.category.code }}">
+                {{ post.category.name }}
+              </span>
+              <h2 class="news-detail-article-title">{{ post.title }}</h2>
+              <div class="news-detail-meta">
+                <span>
+                  작성일
+                  {% if post.published_at %}
+                    {{ post.published_at|date:"Y.m.d" }}
+                  {% else %}
+                    {{ post.created_at|date:"Y.m.d" }}
+                  {% endif %}
+                </span>
+                <span aria-hidden="true">·</span>
+                <span>작성자 {{ post.author_name|default:"관리자" }}</span>
               </div>
+            </header>
+
+            {% if post.thumbnail %}
+              <figure class="news-detail-thumbnail">
+                <img src="{{ post.thumbnail.url }}" alt="{{ post.title }} 썸네일">
+              </figure>
+            {% endif %}
+
+            <div class="news-detail-content">
+              {{ post_html|safe }}
             </div>
-          </section>
+
+            <footer class="news-detail-actions">
+              {% if post.attachment %}
+                <a class="news-detail-attachment-link" href="{{ post.attachment.url }}" download>
+                  <i class="fa-solid fa-paperclip" aria-hidden="true"></i>
+                  첨부파일 다운로드
+                </a>
+              {% endif %}
+              <a class="news-detail-back-link" href="{% url 'news_category' category_code=post.category.code %}">
+                <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+                목록으로 돌아가기
+              </a>
+            </footer>
+          </article>
         </div>
       </div>
     </div>
