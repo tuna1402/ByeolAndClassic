@@ -2,6 +2,7 @@ from django.contrib import admin, messages
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import redirect
 from django.urls import path, reverse
+from django.utils import timezone
 
 from .models import Category, Post
 from .utils.daily_draft import create_daily_draft_for_date
@@ -22,6 +23,11 @@ class PostAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("title",)}
     date_hierarchy = "published_at"
     list_select_related = ("category",)
+
+    def save_model(self, request, obj, form, change):
+        if obj.is_published and obj.published_at is None:
+            obj.published_at = timezone.now()
+        super().save_model(request, obj, form, change)
 
     def get_urls(self):
         urls = super().get_urls()
