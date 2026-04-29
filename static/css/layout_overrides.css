@@ -3321,3 +3321,737 @@ main.news-detail-page .news-detail-attachment-link:focus {
     width: 100%;
   }
 }
+
+/* Curriculum page: scoped premium admission landing layout. */
+.curriculum-page {
+  --curriculum-navy: #0b2345;
+  --curriculum-navy-soft: #14365f;
+  --curriculum-gold: #b88a2a;
+  --curriculum-gold-dark: #9b7020;
+  --curriculum-ivory: #faf7f0;
+  --curriculum-ivory-deep: #f3eadb;
+  --curriculum-card: #ffffff;
+  --curriculum-border: #e5e0d6;
+  --curriculum-muted: #6b7280;
+  --curriculum-ink: #111827;
+  background: linear-gradient(180deg, #fbfaf7 0%, #faf7f0 38%, #ffffff 100%);
+}
+
+.curriculum-page .site-main {
+  padding-top: 96px;
+  padding-bottom: 0;
+}
+
+.curriculum-page .site-main > section + section {
+  margin-top: 28px;
+}
+
+.curriculum-page .navbar .nav-link.active {
+  position: relative;
+  color: var(--curriculum-gold);
+}
+
+.curriculum-page .navbar .nav-link.active::after {
+  content: "";
+  position: absolute;
+  left: 0.15rem;
+  right: 0.15rem;
+  bottom: 0.12rem;
+  height: 2px;
+  border-radius: 999px;
+  background: var(--curriculum-gold);
+}
+
+.curriculum-page .curriculum-hero {
+  padding: 26px 0 10px;
+}
+
+.curriculum-page .curriculum-hero-inner {
+  position: relative;
+  max-width: 1120px;
+  min-height: 320px;
+  margin: 0 auto;
+  padding: 64px 42px;
+  overflow: hidden;
+  border: 1px solid var(--curriculum-border);
+  border-radius: 28px;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.88), rgba(250, 247, 240, 0.84)),
+    radial-gradient(circle at 88% 24%, rgba(184, 138, 42, 0.18), transparent 34%),
+    linear-gradient(135deg, #fffdf8 0%, #f4ead8 100%);
+  box-shadow: 0 24px 60px rgba(11, 35, 69, 0.11);
+}
+
+.curriculum-page .curriculum-hero-inner::before {
+  content: "";
+  position: absolute;
+  right: -38px;
+  top: 42px;
+  width: 280px;
+  height: 160px;
+  opacity: 0.22;
+  background:
+    repeating-linear-gradient(180deg, transparent 0 18px, rgba(11, 35, 69, 0.34) 18px 20px),
+    linear-gradient(90deg, transparent 0 28px, rgba(184, 138, 42, 0.5) 28px 32px, transparent 32px 64px);
+  transform: rotate(-8deg);
+}
+
+.curriculum-page .curriculum-hero-inner::after {
+  content: "♪";
+  position: absolute;
+  right: 118px;
+  bottom: 34px;
+  color: rgba(184, 138, 42, 0.22);
+  font-family: "Playfair Display", serif;
+  font-size: 6rem;
+  line-height: 1;
+}
+
+.curriculum-page .curriculum-kicker {
+  position: relative;
+  margin-bottom: 12px;
+  color: var(--curriculum-gold);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+}
+
+.curriculum-page .curriculum-title {
+  position: relative;
+  margin: 0;
+  color: var(--curriculum-navy);
+  font-size: 3.15rem;
+  font-weight: 800;
+  letter-spacing: 0;
+  line-height: 1.18;
+}
+
+.curriculum-page .curriculum-subtitle {
+  position: relative;
+  max-width: 640px;
+  margin-left: auto;
+  margin-right: auto;
+  color: #485467;
+  font-size: 1.12rem;
+  font-weight: 500;
+  line-height: 1.78;
+}
+
+.curriculum-page .curriculum-hero-btn,
+.curriculum-page .curriculum-cta-btn {
+  position: relative;
+  min-height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border: 1px solid var(--curriculum-gold-dark);
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--curriculum-gold), #d2aa55);
+  color: #ffffff;
+  font-weight: 800;
+  padding: 12px 24px;
+  box-shadow: 0 12px 26px rgba(184, 138, 42, 0.24);
+}
+
+.curriculum-page .curriculum-hero-btn:hover,
+.curriculum-page .curriculum-hero-btn:focus,
+.curriculum-page .curriculum-cta-btn:hover,
+.curriculum-page .curriculum-cta-btn:focus {
+  border-color: var(--curriculum-gold-dark);
+  color: #ffffff;
+  transform: translateY(-1px);
+  box-shadow: 0 16px 32px rgba(184, 138, 42, 0.3);
+}
+
+.curriculum-page .curriculum-tabs-section,
+.curriculum-page .curriculum-roadmap-section,
+.curriculum-page .curriculum-policy-section,
+.curriculum-page .curriculum-pricing-section,
+.curriculum-page .curriculum-faq-section {
+  padding: 18px 0;
+}
+
+.curriculum-page .curriculum-tabs-section .container,
+.curriculum-page .curriculum-roadmap-section .container,
+.curriculum-page .curriculum-policy-section .container,
+.curriculum-page .curriculum-pricing-section .container,
+.curriculum-page .curriculum-faq-section .container,
+.curriculum-page .curriculum-cta-section .container {
+  max-width: 1120px;
+}
+
+.curriculum-page .curriculum-section-title {
+  color: var(--curriculum-navy);
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: 0;
+}
+
+.curriculum-page .curriculum-section-subtitle {
+  max-width: 760px;
+  margin-left: auto;
+  margin-right: auto;
+  color: var(--curriculum-muted);
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+.curriculum-page .curriculum-surface {
+  max-width: 1120px;
+  padding: 34px;
+  border: 1px solid var(--curriculum-border);
+  border-radius: 26px;
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 18px 44px rgba(11, 35, 69, 0.08);
+}
+
+.curriculum-page .curriculum-tabs {
+  justify-content: center;
+  gap: 10px;
+}
+
+.curriculum-page .curriculum-tabs .nav-item {
+  flex: 0 0 auto;
+}
+
+.curriculum-page .curriculum-tabs .nav-link {
+  min-width: 96px;
+  border: 1px solid var(--curriculum-border);
+  border-radius: 999px;
+  background: #ffffff;
+  color: var(--curriculum-navy);
+  font-size: 0.98rem;
+  font-weight: 800;
+  padding: 10px 20px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.curriculum-page .curriculum-tabs .nav-link:hover,
+.curriculum-page .curriculum-tabs .nav-link:focus {
+  border-color: rgba(184, 138, 42, 0.48);
+  color: var(--curriculum-gold-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 10px 22px rgba(11, 35, 69, 0.08);
+}
+
+.curriculum-page .curriculum-tabs .nav-link.active {
+  border-color: var(--curriculum-gold);
+  background: linear-gradient(135deg, var(--curriculum-gold), #d2aa55);
+  color: #ffffff;
+  box-shadow: 0 12px 28px rgba(184, 138, 42, 0.24);
+}
+
+.curriculum-page .curriculum-track-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.curriculum-page .curriculum-card {
+  height: 100%;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 16px;
+  padding: 24px;
+  border: 1px solid var(--curriculum-border);
+  border-radius: 18px;
+  background: #ffffff;
+  box-shadow: 0 12px 28px rgba(11, 35, 69, 0.06);
+}
+
+.curriculum-page .curriculum-card-period {
+  background: linear-gradient(180deg, #fffdf8 0%, #fbf3e4 100%);
+  border-color: rgba(184, 138, 42, 0.34);
+}
+
+.curriculum-page .curriculum-card-icon {
+  width: 42px;
+  height: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(184, 138, 42, 0.14);
+  color: var(--curriculum-gold-dark);
+  font-size: 1rem;
+}
+
+.curriculum-page .curriculum-card-title {
+  margin: 0 0 12px;
+  color: var(--curriculum-navy);
+  font-size: 1.12rem;
+  font-weight: 800;
+  letter-spacing: 0;
+}
+
+.curriculum-page .curriculum-list {
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+  color: #4b5563;
+  font-size: 0.96rem;
+  line-height: 1.64;
+  list-style: none;
+}
+
+.curriculum-page .curriculum-list li {
+  position: relative;
+  padding-left: 16px;
+}
+
+.curriculum-page .curriculum-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.72em;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--curriculum-gold);
+}
+
+.curriculum-page .roadmap-steps {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.curriculum-page .roadmap-card {
+  position: relative;
+  min-height: 188px;
+  padding: 20px 18px;
+  border: 1px solid var(--curriculum-border);
+  border-radius: 18px;
+  background: #ffffff;
+  box-shadow: 0 12px 26px rgba(11, 35, 69, 0.06);
+}
+
+.curriculum-page .roadmap-card:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: -10px;
+  width: 16px;
+  height: 16px;
+  border-top: 2px solid rgba(184, 138, 42, 0.55);
+  border-right: 2px solid rgba(184, 138, 42, 0.55);
+  transform: translateY(-50%) rotate(45deg);
+  background: transparent;
+  z-index: 1;
+}
+
+.curriculum-page .roadmap-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 42px;
+  height: 28px;
+  margin-bottom: 18px;
+  border-radius: 999px;
+  background: var(--curriculum-gold);
+  color: #ffffff;
+  font-size: 0.8rem;
+  font-weight: 900;
+}
+
+.curriculum-page .roadmap-icon {
+  position: absolute;
+  top: 20px;
+  right: 18px;
+  color: rgba(11, 35, 69, 0.18);
+  font-size: 1.42rem;
+}
+
+.curriculum-page .roadmap-title {
+  margin: 0 0 9px;
+  color: var(--curriculum-navy);
+  font-size: 1.04rem;
+  font-weight: 800;
+  letter-spacing: 0;
+}
+
+.curriculum-page .roadmap-desc {
+  color: var(--curriculum-muted);
+  font-size: 0.94rem;
+  line-height: 1.6;
+}
+
+.curriculum-page .policy-card {
+  height: 100%;
+  padding: 24px 22px;
+  border: 1px solid var(--curriculum-border);
+  border-radius: 18px;
+  background: #ffffff;
+  box-shadow: 0 12px 28px rgba(11, 35, 69, 0.06);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.curriculum-page .policy-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 36px rgba(11, 35, 69, 0.1);
+}
+
+.curriculum-page .policy-icon-wrap {
+  width: 48px;
+  height: 48px;
+  margin-bottom: 16px;
+  border-radius: 50%;
+  background: var(--curriculum-navy);
+  color: #ffffff;
+}
+
+.curriculum-page .policy-title {
+  margin: 0 0 10px;
+  color: var(--curriculum-navy);
+  font-size: 1.04rem;
+  font-weight: 800;
+  letter-spacing: 0;
+  line-height: 1.45;
+}
+
+.curriculum-page .policy-desc {
+  color: var(--curriculum-muted);
+  font-size: 0.95rem;
+  line-height: 1.68;
+}
+
+.curriculum-page .pricing-card {
+  position: relative;
+  min-height: 260px;
+  padding: 26px 24px;
+  border: 1px solid rgba(184, 138, 42, 0.42);
+  border-top: 4px solid var(--curriculum-gold);
+  border-radius: 18px;
+  background: linear-gradient(180deg, #fffdf8 0%, #f8f1e4 100%);
+  box-shadow: 0 14px 32px rgba(11, 35, 69, 0.07);
+}
+
+.curriculum-page .pricing-label {
+  width: fit-content;
+  max-width: 100%;
+  border: 1px solid rgba(184, 138, 42, 0.35);
+  border-radius: 14px;
+  background: rgba(184, 138, 42, 0.1);
+  color: var(--curriculum-gold-dark);
+  font-size: 0.86rem;
+  font-weight: 700;
+  line-height: 1.5;
+  padding: 8px 11px;
+}
+
+.curriculum-page .pricing-label span {
+  display: inline-block;
+  margin-right: 6px;
+  color: var(--curriculum-navy);
+  font-size: 0.78rem;
+  font-weight: 900;
+}
+
+.curriculum-page .pricing-title {
+  margin: 0 0 12px;
+  color: var(--curriculum-navy);
+  font-size: 1.2rem;
+  font-weight: 900;
+  letter-spacing: 0;
+}
+
+.curriculum-page .pricing-meta {
+  margin-top: 20px;
+  display: grid;
+  gap: 10px;
+}
+
+.curriculum-page .pricing-meta-item {
+  margin: 0;
+  color: #3f4a5c;
+  font-weight: 700;
+}
+
+.curriculum-page .pricing-meta-item i {
+  color: var(--curriculum-gold-dark);
+}
+
+.curriculum-page .pricing-price {
+  color: var(--curriculum-navy);
+  font-size: 1.45rem;
+  font-weight: 900;
+}
+
+.curriculum-page .faq-list {
+  display: grid;
+  gap: 12px;
+}
+
+.curriculum-page .faq-item {
+  padding: 22px 24px;
+  border: 1px solid var(--curriculum-border);
+  border-radius: 18px;
+  background: #ffffff;
+  box-shadow: 0 10px 24px rgba(11, 35, 69, 0.05);
+}
+
+.curriculum-page .faq-question {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin: 0 0 10px;
+  color: var(--curriculum-navy);
+  font-size: 1.04rem;
+  font-weight: 800;
+  letter-spacing: 0;
+  line-height: 1.5;
+}
+
+.curriculum-page .faq-question span,
+.curriculum-page .faq-answer span {
+  flex: 0 0 auto;
+  width: 28px;
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 0.82rem;
+  font-weight: 900;
+}
+
+.curriculum-page .faq-question span {
+  background: var(--curriculum-navy);
+  color: #ffffff;
+}
+
+.curriculum-page .faq-answer {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  color: var(--curriculum-muted);
+  font-size: 0.96rem;
+  line-height: 1.7;
+}
+
+.curriculum-page .faq-answer span {
+  background: rgba(184, 138, 42, 0.14);
+  color: var(--curriculum-gold-dark);
+}
+
+.curriculum-page .curriculum-cta-section {
+  padding: 18px 0 20px;
+}
+
+.curriculum-page .curriculum-cta-box {
+  max-width: 1120px;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 24px;
+  padding: 34px;
+  border: 1px solid rgba(184, 138, 42, 0.32);
+  border-radius: 26px;
+  background:
+    radial-gradient(circle at 8% 18%, rgba(184, 138, 42, 0.2), transparent 28%),
+    linear-gradient(135deg, #fff8e9 0%, #f1e1c4 100%);
+  box-shadow: 0 18px 44px rgba(11, 35, 69, 0.09);
+}
+
+.curriculum-page .curriculum-cta-emblem {
+  width: 72px;
+  height: 72px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(184, 138, 42, 0.36);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.72);
+  color: var(--curriculum-gold);
+  font-size: 1.7rem;
+}
+
+.curriculum-page .curriculum-cta-title {
+  margin: 0;
+  color: var(--curriculum-navy);
+  font-size: 1.75rem;
+  font-weight: 900;
+  letter-spacing: 0;
+  line-height: 1.35;
+}
+
+.curriculum-page .curriculum-cta-copy {
+  max-width: 720px;
+  color: #4b5563;
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+.curriculum-page .curriculum-cta-action {
+  justify-self: end;
+}
+
+.curriculum-page .site-footer {
+  padding-top: 34px;
+  padding-bottom: 34px;
+}
+
+@media (max-width: 1024px) {
+  .curriculum-page .curriculum-title {
+    font-size: 2.55rem;
+  }
+
+  .curriculum-page .roadmap-steps {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .curriculum-page .roadmap-card:not(:last-child)::after {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .curriculum-page .site-main {
+    padding-top: 84px;
+  }
+
+  .curriculum-page .site-main > section + section {
+    margin-top: 18px;
+  }
+
+  .curriculum-page .curriculum-hero {
+    padding-top: 16px;
+  }
+
+  .curriculum-page .curriculum-hero-inner {
+    min-height: auto;
+    padding: 44px 22px;
+    border-radius: 22px;
+  }
+
+  .curriculum-page .curriculum-hero-inner::before {
+    right: -80px;
+    opacity: 0.14;
+  }
+
+  .curriculum-page .curriculum-hero-inner::after {
+    display: none;
+  }
+
+  .curriculum-page .curriculum-title {
+    font-size: 2.15rem;
+  }
+
+  .curriculum-page .curriculum-subtitle {
+    font-size: 1rem;
+  }
+
+  .curriculum-page .curriculum-tabs-section,
+  .curriculum-page .curriculum-roadmap-section,
+  .curriculum-page .curriculum-policy-section,
+  .curriculum-page .curriculum-pricing-section,
+  .curriculum-page .curriculum-faq-section {
+    padding: 12px 0;
+  }
+
+  .curriculum-page .curriculum-surface {
+    padding: 24px 16px;
+    border-radius: 22px;
+  }
+
+  .curriculum-page .curriculum-tabs {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    overflow-x: auto;
+    padding-bottom: 4px;
+    scrollbar-width: none;
+  }
+
+  .curriculum-page .curriculum-tabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .curriculum-page .curriculum-tabs .nav-link {
+    min-width: 84px;
+    padding: 9px 16px;
+  }
+
+  .curriculum-page .curriculum-track-grid,
+  .curriculum-page .roadmap-steps {
+    grid-template-columns: 1fr;
+  }
+
+  .curriculum-page .curriculum-card {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    padding: 22px 20px;
+  }
+
+  .curriculum-page .roadmap-card {
+    min-height: 0;
+  }
+
+  .curriculum-page .curriculum-cta-box {
+    grid-template-columns: 1fr;
+    justify-items: start;
+    padding: 28px 22px;
+    border-radius: 22px;
+  }
+
+  .curriculum-page .curriculum-cta-action {
+    width: 100%;
+    justify-self: stretch;
+  }
+
+  .curriculum-page .curriculum-cta-btn {
+    width: 100%;
+  }
+
+  .curriculum-page .navbar .nav-link.active::after {
+    left: 0.75rem;
+    right: auto;
+    width: 72px;
+  }
+}
+
+@media (max-width: 480px) {
+  .curriculum-page .curriculum-hero-inner {
+    padding: 36px 18px;
+  }
+
+  .curriculum-page .curriculum-kicker {
+    font-size: 0.72rem;
+  }
+
+  .curriculum-page .curriculum-title {
+    font-size: 1.82rem;
+  }
+
+  .curriculum-page .curriculum-section-title {
+    font-size: 1.55rem;
+  }
+
+  .curriculum-page .curriculum-hero-btn,
+  .curriculum-page .curriculum-cta-btn {
+    width: 100%;
+    min-height: 46px;
+    padding: 11px 18px;
+    font-size: 0.95rem;
+  }
+
+  .curriculum-page .policy-card,
+  .curriculum-page .pricing-card,
+  .curriculum-page .faq-item {
+    padding: 20px 18px;
+  }
+
+  .curriculum-page .pricing-price {
+    font-size: 1.28rem;
+  }
+
+  .curriculum-page .curriculum-cta-title {
+    font-size: 1.42rem;
+  }
+
+  .curriculum-page .site-footer {
+    padding-top: 24px;
+    padding-bottom: 28px;
+  }
+}

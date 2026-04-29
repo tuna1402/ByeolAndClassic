@@ -87,7 +87,11 @@
               <li><a class="dropdown-item" href="{% url 'news_category' category_code='admission' %}">입시정보</a></li>
             </ul>
           </li>
-          <li class="nav-item"><a class="nav-link" href="{% url 'curriculum' %}">커리큘럼</a></li>
+          <li class="nav-item">
+            <a class="nav-link{% if request.resolver_match.url_name == 'curriculum' %} active{% endif %}" href="{% url 'curriculum' %}">
+              커리큘럼
+            </a>
+          </li>
           <li class="nav-item"><a class="nav-link" href="{% url 'enroll_form' %}">상담신청</a></li>
         </ul>
       </div>
