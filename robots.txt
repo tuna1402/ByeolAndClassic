@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://byeolclassica.pythonanywhere.com/sitemap.xml

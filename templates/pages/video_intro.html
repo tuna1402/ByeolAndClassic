@@ -1,0 +1,75 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+
+{% block meta_title %}별앤클래식 소개 영상 | 피아노 입시 전문 아카데미{% endblock %}
+{% block meta_description %}별앤클래식 피아노 아카데미의 교육 철학과 입시 전문 프로그램을 소개하는 영상입니다.{% endblock %}
+
+{% block extra_head %}
+  <link rel="canonical" href="https://byeolclassica.pythonanywhere.com/video/academy-intro/">
+
+  <meta property="og:type" content="video.other">
+  <meta property="og:title" content="별앤클래식 소개 영상 | 피아노 입시 전문 아카데미">
+  <meta property="og:description" content="별앤클래식 피아노 아카데미의 교육 철학과 입시 전문 프로그램을 소개하는 영상입니다.">
+  <meta property="og:url" content="https://byeolclassica.pythonanywhere.com/video/academy-intro/">
+  <meta property="og:image" content="https://byeolclassica.pythonanywhere.com/static/article.png">
+
+  {% if hero_video and hero_video.video %}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "VideoObject",
+    "name": "별앤클래식 피아노 아카데미 소개 영상",
+    "description": "별앤클래식 피아노 아카데미의 교육 철학과 입시 전문 프로그램을 소개하는 영상입니다.",
+    "thumbnailUrl": [
+      "https://byeolclassica.pythonanywhere.com/static/article.png"
+    ],
+    "uploadDate": "2026-04-25",
+    "contentUrl": "https://byeolclassica.pythonanywhere.com{{ hero_video.video.url }}",
+    "embedUrl": "https://byeolclassica.pythonanywhere.com/video/academy-intro/"
+  }
+  </script>
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+<section class="page-section py-5 bg-light">
+  <div class="container" style="max-width: 960px;">
+    <div class="text-center mb-5">
+      <p class="text-uppercase small fw-bold text-secondary mb-2">VIDEO INTRO</p>
+      <h1 class="mb-3">별앤클래식 소개 영상</h1>
+      <p class="text-muted mb-0">
+        별앤클래식의 교육 철학과 피아노 입시 전문 프로그램을 영상으로 소개합니다.
+      </p>
+    </div>
+
+    <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+      <div class="card-body p-0">
+        {% if hero_video and hero_video.video %}
+        <video
+          controls
+          preload="metadata"
+          playsinline
+          poster="{% static 'article.png' %}"
+          style="display:block;width:100%;height:auto;background:#000;"
+        >
+          <source src="{{ hero_video.video.url }}" type="video/mp4">
+          브라우저가 video 태그를 지원하지 않습니다.
+        </video>
+        {% else %}
+        <div class="p-5 text-center text-muted">
+          현재 등록된 소개 영상이 없습니다.
+        </div>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="mt-4">
+      <h2 class="h4 mb-3">영상 소개</h2>
+      <p class="text-muted">
+        이 영상은 별앤클래식 피아노 아카데미의 교육 방향, 입시 준비 철학,
+        학생 맞춤형 프로그램 운영 방식을 소개하는 메인 영상입니다.
+      </p>
+    </div>
+  </div>
+</section>
+{% endblock %}

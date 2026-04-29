@@ -1,3 +1,5 @@
+from django.http import FileResponse
+from pathlib import Path
 from django.contrib import admin
 from django.contrib.sitemaps.views import sitemap
 from django.urls import path, include
@@ -6,7 +8,15 @@ from django.conf.urls.static import static
 
 from .sitemaps import sitemaps
 
+BASE_DIR = Path(__file__).resolve().parents[1]
+
+
+def robots_txt(request):
+    return FileResponse(open(BASE_DIR / "robots.txt", "rb"), content_type="text/plain")
+
+
 urlpatterns = [
+    path("robots.txt", robots_txt),
     path("admin/", admin.site.urls),
     path("", include("pages.urls")),
     path("news/", include("news.urls")),
@@ -15,6 +25,5 @@ urlpatterns = [
     path("sitemap.xml", sitemap, {"sitemaps": sitemaps}, name="sitemap"),
 ]
 
-# 개발 편의: runserver에서 media 서빙
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

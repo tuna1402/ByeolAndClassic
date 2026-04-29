@@ -1,3 +1,4 @@
+from siteconfig.models import HomeHeroVideo
 from django.shortcuts import render
 from django.utils import timezone
 
@@ -153,5 +154,16 @@ def curriculum(request):
             "default_track_key": "high",
             "lesson_policies": lesson_policies,
             "cta_url_name": "enroll_form",
+        },
+    )
+
+
+def academy_video(request):
+    hero_video = HomeHeroVideo.objects.filter(is_active=True).first()
+    return render(
+        request,
+        "pages/video_intro.html",
+        {
+            "hero_video": hero_video,
         },
     )
