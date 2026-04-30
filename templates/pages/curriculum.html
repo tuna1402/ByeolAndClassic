@@ -87,8 +87,15 @@
                 </div>
                 <div class="curriculum-track-grid">
                   <article class="curriculum-card">
-                    <div class="curriculum-card-icon" aria-hidden="true">
-                      <i class="fa-solid fa-bullseye"></i>
+                    <div class="curriculum-card-icon bc-icon-badge">
+                      <img
+                        class="bc-icon-img"
+                        src="{% static 'images/icons/checklist_icon_with_gold_accents.png' %}"
+                        alt="피아노 입시 로드맵 체크리스트 아이콘"
+                        width="72"
+                        height="72"
+                        loading="lazy"
+                      >
                     </div>
                     <div>
                       <h3 class="curriculum-card-title">문제 진단</h3>
@@ -100,8 +107,15 @@
                     </div>
                   </article>
                   <article class="curriculum-card">
-                    <div class="curriculum-card-icon" aria-hidden="true">
-                      <i class="fa-solid fa-music"></i>
+                    <div class="curriculum-card-icon bc-icon-badge">
+                      <img
+                        class="bc-icon-img"
+                        src="{% static 'images/icons/minimalist_music_note_emblem.png' %}"
+                        alt="음악 해석 중심 지도 아이콘"
+                        width="72"
+                        height="72"
+                        loading="lazy"
+                      >
                     </div>
                     <div>
                       <h3 class="curriculum-card-title">실기 지도</h3>
@@ -113,8 +127,15 @@
                     </div>
                   </article>
                   <article class="curriculum-card">
-                    <div class="curriculum-card-icon" aria-hidden="true">
-                      <i class="fa-solid fa-headphones"></i>
+                    <div class="curriculum-card-icon bc-icon-badge">
+                      <img
+                        class="bc-icon-img"
+                        src="{% static 'images/icons/navy_and_gold_star_emblem.png' %}"
+                        alt="피아노 입시 목표 달성 아이콘"
+                        width="72"
+                        height="72"
+                        loading="lazy"
+                      >
                     </div>
                     <div>
                       <h3 class="curriculum-card-title">기본기 강화</h3>
@@ -126,8 +147,15 @@
                     </div>
                   </article>
                   <article class="curriculum-card curriculum-card-period">
-                    <div class="curriculum-card-icon" aria-hidden="true">
-                      <i class="fa-regular fa-calendar-check"></i>
+                    <div class="curriculum-card-icon bc-icon-badge">
+                      <img
+                        class="bc-icon-img"
+                        src="{% static 'images/icons/navy_and_gold_piano_schedule_icon.png' %}"
+                        alt="피아노 입시 상담 일정 아이콘"
+                        width="72"
+                        height="72"
+                        loading="lazy"
+                      >
                     </div>
                     <div>
                       <h3 class="curriculum-card-title">추천 레슨</h3>
@@ -173,7 +201,19 @@
         {% for step in roadmap_steps %}
           <article class="roadmap-card">
             <span class="roadmap-number">{{ step.number }}</span>
-            <span class="roadmap-icon" aria-hidden="true"><i class="{{ step.icon }}"></i></span>
+            <span class="roadmap-icon bc-icon-badge bc-icon-badge--sm">
+              {% if forloop.counter == 1 %}
+                <img class="bc-icon-img" src="{% static 'images/icons/checklist_icon_with_gold_accents.png' %}" alt="피아노 입시 로드맵 체크리스트 아이콘" width="52" height="52" loading="lazy">
+              {% elif forloop.counter == 2 %}
+                <img class="bc-icon-img" src="{% static 'images/icons/navy_and_gold_star_emblem.png' %}" alt="피아노 입시 목표 달성 아이콘" width="52" height="52" loading="lazy">
+              {% elif forloop.counter == 3 %}
+                <img class="bc-icon-img" src="{% static 'images/icons/minimalist_music_note_emblem.png' %}" alt="음악 해석 중심 지도 아이콘" width="52" height="52" loading="lazy">
+              {% elif forloop.counter == 4 %}
+                <img class="bc-icon-img" src="{% static 'images/icons/navy_and_gold_piano_schedule_icon.png' %}" alt="피아노 입시 상담 일정 아이콘" width="52" height="52" loading="lazy">
+              {% else %}
+                <img class="bc-icon-img" src="{% static 'images/icons/trophy_award_badge_emblem.png' %}" alt="콩쿠르 수상 지도 아이콘" width="52" height="52" loading="lazy">
+              {% endif %}
+            </span>
             <h3 class="roadmap-title">{{ step.title }}</h3>
             <p class="roadmap-desc mb-0">{{ step.description }}</p>
           </article>
@@ -199,8 +239,16 @@
         <div class="curriculum-lesson-grid">
           {% for policy in lesson_policies %}
             <article class="policy-card">
-              <div class="policy-icon-wrap">
-                <i class="{{ policy.icon }}" aria-hidden="true"></i>
+              <div class="policy-icon-wrap bc-icon-badge">
+                {% if forloop.counter == 1 %}
+                  <img class="bc-icon-img" src="{% static 'images/icons/chat_bubble_emblem_icon_design.png' %}" alt="피아노 입시 상담 문의 아이콘" width="72" height="72" loading="lazy">
+                {% elif forloop.counter == 2 %}
+                  <img class="bc-icon-img" src="{% static 'images/icons/navy_clock_emblem_with_gold_rim.png' %}" alt="피아노 레슨 시간 아이콘" width="72" height="72" loading="lazy">
+                {% elif forloop.counter == 3 %}
+                  <img class="bc-icon-img" src="{% static 'images/icons/checklist_icon_with_gold_accents.png' %}" alt="피아노 입시 로드맵 체크리스트 아이콘" width="72" height="72" loading="lazy">
+                {% else %}
+                  <img class="bc-icon-img" src="{% static 'images/icons/navy_and_gold_star_emblem.png' %}" alt="피아노 입시 목표 달성 아이콘" width="72" height="72" loading="lazy">
+                {% endif %}
               </div>
               <h3 class="policy-title">
                 {% if forloop.counter == 1 %}레슨 형태{% elif forloop.counter == 2 %}레슨 시간{% elif forloop.counter == 3 %}수업 방식{% else %}교육 목표{% endif %}
@@ -226,6 +274,16 @@
         {% for option in pricing_options %}
           <div class="col-md-4">
             <article class="pricing-card h-100{% if option.title == '입시 레슨' %} pricing-card-featured{% endif %}">
+              <div class="bc-icon-badge">
+                <img
+                  class="bc-icon-img"
+                  src="{% static 'images/icons/premium_price_tag_badge_icon.png' %}"
+                  alt="피아노 레슨 비용 안내 아이콘"
+                  width="72"
+                  height="72"
+                  loading="lazy"
+                >
+              </div>
               {% if option.title == '입시 레슨' %}
                 <span class="pricing-sale-badge">20,000원 할인</span>
               {% endif %}
@@ -236,7 +294,14 @@
               </p>
               <div class="pricing-meta">
                 <p class="pricing-meta-item">
-                  <i class="fa-regular fa-clock" aria-hidden="true"></i>
+                  <img
+                    class="bc-inline-icon"
+                    src="{% static 'images/icons/navy_clock_emblem_with_gold_rim.png' %}"
+                    alt="피아노 레슨 시간 아이콘"
+                    width="24"
+                    height="24"
+                    loading="lazy"
+                  >
                   <span>{{ option.duration }}</span>
                 </p>
                 {% if option.title == '입시 레슨' %}
@@ -244,13 +309,27 @@
                     <span class="pricing-helper">현재 적용가</span>
                     <span class="pricing-original">140,000원</span>
                     <p class="pricing-meta-item pricing-price pricing-current mb-0">
-                      <i class="fa-solid fa-tag" aria-hidden="true"></i>
+                      <img
+                        class="bc-inline-icon"
+                        src="{% static 'images/icons/premium_price_tag_badge_icon.png' %}"
+                        alt="피아노 레슨 비용 안내 아이콘"
+                        width="24"
+                        height="24"
+                        loading="lazy"
+                      >
                       <span>{{ option.price }}</span>
                     </p>
                   </div>
                 {% else %}
                   <p class="pricing-meta-item pricing-price mb-0">
-                    <i class="fa-solid fa-tag" aria-hidden="true"></i>
+                    <img
+                      class="bc-inline-icon"
+                      src="{% static 'images/icons/premium_price_tag_badge_icon.png' %}"
+                      alt="피아노 레슨 비용 안내 아이콘"
+                      width="24"
+                      height="24"
+                      loading="lazy"
+                    >
                     <span>{{ option.price }}</span>
                   </p>
                 {% endif %}

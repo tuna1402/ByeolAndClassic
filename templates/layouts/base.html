@@ -92,7 +92,7 @@
               커리큘럼
             </a>
           </li>
-          <li class="nav-item"><a class="nav-link" href="{% url 'enroll_form' %}">상담신청</a></li>
+          <li class="nav-item nav-item-consult"><a class="nav-link nav-consult-link" href="{% url 'enroll_form' %}">상담신청</a></li>
         </ul>
       </div>
     </div>
@@ -105,25 +105,46 @@
   <footer class="site-footer">
     <div class="footer-main">
       <div class="container">
-        <div class="row gy-4 align-items-stretch">
-          <div class="col-lg-6 footer-panel footer-panel-left">
-            <div>
-              <div class="footer-brand">BYEOL&amp;CLASSIC</div>
-              <p class="footer-text mt-3">
-                별앤클래식 피아노 아카데미는 입시부터 전문 연주까지 학생 맞춤형 프로그램을 제공합니다.
-              </p>
-            </div>
-          </div>
-          <div class="col-lg-6 footer-panel">
-            <div class="footer-title">CONTACT</div>
+        <div class="footer-grid">
+          <div class="footer-brand-panel">
+            <div class="footer-brand">별앤클래식 아카데미</div>
+            <div class="footer-brand-en">BYEOL &amp; CLASSIC ACADEMY</div>
             <p class="footer-text">
-              <i class="fa-regular fa-clock" aria-hidden="true"></i>
-              평일 10:00 - 19:00<br>
-              <i class="fa-solid fa-phone" aria-hidden="true"></i>
-              010-8217-5450<br>
-              <i class="fa-regular fa-envelope" aria-hidden="true"></i>
-              byeolclassic@naver.com
+              광주 예중·예고 피아노 입시를 위한 1:1 실기 지도 아카데미
             </p>
+          </div>
+
+          <nav class="footer-column" aria-label="바로가기">
+            <div class="footer-title">바로가기</div>
+            <a href="{% url 'greeting' %}">소개</a>
+            <a href="{% url 'curriculum' %}">커리큘럼</a>
+            <a href="{% url 'news_category' category_code='admission' %}">입시정보</a>
+            <a href="{% url 'news_category' category_code='notice' %}">공지사항</a>
+            <a href="{% url 'enroll_form' %}">상담신청</a>
+          </nav>
+
+          <nav class="footer-column" aria-label="입시 안내">
+            <div class="footer-title">입시 안내</div>
+            <a href="{% url 'curriculum' %}">입시 시스템</a>
+            <a href="{% url 'news_category' category_code='admission' %}">전형 안내</a>
+            <a href="{% url 'awards' %}">합격 및 수상</a>
+            <a href="{% url 'curriculum' %}">자주 묻는 질문</a>
+          </nav>
+
+          <address class="footer-column footer-contact">
+            <div class="footer-title">문의</div>
+            <span><i class="fa-regular fa-clock" aria-hidden="true"></i> 평일 10:00 - 19:00</span>
+            <a href="tel:010-8217-5450"><i class="fa-solid fa-phone" aria-hidden="true"></i> 010-8217-5450</a>
+            <a href="mailto:byeolclassic@naver.com"><i class="fa-regular fa-envelope" aria-hidden="true"></i> byeolclassic@naver.com</a>
+            <a href="{% url 'enroll_form' %}"><i class="fa-regular fa-comment-dots" aria-hidden="true"></i> 상담문의</a>
+          </address>
+        </div>
+
+        <div class="footer-bottom">
+          <p>&copy; 2025 BYEOL &amp; CLASSIC ACADEMY. All rights reserved.</p>
+          <div class="footer-legal" aria-label="정책 안내">
+            <span>개인정보처리방침</span>
+            <span>이용약관</span>
           </div>
         </div>
       </div>
