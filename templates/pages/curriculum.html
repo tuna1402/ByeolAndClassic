@@ -1,4 +1,5 @@
 {% extends "layouts/base.html" %}
+{% load static %}
 
 {% block body_class %}curriculum-page{% endblock %}
 
@@ -7,19 +8,27 @@
 {% block content %}
   <section class="curriculum-hero">
     <div class="container">
-      <div class="curriculum-hero-inner text-center">
-        {% if page %}
-          <span class="visually-hidden">{{ page.title }}</span>
-        {% endif %}
-        <p class="curriculum-kicker mb-2">BYEOL&CLASSIC PIANO ACADEMY</p>
-        <h1 class="curriculum-title mb-3">입시 단계별 피아노 커리큘럼</h1>
-        <p class="curriculum-subtitle mb-4">
-          학생의 현재 수준과 목표 학교에 맞춰<br class="d-none d-md-block">
-          실기, 이론, 무대 경험까지 체계적으로 설계합니다.
-        </p>
-        <a class="btn curriculum-hero-btn" href="{% url cta_url_name %}">
-          커리큘럼 상담 문의
-        </a>
+      <div class="curriculum-hero-inner">
+        <div class="curriculum-hero-copy">
+          {% if page %}
+            <span class="visually-hidden">{{ page.title }}</span>
+          {% endif %}
+          <p class="curriculum-kicker mb-2">예중·예고 입시를 위한 1:1 맞춤 지도</p>
+          <h1 class="curriculum-title mb-3">입시 단계별 피아노 커리큘럼</h1>
+          <p class="curriculum-subtitle mb-4">
+            목표 학교와 현재 실력에 맞춰 기초부터 실전 대비까지 체계적으로 지도합니다.
+            광주 피아노 입시, 예중 피아노 입시, 예고 피아노 입시를 위한 피아노 실기 지도 과정을 설계합니다.
+          </p>
+          <a class="btn curriculum-hero-btn" href="{% url cta_url_name %}">
+            커리큘럼 상담 신청
+          </a>
+        </div>
+        <div class="curriculum-hero-visual curriculum-image-card">
+          <img
+            src="{% static 'images/curriculum/curriculum-hero-piano.png' %}"
+            alt="별앤클래식 피아노 입시 커리큘럼 이미지"
+          >
+        </div>
       </div>
     </div>
   </section>
@@ -59,59 +68,71 @@
               aria-labelledby="track-{{ track.key }}-tab"
               tabindex="0"
             >
-              <div class="curriculum-track-grid">
-                <article class="curriculum-card">
-                  <div class="curriculum-card-icon" aria-hidden="true">
-                    <i class="fa-solid fa-bullseye"></i>
+              <div class="curriculum-tab-layout">
+                <div class="curriculum-tab-visual curriculum-image-card">
+                  <img
+                    src="{% static 'images/curriculum/score-analysis.png' %}"
+                    alt="{{ track.label }} 피아노 입시곡 악보 분석 이미지"
+                  >
+                  <div class="curriculum-image-caption">
+                    <span>{{ track.label }}</span>
+                    <strong>목표 학교와 입시곡에 맞춘 세부 레슨 플랜</strong>
                   </div>
-                  <div>
-                    <h3 class="curriculum-card-title">준비 목표</h3>
-                    <ul class="curriculum-list mb-0">
-                      {% for item in track.goal %}
-                        <li>{{ item }}</li>
-                      {% endfor %}
-                    </ul>
-                  </div>
-                </article>
-                <article class="curriculum-card">
-                  <div class="curriculum-card-icon" aria-hidden="true">
-                    <i class="fa-solid fa-music"></i>
-                  </div>
-                  <div>
-                    <h3 class="curriculum-card-title">실기 지도</h3>
-                    <ul class="curriculum-list mb-0">
-                      {% for item in track.practice %}
-                        <li>{{ item }}</li>
-                      {% endfor %}
-                    </ul>
-                  </div>
-                </article>
-                <article class="curriculum-card">
-                  <div class="curriculum-card-icon" aria-hidden="true">
-                    <i class="fa-solid fa-headphones"></i>
-                  </div>
-                  <div>
-                    <h3 class="curriculum-card-title">이론·청음</h3>
-                    <ul class="curriculum-list mb-0">
-                      {% for item in track.theory %}
-                        <li>{{ item }}</li>
-                      {% endfor %}
-                    </ul>
-                  </div>
-                </article>
-                <article class="curriculum-card curriculum-card-period">
-                  <div class="curriculum-card-icon" aria-hidden="true">
-                    <i class="fa-regular fa-calendar-check"></i>
-                  </div>
-                  <div>
-                    <h3 class="curriculum-card-title">추천 준비 기간</h3>
-                    <ul class="curriculum-list mb-0">
-                      {% for item in track.period %}
-                        <li>{{ item }}</li>
-                      {% endfor %}
-                    </ul>
-                  </div>
-                </article>
+                </div>
+                <div class="curriculum-track-grid">
+                  <article class="curriculum-card">
+                    <div class="curriculum-card-icon" aria-hidden="true">
+                      <i class="fa-solid fa-bullseye"></i>
+                    </div>
+                    <div>
+                      <h3 class="curriculum-card-title">문제 진단</h3>
+                      <ul class="curriculum-list mb-0">
+                        {% for item in track.goal %}
+                          <li>{{ item }}</li>
+                        {% endfor %}
+                      </ul>
+                    </div>
+                  </article>
+                  <article class="curriculum-card">
+                    <div class="curriculum-card-icon" aria-hidden="true">
+                      <i class="fa-solid fa-music"></i>
+                    </div>
+                    <div>
+                      <h3 class="curriculum-card-title">실기 지도</h3>
+                      <ul class="curriculum-list mb-0">
+                        {% for item in track.practice %}
+                          <li>{{ item }}</li>
+                        {% endfor %}
+                      </ul>
+                    </div>
+                  </article>
+                  <article class="curriculum-card">
+                    <div class="curriculum-card-icon" aria-hidden="true">
+                      <i class="fa-solid fa-headphones"></i>
+                    </div>
+                    <div>
+                      <h3 class="curriculum-card-title">기본기 강화</h3>
+                      <ul class="curriculum-list mb-0">
+                        {% for item in track.theory %}
+                          <li>{{ item }}</li>
+                        {% endfor %}
+                      </ul>
+                    </div>
+                  </article>
+                  <article class="curriculum-card curriculum-card-period">
+                    <div class="curriculum-card-icon" aria-hidden="true">
+                      <i class="fa-regular fa-calendar-check"></i>
+                    </div>
+                    <div>
+                      <h3 class="curriculum-card-title">추천 레슨</h3>
+                      <ul class="curriculum-list mb-0">
+                        {% for item in track.period %}
+                          <li>{{ item }}</li>
+                        {% endfor %}
+                      </ul>
+                    </div>
+                  </article>
+                </div>
               </div>
             </div>
           {% endfor %}
@@ -132,6 +153,16 @@
         <h2 class="curriculum-section-title mb-2">입시 준비 단계</h2>
         <p class="curriculum-section-subtitle mb-0">진단부터 모의 실기까지, 학생별 입시 로드맵을 단계적으로 관리합니다.</p>
       </div>
+      <div class="curriculum-step-banner curriculum-image-card">
+        <img
+          src="{% static 'images/curriculum/admission-plan.png' %}"
+          alt="예중 예고 피아노 입시 준비 단계 이미지"
+        >
+        <div class="curriculum-image-caption">
+          <span>Admission Plan</span>
+          <strong>진단, 목표 설정, 입시곡 선정, 모의 실기를 한 흐름으로 관리합니다.</strong>
+        </div>
+      </div>
       <div class="roadmap-steps" aria-label="입시 준비 5단계">
         {% for step in roadmap_steps %}
           <article class="roadmap-card">
@@ -151,18 +182,27 @@
         <h2 class="curriculum-section-title mb-2">수업 안내</h2>
         <p class="curriculum-section-subtitle mb-0">입시 일정과 실기 완성도를 기준으로 유연하지만 밀도 있게 운영합니다.</p>
       </div>
-      <div class="row g-3 g-lg-4">
-        {% for policy in lesson_policies %}
-          <div class="col-md-6 col-xl-3">
-            <article class="policy-card h-100">
+      <div class="curriculum-lesson-panel">
+        <div class="curriculum-lesson-visual curriculum-image-card">
+          <img
+            src="{% static 'images/curriculum/lesson-room.png' %}"
+            alt="1대1 피아노 실기 지도 레슨룸 이미지"
+          >
+          <div class="curriculum-lesson-overlay">좋은 음악은 올바른 지도에서 시작됩니다.</div>
+        </div>
+        <div class="curriculum-lesson-grid">
+          {% for policy in lesson_policies %}
+            <article class="policy-card">
               <div class="policy-icon-wrap">
                 <i class="{{ policy.icon }}" aria-hidden="true"></i>
               </div>
-              <h3 class="policy-title">{{ policy.title }}</h3>
-              <p class="policy-desc mb-0">{{ policy.description }}</p>
+              <h3 class="policy-title">
+                {% if forloop.counter == 1 %}레슨 형태{% elif forloop.counter == 2 %}레슨 시간{% elif forloop.counter == 3 %}수업 방식{% else %}교육 목표{% endif %}
+              </h3>
+              <p class="policy-desc mb-0">{{ policy.title }}<br>{{ policy.description }}</p>
             </article>
-          </div>
-        {% endfor %}
+          {% endfor %}
+        </div>
       </div>
     </div>
   </section>
@@ -228,18 +268,18 @@
   <section class="curriculum-cta-section">
     <div class="container">
       <div class="curriculum-cta-box">
-        <div class="curriculum-cta-emblem" aria-hidden="true">
-          <i class="fa-solid fa-music"></i>
+        <div class="curriculum-cta-image" aria-hidden="true">
+          <img src="{% static 'images/curriculum/cta-piano-note.png' %}" alt="">
         </div>
         <div class="curriculum-cta-content">
-          <h2 class="curriculum-cta-title mb-3">우리 아이에게 맞는 입시 준비 방향이 궁금하다면</h2>
+          <h2 class="curriculum-cta-title mb-3">우리 아이에게 맞는 입시 로드맵이 궁금하신가요?</h2>
           <p class="curriculum-cta-copy mb-0">
-            현재 수준, 목표 학교, 준비 기간을 종합적으로 분석하여 가장 효과적인 입시 전략을 제안해 드립니다.
+            개인별 맞춤 상담을 통해 현재 실력과 목표 학교에 맞는 준비 방향을 안내합니다.
           </p>
         </div>
         <div class="curriculum-cta-action">
           <a class="btn curriculum-cta-btn" href="{% url cta_url_name %}">
-            상담 예약하기
+            상담 신청하기
             <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
           </a>
         </div>
