@@ -8,26 +8,32 @@
 {% block content %}
   <section class="curriculum-hero">
     <div class="container">
-      <div class="curriculum-hero-inner">
+      <div
+        class="curriculum-hero-inner curriculum-hero-inner--bg"
+        style="--curriculum-hero-bg: url({% static 'images/curriculum/curriculum-hero-piano.png' %});"
+      >
         <div class="curriculum-hero-copy">
           {% if page %}
             <span class="visually-hidden">{{ page.title }}</span>
           {% endif %}
-          <p class="curriculum-kicker mb-2">예중·예고 입시를 위한 1:1 맞춤 지도</p>
-          <h1 class="curriculum-title mb-3">입시 단계별 피아노 커리큘럼</h1>
+
+          <p class="curriculum-kicker mb-2">
+            예중·예고 입시를 위한 1:1 맞춤 지도
+          </p>
+
+          <h1 class="curriculum-title mb-3">
+            입시 단계별<br>
+            피아노 커리큘럼
+          </h1>
+
           <p class="curriculum-subtitle mb-4">
             목표 학교와 현재 실력에 맞춰 기초부터 실전 대비까지 체계적으로 지도합니다.
             광주 피아노 입시, 예중 피아노 입시, 예고 피아노 입시를 위한 피아노 실기 지도 과정을 설계합니다.
           </p>
+
           <a class="btn curriculum-hero-btn" href="{% url cta_url_name %}">
             커리큘럼 상담 신청
           </a>
-        </div>
-        <div class="curriculum-hero-visual curriculum-image-card">
-          <img
-            src="{% static 'images/curriculum/curriculum-hero-piano.png' %}"
-            alt="별앤클래식 피아노 입시 커리큘럼 이미지"
-          >
         </div>
       </div>
     </div>
@@ -219,7 +225,10 @@
       <div class="row g-3 g-lg-4">
         {% for option in pricing_options %}
           <div class="col-md-4">
-            <article class="pricing-card h-100">
+            <article class="pricing-card h-100{% if option.title == '입시 레슨' %} pricing-card-featured{% endif %}">
+              {% if option.title == '입시 레슨' %}
+                <span class="pricing-sale-badge">20,000원 할인</span>
+              {% endif %}
               <h3 class="pricing-title">{{ option.title }}</h3>
               <p class="pricing-label">
                 <span>추천 대상</span>
@@ -230,10 +239,21 @@
                   <i class="fa-regular fa-clock" aria-hidden="true"></i>
                   <span>{{ option.duration }}</span>
                 </p>
-                <p class="pricing-meta-item pricing-price mb-0">
-                  <i class="fa-solid fa-tag" aria-hidden="true"></i>
-                  <span>{{ option.price }}</span>
-                </p>
+                {% if option.title == '입시 레슨' %}
+                  <div class="pricing-discount">
+                    <span class="pricing-helper">현재 적용가</span>
+                    <span class="pricing-original">140,000원</span>
+                    <p class="pricing-meta-item pricing-price pricing-current mb-0">
+                      <i class="fa-solid fa-tag" aria-hidden="true"></i>
+                      <span>{{ option.price }}</span>
+                    </p>
+                  </div>
+                {% else %}
+                  <p class="pricing-meta-item pricing-price mb-0">
+                    <i class="fa-solid fa-tag" aria-hidden="true"></i>
+                    <span>{{ option.price }}</span>
+                  </p>
+                {% endif %}
               </div>
             </article>
           </div>
