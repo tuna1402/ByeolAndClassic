@@ -33,109 +33,161 @@
     </div>
   </section>
 
-  <section
-    class="philosophy-section home-section home-philosophy"
-    style="--home-philosophy-bg: url('{% static 'images/home/home-philosophy-piano.png' %}');"
-  >
+  <section class="home-philosophy" aria-labelledby="home-philosophy-title">
     <div class="container">
-      <div class="home-philosophy-grid">
-        <div class="home-philosophy-copy">
-          <p class="home-section-kicker">PHILOSOPHY</p>
-          <h2 class="home-section-title">입시만 위한 연주가 아닌,<br>음악을 이해하는 연주</h2>
-          <p class="home-section-desc">
-            별앤클래식은 악보를 정확히 연주하는 것을 넘어 작곡가, 시대,
-            구조, 표현을 이해하는 연주자를 길러냅니다.
-          </p>
-          <div class="home-philosophy-points">
-            <article>
-              <strong>이해하는 연주</strong>
-              <span>작곡가의 의도와 시대적 배경을 탐구합니다.</span>
-            </article>
-            <article>
-              <strong>체계적인 성장</strong>
-              <span>단계별 커리큘럼으로 탄탄한 실력을 만듭니다.</span>
-            </article>
-            <article>
-              <strong>깊이 있는 표현</strong>
-              <span>구조와 맥락을 바탕으로 자신만의 음악을 만듭니다.</span>
-            </article>
+      <div class="home-philosophy-panel">
+        <div class="home-philosophy-grid">
+          <div class="home-philosophy-copy">
+            <p class="home-section-label">PHILOSOPHY</p>
+
+            <div class="home-deco-line" aria-hidden="true">
+              <span></span>
+            </div>
+
+            <div class="home-quote-mark" aria-hidden="true">“</div>
+
+            <h2 id="home-philosophy-title" class="home-philosophy-title">
+              입시만 위한 연주가 아닌,<br>
+              음악을 이해하는 연주
+            </h2>
+
+            <div class="home-title-divider" aria-hidden="true">
+              <span></span>
+            </div>
+
+            <p class="home-philosophy-desc">
+              별앤클래식은 악보를 맞게 연주하는 것을 넘어<br>
+              작곡가, 시대, 구조, 표현을 이해하는 연주자를 길러냅니다.
+            </p>
+
+            <div class="home-philosophy-points">
+              <div class="home-philosophy-point">
+                <div class="home-point-icon" aria-hidden="true">♪</div>
+                <h3>이해하는 연주</h3>
+                <p>작곡가의 의도와 시대적<br>배경을 탐구합니다.</p>
+              </div>
+
+              <div class="home-philosophy-point">
+                <div class="home-point-icon" aria-hidden="true">♛</div>
+                <h3>체계적인 성장</h3>
+                <p>단계별 커리큘럼으로<br>탄탄한 실력을 만듭니다.</p>
+              </div>
+
+              <div class="home-philosophy-point">
+                <div class="home-point-icon" aria-hidden="true">▦</div>
+                <h3>깊이 있는 표현</h3>
+                <p>구조와 맥락을 바탕으로<br>자신만의 음악을 만듭니다.</p>
+              </div>
+            </div>
           </div>
-        </div>
-        <div class="home-philosophy-visual" aria-label="음악을 이해하는 피아노 실기 지도 이미지">
-          <div class="home-image-card" role="img" aria-label="그랜드 피아노와 악보가 놓인 레슨 공간"></div>
+
+          <div class="home-philosophy-visual">
+            <img
+              src="{% static 'images/home/home-philosophy-piano.png' %}"
+              alt="별앤클래식 음악을 이해하는 피아노 연주 이미지"
+              loading="lazy"
+            >
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="home-strength home-section">
+  <section class="home-why" aria-labelledby="home-why-title">
     <div class="container">
-      <div class="home-section-heading">
-        <p class="home-section-kicker">WHY CHOOSE US</p>
-        <h2 class="home-section-title">왜 별앤클래식인가</h2>
-        <p class="home-section-desc">
-          광주 피아노 입시를 준비하는 학생에게 필요한 해석, 실기, 무대 경험,
-          입시 로드맵을 한 흐름으로 설계합니다.
-        </p>
-      </div>
+      <div class="home-why-panel">
+        <div class="home-why-heading">
+          <div class="home-why-top-icon" aria-hidden="true">𝄞</div>
 
-      <div class="home-feature-grid strength-grid">
-        <article class="home-feature-card">
-          <div class="home-feature-icon bc-icon-badge">
-            <img
-              class="bc-icon-img"
-              src="{% static 'images/icons/minimalist_music_note_emblem.png' %}"
-              alt="음악 해석 중심 지도 아이콘"
-              width="72"
-              height="72"
-              loading="lazy"
-            >
+          <p class="home-section-label">WHY CHOOSE US</p>
+
+          <h2 id="home-why-title" class="home-why-title">
+            왜 별앤클래식인가
+          </h2>
+
+          <div class="home-title-divider" aria-hidden="true">
+            <span></span>
           </div>
-          <h3>음악 해석 중심 지도</h3>
-          <p>작곡가, 시대, 악곡 구조까지 이해하며 표현력을 기릅니다.</p>
-        </article>
-        <article class="home-feature-card">
-          <div class="home-feature-icon bc-icon-badge">
-            <img
-              class="bc-icon-img"
-              src="{% static 'images/icons/checklist_icon_with_gold_accents.png' %}"
-              alt="피아노 입시 로드맵 체크리스트 아이콘"
-              width="72"
-              height="72"
-              loading="lazy"
-            >
-          </div>
-          <h3>1:1 맞춤 레슨</h3>
-          <p>학생의 현재 실력과 목표 학교에 맞춘 개인별 실기 지도.</p>
-        </article>
-        <article class="home-feature-card">
-          <div class="home-feature-icon bc-icon-badge">
-            <img
-              class="bc-icon-img"
-              src="{% static 'images/icons/trophy_award_badge_emblem.png' %}"
-              alt="콩쿠르 수상 지도 아이콘"
-              width="72"
-              height="72"
-              loading="lazy"
-            >
-          </div>
-          <h3>입시 실전 대비</h3>
-          <p>곡 완성도와 무대 집중력을 높이는 실전형 준비.</p>
-        </article>
-        <article class="home-feature-card">
-          <div class="home-feature-icon bc-icon-badge">
-            <img
-              class="bc-icon-img"
-              src="{% static 'images/icons/navy_and_gold_piano_schedule_icon.png' %}"
-              alt="피아노 입시 상담 일정 아이콘"
-              width="72"
-              height="72"
-              loading="lazy"
-            >
-          </div>
-          <h3>체계적인 로드맵</h3>
-          <p>예중·예고·음대 입시까지 단계별 커리큘럼 설계.</p>
-        </article>
+
+          <p class="home-why-desc">
+            광주 피아노 입시를 준비하는 학생에게 필요한 해석, 1:1 피아노 실기 지도,
+            무대 경험, 예중·예고 입시 로드맵을 한 흐름으로 설계합니다.
+          </p>
+        </div>
+
+        <div class="home-why-grid">
+          <article class="home-why-card">
+            <span class="home-why-number" aria-hidden="true">01</span>
+            <div class="home-why-icon">
+              <img
+                src="{% static 'images/icons/minimalist_music_note_emblem.png' %}"
+                alt="음악 해석 중심 지도 아이콘"
+                width="86"
+                height="86"
+                loading="lazy"
+              >
+            </div>
+            <div class="home-why-card-copy">
+              <h3>음악 해석 중심 지도</h3>
+              <div class="home-card-divider" aria-hidden="true"><span></span></div>
+              <p>작곡가, 시대, 악곡 구조까지 이해하며 표현력을 기릅니다.</p>
+            </div>
+          </article>
+
+          <article class="home-why-card">
+            <span class="home-why-number" aria-hidden="true">02</span>
+            <div class="home-why-icon">
+              <img
+                src="{% static 'images/icons/checklist_icon_with_gold_accents.png' %}"
+                alt="1대1 맞춤 레슨 아이콘"
+                width="86"
+                height="86"
+                loading="lazy"
+              >
+            </div>
+            <div class="home-why-card-copy">
+              <h3>1:1 맞춤 레슨</h3>
+              <div class="home-card-divider" aria-hidden="true"><span></span></div>
+              <p>학생의 현재 실력과 목표 학교에 맞춘 개인별 실기 지도.</p>
+            </div>
+          </article>
+
+          <article class="home-why-card">
+            <span class="home-why-number" aria-hidden="true">03</span>
+            <div class="home-why-icon">
+              <img
+                src="{% static 'images/icons/trophy_award_badge_emblem.png' %}"
+                alt="입시 실전 대비 아이콘"
+                width="86"
+                height="86"
+                loading="lazy"
+              >
+            </div>
+            <div class="home-why-card-copy">
+              <h3>입시 실전 대비</h3>
+              <div class="home-card-divider" aria-hidden="true"><span></span></div>
+              <p>곡 완성도와 무대 집중력을 높이는 실전형 준비.</p>
+            </div>
+          </article>
+
+          <article class="home-why-card">
+            <span class="home-why-number" aria-hidden="true">04</span>
+            <div class="home-why-icon">
+              <img
+                src="{% static 'images/icons/navy_and_gold_piano_schedule_icon.png' %}"
+                alt="체계적인 로드맵 아이콘"
+                width="86"
+                height="86"
+                loading="lazy"
+              >
+            </div>
+            <div class="home-why-card-copy">
+              <h3>체계적인 로드맵</h3>
+              <div class="home-card-divider" aria-hidden="true"><span></span></div>
+              <p>예중·예고·음대 입시까지 단계별 커리큘럼 설계.</p>
+            </div>
+          </article>
+        </div>
       </div>
     </div>
   </section>
@@ -157,80 +209,112 @@
       <div class="home-curriculum-layout">
         <div class="home-curriculum-cards">
           <article class="home-curriculum-card">
-            <div class="bc-icon-badge bc-icon-badge--sm">
+            <span class="home-curriculum-number" aria-hidden="true">01</span>
+
+            <div class="home-curriculum-icon">
               <img
-                class="bc-icon-img"
                 src="{% static 'images/icons/navy_and_gold_star_emblem.png' %}"
-                alt="피아노 입시 목표 달성 아이콘"
-                width="52"
-                height="52"
+                alt="예중 입시 커리큘럼 아이콘"
+                width="76"
+                height="76"
                 loading="lazy"
               >
             </div>
-            <span class="home-curriculum-label">01</span>
-            <h3>예중 입시</h3>
-            <ul>
-              <li>기초 테크닉</li>
-              <li>시창청음</li>
-              <li>입시곡 기초</li>
-            </ul>
+
+            <div class="home-curriculum-card-body">
+              <h3>예중 입시</h3>
+
+              <div class="home-curriculum-divider" aria-hidden="true">
+                <span></span>
+              </div>
+
+              <ul>
+                <li>기초 테크닉</li>
+                <li>시창청음</li>
+                <li>입시곡 기초</li>
+              </ul>
+            </div>
           </article>
           <article class="home-curriculum-card">
-            <div class="bc-icon-badge bc-icon-badge--sm">
+            <span class="home-curriculum-number" aria-hidden="true">02</span>
+
+            <div class="home-curriculum-icon">
               <img
-                class="bc-icon-img"
                 src="{% static 'images/icons/checklist_icon_with_gold_accents.png' %}"
-                alt="피아노 입시 로드맵 체크리스트 아이콘"
-                width="52"
-                height="52"
+                alt="예고 입시 커리큘럼 아이콘"
+                width="76"
+                height="76"
                 loading="lazy"
               >
             </div>
-            <span class="home-curriculum-label">02</span>
-            <h3>예고 입시</h3>
-            <ul>
-              <li>심화 테크닉</li>
-              <li>에튀드</li>
-              <li>실전 곡 완성</li>
-            </ul>
+
+            <div class="home-curriculum-card-body">
+              <h3>예고 입시</h3>
+
+              <div class="home-curriculum-divider" aria-hidden="true">
+                <span></span>
+              </div>
+
+              <ul>
+                <li>심화 테크닉</li>
+                <li>에튀드</li>
+                <li>실전 곡 완성</li>
+              </ul>
+            </div>
           </article>
           <article class="home-curriculum-card">
-            <div class="bc-icon-badge bc-icon-badge--sm">
+            <span class="home-curriculum-number" aria-hidden="true">03</span>
+
+            <div class="home-curriculum-icon">
               <img
-                class="bc-icon-img"
                 src="{% static 'images/icons/minimalist_music_note_emblem.png' %}"
-                alt="음악 해석 중심 지도 아이콘"
-                width="52"
-                height="52"
+                alt="음대 입시 커리큘럼 아이콘"
+                width="76"
+                height="76"
                 loading="lazy"
               >
             </div>
-            <span class="home-curriculum-label">03</span>
-            <h3>음대 입시</h3>
-            <ul>
-              <li>레퍼토리 구성</li>
-              <li>표현력</li>
-              <li>실전 대비</li>
-            </ul>
+
+            <div class="home-curriculum-card-body">
+              <h3>음대 입시</h3>
+
+              <div class="home-curriculum-divider" aria-hidden="true">
+                <span></span>
+              </div>
+
+              <ul>
+                <li>레퍼토리 구성</li>
+                <li>표현력</li>
+                <li>실전 대비</li>
+              </ul>
+            </div>
           </article>
           <article class="home-curriculum-card">
-            <div class="bc-icon-badge bc-icon-badge--sm">
+            <span class="home-curriculum-number" aria-hidden="true">04</span>
+
+            <div class="home-curriculum-icon">
               <img
-                class="bc-icon-img"
                 src="{% static 'images/icons/trophy_award_badge_emblem.png' %}"
-                alt="콩쿠르 수상 지도 아이콘"
-                width="52"
-                height="52"
+                alt="전공 심화 커리큘럼 아이콘"
+                width="76"
+                height="76"
                 loading="lazy"
               >
             </div>
-            <span class="home-curriculum-label">04</span>
-            <h3>전공 심화</h3>
-            <ul>
-              <li>연주 해석</li>
-              <li>오디션</li>
-              <li>대학원 준비</li>
-            </ul>
+
+            <div class="home-curriculum-card-body">
+              <h3>전공 심화</h3>
+
+              <div class="home-curriculum-divider" aria-hidden="true">
+                <span></span>
+              </div>
+
+              <ul>
+                <li>연주 해석</li>
+                <li>오디션</li>
+                <li>대학원 준비</li>
+              </ul>
+            </div>
           </article>
         </div>
         <aside class="home-curriculum-visual" aria-label="1:1 피아노 실기 지도 이미지">
@@ -245,274 +329,353 @@
     </div>
   </section>
 
-  <section
-    class="home-results home-section"
-    style="--home-results-bg: url('{% static 'images/home/home-results-awards.png' %}');"
-  >
+  <section class="home-results" aria-labelledby="home-results-title">
     <div class="container">
-      <div class="home-section-heading">
-        <p class="home-section-kicker">RESULTS</p>
-        <h2 class="home-section-title">합격 및 수상 성과</h2>
-        <p class="home-section-desc">
-          합격과 수상은 결과만이 아니라 과정의 완성도에서 시작됩니다.
+      <div class="home-results-heading">
+        <p class="home-section-label">RESULTS</p>
+
+        <div class="home-results-heading-line" aria-hidden="true">
+          <span></span>
+        </div>
+
+        <h2 id="home-results-title" class="home-results-title">
+          합격 및 수상 성과
+        </h2>
+
+        <p class="home-results-desc">
+          광주 피아노 입시와 예중·예고 피아노 입시를 준비하는 학생에게,
+          합격과 수상은 1:1 피아노 실기 지도 과정의 완성도에서 시작됩니다.
         </p>
       </div>
 
       <div class="home-results-layout">
-        <div class="home-results-cards">
-          <article class="home-result-card">
-            <div class="bc-icon-badge">
+        <div class="home-results-list">
+          <article class="home-results-card">
+            <span class="home-results-number" aria-hidden="true">01</span>
+
+            <div class="home-results-icon">
               <img
-                class="bc-icon-img"
                 src="{% static 'images/icons/navy_and_gold_star_emblem.png' %}"
-                alt="피아노 입시 목표 달성 아이콘"
-                width="72"
-                height="72"
+                alt="예중 합격 사례 아이콘"
+                width="84"
+                height="84"
                 loading="lazy"
               >
             </div>
-            <h3>예중 합격 사례</h3>
-            <p>광주 지역 예술중 진학 준비 지도</p>
+
+            <div class="home-results-card-copy">
+              <h3>예중 합격 사례</h3>
+              <p>광주 지역 예중 피아노 입시 준비 지도</p>
+              <div class="home-results-card-line" aria-hidden="true">
+                <span></span>
+              </div>
+            </div>
           </article>
-          <article class="home-result-card">
-            <div class="bc-icon-badge">
+
+          <article class="home-results-card">
+            <span class="home-results-number" aria-hidden="true">02</span>
+
+            <div class="home-results-icon">
               <img
-                class="bc-icon-img"
                 src="{% static 'images/icons/trophy_award_badge_emblem.png' %}"
                 alt="콩쿠르 수상 지도 아이콘"
-                width="72"
-                height="72"
+                width="84"
+                height="84"
                 loading="lazy"
               >
             </div>
-            <h3>콩쿠르 수상 지도</h3>
-            <p>음악적 표현과 무대 경험을 함께 성장</p>
+
+            <div class="home-results-card-copy">
+              <h3>콩쿠르 수상 지도</h3>
+              <p>음악적 표현과 무대 경험을 함께 성장</p>
+              <div class="home-results-card-line" aria-hidden="true">
+                <span></span>
+              </div>
+            </div>
           </article>
-          <article class="home-result-card">
-            <div class="bc-icon-badge">
+
+          <article class="home-results-card">
+            <span class="home-results-number" aria-hidden="true">03</span>
+
+            <div class="home-results-icon">
               <img
-                class="bc-icon-img"
                 src="{% static 'images/icons/checklist_icon_with_gold_accents.png' %}"
-                alt="피아노 입시 로드맵 체크리스트 아이콘"
-                width="72"
-                height="72"
+                alt="실전 완성도 향상 아이콘"
+                width="84"
+                height="84"
                 loading="lazy"
               >
             </div>
-            <h3>실전 완성도 향상</h3>
-            <p>입시곡 정리와 발표력 강화</p>
+
+            <div class="home-results-card-copy">
+              <h3>실전 완성도 향상</h3>
+              <p>예고 피아노 입시곡 정리와 발표력 강화</p>
+              <div class="home-results-card-line" aria-hidden="true">
+                <span></span>
+              </div>
+            </div>
           </article>
         </div>
-        <div class="home-results-strip" role="img" aria-label="합격 및 수상 성과 이미지 영역"></div>
+
+        <div
+          class="home-results-visual"
+          style="--home-results-bg: url('{% static 'images/home/home-results-awards.png' %}');"
+        >
+          <div class="home-results-visual-copy">
+            <p class="home-results-visual-label">Admission & Awards</p>
+
+            <h3>
+              결과보다 중요한 것은<br>
+              완성도 있는 과정
+            </h3>
+
+            <a class="home-results-btn" href="{% url 'awards' %}">
+              성과 자세히 보기
+              <span aria-hidden="true">›</span>
+            </a>
+          </div>
+        </div>
       </div>
+
       <p class="home-results-note">* 실제 수강생의 성과이며, 개인별 결과는 다를 수 있습니다.</p>
     </div>
   </section>
 
-  <section
-    class="home-consulting-cta"
-    style="--home-consulting-bg: url('{% static 'images/home/home-consulting-bg.png' %}');"
-  >
+  <section class="home-consulting-cta" aria-labelledby="home-consulting-title">
     <div class="container">
-      <div class="home-consulting-card">
-        <div class="home-consulting-icon bc-icon-badge bc-icon-badge--lg">
-          <img
-            class="bc-icon-img"
-            src="{% static 'images/icons/chat_bubble_emblem_icon_design.png' %}"
-            alt="피아노 입시 상담 문의 아이콘"
-            width="88"
-            height="88"
-            loading="lazy"
-          >
-        </div>
-        <div class="home-consulting-copy">
-          <p class="home-section-kicker">ADMISSION CONSULTING</p>
-          <h2>우리 아이에게 맞는 입시 로드맵이 궁금하다면</h2>
-          <p>
-            현재 실력과 목표 학교에 맞춰 현실적인 준비 방향과 맞춤 커리큘럼을 안내합니다.
-          </p>
-        </div>
-        <div class="home-consulting-actions">
-          <a class="home-btn home-btn-primary" href="{% url 'enroll_form' %}">입시 상담 신청</a>
-          <a class="home-btn home-btn-light" href="{% url 'curriculum' %}">커리큘럼 보기</a>
+      <div
+        class="home-consulting-card"
+        style="--home-consulting-bg: url('{% static 'images/home/home-consulting-bg.png' %}');"
+      >
+        <div class="home-consulting-inner">
+          <div class="home-consulting-copy">
+            <p class="home-consulting-label">ADMISSION CONSULTING</p>
+
+            <h2 id="home-consulting-title" class="home-consulting-title">
+              우리 아이에게 맞는 입시<br>
+              로드맵이 궁금하다면
+            </h2>
+
+            <p class="home-consulting-desc">
+              현재 실력과 목표 학교에 맞춰 현실적인 준비 방향과
+              맞춤 커리큘럼을 안내합니다.
+            </p>
+
+            <div class="home-consulting-actions">
+              <a class="home-consulting-btn home-consulting-btn--primary" href="{% url 'enroll_form' %}">
+                입시 상담 신청
+                <span aria-hidden="true">→</span>
+              </a>
+
+              <a class="home-consulting-btn home-consulting-btn--outline" href="{% url 'curriculum' %}">
+                커리큘럼 보기
+                <span aria-hidden="true">→</span>
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="home-news-preview home-section">
+  <section class="home-news-guide" aria-labelledby="home-news-guide-title">
     <div class="container">
-      <div class="home-section-heading">
-        <p class="home-section-kicker">NEWS & GUIDE</p>
-        <h2 class="home-section-title">공지사항과 입시 정보</h2>
-        <p class="home-section-desc">
+      <div class="home-news-guide-header">
+        <p class="home-news-guide-label">NEWS &amp; GUIDE</p>
+        <h2 id="home-news-guide-title">공지사항과 입시 정보</h2>
+        <p class="home-news-guide-desc">
           필요한 소식만 정돈해 보여드립니다. 게시글이 준비 중인 카테고리는
           상담과 입시 준비에 도움이 되는 안내 카드로 대체됩니다.
         </p>
       </div>
 
-      <div class="home-news-grid">
-        <article class="home-news-card">
+      <div class="home-news-guide-grid">
+        <article class="home-news-card home-news-card--featured">
           {% if notice_latest %}
             {% for post in notice_latest|slice:":1" %}
-              <a class="home-news-card-link" href="{% url 'news_detail' category_code=post.category.code slug=post.slug %}">
-                <span
-                  class="home-news-card-media"
-                  {% if post.thumbnail %}
-                    style="--home-news-bg: url('{{ post.thumbnail.url }}');"
-                  {% else %}
-                    style="--home-news-bg: url('{% static 'images/home/home-news-notice.png' %}');"
-                  {% endif %}
-                  aria-hidden="true"
-                ></span>
-                <span class="home-news-icon bc-icon-badge bc-icon-badge--sm">
-                  <img
-                    class="bc-icon-img"
-                    src="{% static 'images/icons/navy_and_gold_piano_schedule_icon.png' %}"
-                    alt="피아노 입시 상담 일정 아이콘"
-                    width="52"
-                    height="52"
-                    loading="lazy"
-                  >
-                </span>
-                <span class="home-news-chip">공지사항</span>
-                <strong>{{ post.title }}</strong>
-                <span>{{ post.content|striptags|truncatechars:72 }}</span>
-                <em>자세히 보기 <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></em>
-              </a>
-            {% endfor %}
-          {% else %}
-            <a class="home-news-card-link" href="{% url 'news_category' category_code='notice' %}">
-              <span
-                class="home-news-card-media"
-                style="--home-news-bg: url('{% static 'images/home/home-news-notice.png' %}');"
-                aria-hidden="true"
-              ></span>
-              <span class="home-news-icon bc-icon-badge bc-icon-badge--sm">
+              <a class="home-news-card-image-wrap" href="{% url 'news_detail' category_code=post.category.code slug=post.slug %}">
                 <img
-                  class="bc-icon-img"
-                  src="{% static 'images/icons/navy_and_gold_piano_schedule_icon.png' %}"
-                  alt="피아노 입시 상담 일정 아이콘"
-                  width="52"
-                  height="52"
+                  {% if post.thumbnail %}
+                    src="{{ post.thumbnail.url }}"
+                  {% else %}
+                    src="{% static 'images/home/home-news-notice.png' %}"
+                  {% endif %}
+                  alt="{{ post.title }} 대표 이미지"
                   loading="lazy"
                 >
-              </span>
-              <span class="home-news-chip">공지사항</span>
-              <strong>2026 입시 상담 예약 안내</strong>
-              <span>상담 가능 일정과 신청 방법을 안내드립니다.</span>
-              <em>공지사항 보기 <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></em>
+              </a>
+              <div class="home-news-card-body">
+                <div class="home-news-card-meta">
+                  <span class="home-news-badge">공지사항</span>
+                </div>
+
+                <h3 class="home-news-card-title">
+                  <a href="{% url 'news_detail' category_code=post.category.code slug=post.slug %}">
+                    {{ post.title }}
+                  </a>
+                </h3>
+
+                <p class="home-news-card-summary">{{ post.content|striptags|truncatechars:96 }}</p>
+
+                <a class="home-news-card-link" href="{% url 'news_detail' category_code=post.category.code slug=post.slug %}">
+                  자세히 보기 <span aria-hidden="true">→</span>
+                </a>
+              </div>
+            {% endfor %}
+          {% else %}
+            <a class="home-news-card-image-wrap" href="{% url 'news_category' category_code='notice' %}">
+              <img
+                src="{% static 'images/home/home-news-notice.png' %}"
+                alt="공지사항 안내 이미지"
+                loading="lazy"
+              >
             </a>
+            <div class="home-news-card-body">
+              <div class="home-news-card-meta">
+                <span class="home-news-badge">공지사항</span>
+              </div>
+
+              <h3 class="home-news-card-title">
+                <a href="{% url 'news_category' category_code='notice' %}">
+                  2026 입시 상담 예약 안내
+                </a>
+              </h3>
+
+              <p class="home-news-card-summary">상담 가능 일정과 신청 방법을 안내드립니다.</p>
+
+              <a class="home-news-card-link" href="{% url 'news_category' category_code='notice' %}">
+                공지사항 보기 <span aria-hidden="true">→</span>
+              </a>
+            </div>
           {% endif %}
         </article>
 
         <article class="home-news-card">
           {% if admission_latest %}
             {% for post in admission_latest|slice:":1" %}
-              <a class="home-news-card-link" href="{% url 'news_detail' category_code=post.category.code slug=post.slug %}">
-                <span
-                  class="home-news-card-media"
-                  {% if post.thumbnail %}
-                    style="--home-news-bg: url('{{ post.thumbnail.url }}');"
-                  {% else %}
-                    style="--home-news-bg: url('{% static 'images/home/home-news-piano.png' %}');"
-                  {% endif %}
-                  aria-hidden="true"
-                ></span>
-                <span class="home-news-icon bc-icon-badge bc-icon-badge--sm">
-                  <img
-                    class="bc-icon-img"
-                    src="{% static 'images/icons/checklist_icon_with_gold_accents.png' %}"
-                    alt="피아노 입시 로드맵 체크리스트 아이콘"
-                    width="52"
-                    height="52"
-                    loading="lazy"
-                  >
-                </span>
-                <span class="home-news-chip">입시정보</span>
-                <strong>{{ post.title }}</strong>
-                <span>{{ post.content|striptags|truncatechars:72 }}</span>
-                <em>자세히 보기 <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></em>
-              </a>
-            {% endfor %}
-          {% else %}
-            <a class="home-news-card-link" href="{% url 'news_category' category_code='admission' %}">
-              <span
-                class="home-news-card-media"
-                style="--home-news-bg: url('{% static 'images/home/home-news-piano.png' %}');"
-                aria-hidden="true"
-              ></span>
-              <span class="home-news-icon bc-icon-badge bc-icon-badge--sm">
+              <a class="home-news-card-image-wrap" href="{% url 'news_detail' category_code=post.category.code slug=post.slug %}">
                 <img
-                  class="bc-icon-img"
-                  src="{% static 'images/icons/checklist_icon_with_gold_accents.png' %}"
-                  alt="피아노 입시 로드맵 체크리스트 아이콘"
-                  width="52"
-                  height="52"
+                  {% if post.thumbnail %}
+                    src="{{ post.thumbnail.url }}"
+                  {% else %}
+                    src="{% static 'images/home/home-news-piano.png' %}"
+                  {% endif %}
+                  alt="{{ post.title }} 대표 이미지"
                   loading="lazy"
                 >
-              </span>
-              <span class="home-news-chip">입시정보</span>
-              <strong>예중 피아노 입시 준비, 무엇부터 시작할까?</strong>
-              <span>기초 진단부터 실기곡 방향 설정까지 핵심 포인트를 정리했습니다.</span>
-              <em>입시정보 보기 <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></em>
+              </a>
+              <div class="home-news-card-body">
+                <div class="home-news-card-meta">
+                  <span class="home-news-badge">입시정보</span>
+                </div>
+
+                <h3 class="home-news-card-title">
+                  <a href="{% url 'news_detail' category_code=post.category.code slug=post.slug %}">
+                    {{ post.title }}
+                  </a>
+                </h3>
+
+                <p class="home-news-card-summary">{{ post.content|striptags|truncatechars:96 }}</p>
+
+                <a class="home-news-card-link" href="{% url 'news_detail' category_code=post.category.code slug=post.slug %}">
+                  자세히 보기 <span aria-hidden="true">→</span>
+                </a>
+              </div>
+            {% endfor %}
+          {% else %}
+            <a class="home-news-card-image-wrap" href="{% url 'news_category' category_code='admission' %}">
+              <img
+                src="{% static 'images/home/home-news-piano.png' %}"
+                alt="입시정보 안내 이미지"
+                loading="lazy"
+              >
             </a>
+            <div class="home-news-card-body">
+              <div class="home-news-card-meta">
+                <span class="home-news-badge">입시정보</span>
+              </div>
+
+              <h3 class="home-news-card-title">
+                <a href="{% url 'news_category' category_code='admission' %}">
+                  예중 피아노 입시 준비, 무엇부터 시작할까?
+                </a>
+              </h3>
+
+              <p class="home-news-card-summary">기초 진단부터 실기곡 방향 설정까지 핵심 포인트를 정리했습니다.</p>
+
+              <a class="home-news-card-link" href="{% url 'news_category' category_code='admission' %}">
+                입시정보 보기 <span aria-hidden="true">→</span>
+              </a>
+            </div>
           {% endif %}
         </article>
 
         <article class="home-news-card">
           {% if contest_latest %}
             {% for post in contest_latest|slice:":1" %}
-              <a class="home-news-card-link" href="{% url 'news_detail' category_code=post.category.code slug=post.slug %}">
-                <span
-                  class="home-news-card-media"
-                  {% if post.thumbnail %}
-                    style="--home-news-bg: url('{{ post.thumbnail.url }}');"
-                  {% else %}
-                    style="--home-news-bg: url('{% static 'images/home/home-news-award.png' %}');"
-                  {% endif %}
-                  aria-hidden="true"
-                ></span>
-                <span class="home-news-icon bc-icon-badge bc-icon-badge--sm">
-                  <img
-                    class="bc-icon-img"
-                    src="{% static 'images/icons/trophy_award_badge_emblem.png' %}"
-                    alt="콩쿠르 수상 지도 아이콘"
-                    width="52"
-                    height="52"
-                    loading="lazy"
-                  >
-                </span>
-                <span class="home-news-chip">콩쿠르정보</span>
-                <strong>{{ post.title }}</strong>
-                <span>{{ post.content|striptags|truncatechars:72 }}</span>
-                <em>자세히 보기 <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></em>
-              </a>
-            {% endfor %}
-          {% else %}
-            <a class="home-news-card-link" href="{% url 'news_category' category_code='contest' %}">
-              <span
-                class="home-news-card-media"
-                style="--home-news-bg: url('{% static 'images/home/home-news-award.png' %}');"
-                aria-hidden="true"
-              ></span>
-              <span class="home-news-icon bc-icon-badge bc-icon-badge--sm">
+              <a class="home-news-card-image-wrap" href="{% url 'news_detail' category_code=post.category.code slug=post.slug %}">
                 <img
-                  class="bc-icon-img"
-                  src="{% static 'images/icons/trophy_award_badge_emblem.png' %}"
-                  alt="콩쿠르 수상 지도 아이콘"
-                  width="52"
-                  height="52"
+                  {% if post.thumbnail %}
+                    src="{{ post.thumbnail.url }}"
+                  {% else %}
+                    src="{% static 'images/home/home-news-award.png' %}"
+                  {% endif %}
+                  alt="{{ post.title }} 대표 이미지"
                   loading="lazy"
                 >
-              </span>
-              <span class="home-news-chip">콩쿠르정보</span>
-              <strong>광주 지역 콩쿠르 일정 체크</strong>
-              <span>실기 경험을 넓히는 무대 기회를 정리해드립니다.</span>
-              <em>콩쿠르정보 보기 <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></em>
+              </a>
+              <div class="home-news-card-body">
+                <div class="home-news-card-meta">
+                  <span class="home-news-badge">콩쿠르정보</span>
+                </div>
+
+                <h3 class="home-news-card-title">
+                  <a href="{% url 'news_detail' category_code=post.category.code slug=post.slug %}">
+                    {{ post.title }}
+                  </a>
+                </h3>
+
+                <p class="home-news-card-summary">{{ post.content|striptags|truncatechars:96 }}</p>
+
+                <a class="home-news-card-link" href="{% url 'news_detail' category_code=post.category.code slug=post.slug %}">
+                  자세히 보기 <span aria-hidden="true">→</span>
+                </a>
+              </div>
+            {% endfor %}
+          {% else %}
+            <a class="home-news-card-image-wrap" href="{% url 'news_category' category_code='contest' %}">
+              <img
+                src="{% static 'images/home/home-news-award.png' %}"
+                alt="콩쿠르정보 안내 이미지"
+                loading="lazy"
+              >
             </a>
+            <div class="home-news-card-body">
+              <div class="home-news-card-meta">
+                <span class="home-news-badge">콩쿠르정보</span>
+              </div>
+
+              <h3 class="home-news-card-title">
+                <a href="{% url 'news_category' category_code='contest' %}">
+                  광주 지역 콩쿠르 일정 체크
+                </a>
+              </h3>
+
+              <p class="home-news-card-summary">실기 경험을 넓히는 무대 기회를 정리해드립니다.</p>
+
+              <a class="home-news-card-link" href="{% url 'news_category' category_code='contest' %}">
+                콩쿠르정보 보기 <span aria-hidden="true">→</span>
+              </a>
+            </div>
           {% endif %}
         </article>
+      </div>
+
+      <div class="home-news-guide-footer">
+        <a class="home-news-guide-more" href="{% url 'news_category' category_code='admission' %}">
+          입시 정보 더 보기
+          <span aria-hidden="true">→</span>
+        </a>
       </div>
     </div>
   </section>
