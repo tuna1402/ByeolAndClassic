@@ -4,8 +4,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{% block meta_title %}ByeolAndClassic{% endblock %}</title>
-  <meta name="description" content="{% block meta_description %}ByeolAndClassic 피아노 아카데미의 소식과 프로그램을 소개합니다.{% endblock %}">
+  <title>{% block title %}{% block meta_title %}별앤클래식 | 광주·전남 피아노 입시 레슨{% endblock %}{% endblock %}</title>
+  <meta name="description" content="{% block meta_description %}별앤클래식은 광주·전남 지역 예중·예고·음대·피아노 대학원 입시를 준비하는 학생을 위한 1:1 피아노 실기 레슨 브랜드입니다. 현재 실력과 목표 학교에 맞춰 입시곡, 실기 준비 방향, 연습 계획을 함께 점검합니다.{% endblock %}">
   <meta name="google-site-verification" content="2AKTB8VBWMG8om6ul3EyTsghldYm-XeO-Y7LEPnMvPQ" />
   <meta name="naver-site-verification" content="49ccd6ff7248caf5809292eaebb0e225e142d0bd" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -84,6 +84,15 @@
             </a>
           </li>
           <li class="nav-item">
+            <a
+              class="nav-link{% if url_name == 'admission_page' %} active{% endif %}"
+              {% if url_name == 'admission_page' %}aria-current="page"{% endif %}
+              href="{% url 'admission_page' slug='gwangju-jeonnam-piano-admission' %}"
+            >
+              입시 안내
+            </a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link{% if request.resolver_match.url_name == 'curriculum' %} active{% endif %}" href="{% url 'curriculum' %}">
               커리큘럼
             </a>
@@ -107,7 +116,7 @@
             <div class="footer-brand">별앤클래식 아카데미</div>
             <div class="footer-brand-en">BYEOL &amp; CLASSIC ACADEMY</div>
             <p class="footer-text">
-              광주 예중·예고 피아노 입시를 위한 1:1 실기 지도 아카데미
+              광주·전남 예중·예고·음대·대학원 피아노 입시를 위한 1:1 실기 지도 아카데미
             </p>
           </div>
 
@@ -122,10 +131,11 @@
 
           <nav class="footer-column" aria-label="입시 안내">
             <div class="footer-title">입시 안내</div>
-            <a href="{% url 'curriculum' %}">입시 시스템</a>
-            <a href="{% url 'guide_info' %}?tab=admission">전형 안내</a>
-            <a href="{% url 'awards' %}">합격 및 수상</a>
-            <a href="{% url 'curriculum' %}">자주 묻는 질문</a>
+            <a href="{% url 'admission_page' slug='gwangju-jeonnam-piano-admission' %}">광주·전남 피아노 입시</a>
+            <a href="{% url 'admission_page' slug='gwangju-arts-middle-piano-admission' %}">광주 예중 피아노 입시</a>
+            <a href="{% url 'admission_page' slug='gwangju-arts-high-piano-admission' %}">광주 예고 피아노 입시</a>
+            <a href="{% url 'admission_page' slug='music-college-piano-admission' %}">음대 피아노 입시</a>
+            <a href="{% url 'admission_page' slug='piano-graduate-admission' %}">피아노 대학원 입시</a>
           </nav>
 
           <address class="footer-column footer-contact">

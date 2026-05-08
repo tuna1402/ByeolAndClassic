@@ -1,4 +1,4 @@
-from siteconfig.models import HomeHeroVideo
+from django.http import Http404
 from django.shortcuts import render
 from django.utils import timezone
 
@@ -12,6 +12,12 @@ from siteconfig.models import (
     RoadmapImageCard,
 )
 
+from .admission_pages import (
+    COMMON_PROCESS_STEPS,
+    get_admission_nav_groups,
+    get_admission_page,
+    get_related_admission_pages,
+)
 from .models import PageContent, PageKey
 
 
@@ -246,6 +252,24 @@ def curriculum(request):
             "lesson_policies": lesson_policies,
             "pricing_options": pricing_options,
             "curriculum_faqs": curriculum_faqs,
+            "cta_url_name": "enroll_form",
+        },
+    )
+
+
+def admission_page(request, slug):
+    page = get_admission_page(slug)
+    if page is None:
+        raise Http404("Admission page not found")
+
+    return render(
+        request,
+        "pages/admission_page.html",
+        {
+            "page": page,
+            "admission_nav_groups": get_admission_nav_groups(),
+            "related_pages": get_related_admission_pages(page),
+            "process_steps": COMMON_PROCESS_STEPS,
             "cta_url_name": "enroll_form",
         },
     )

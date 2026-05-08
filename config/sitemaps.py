@@ -3,6 +3,7 @@ from django.utils import timezone
 from django.urls import reverse
 
 from news.models import Post
+from pages.admission_pages import ADMISSION_PAGE_SLUGS
 
 
 class StaticViewSitemap(Sitemap):
@@ -10,9 +11,14 @@ class StaticViewSitemap(Sitemap):
     changefreq = "weekly"
 
     def items(self):
-        return ["home", "greeting", "profile", "awards", "curriculum", "academy_video"]
+        static_pages = ["home", "greeting", "profile", "awards", "curriculum", "academy_video"]
+        admission_pages = [("admission_page", {"slug": slug}) for slug in ADMISSION_PAGE_SLUGS]
+        return static_pages + admission_pages
 
     def location(self, item):
+        if isinstance(item, tuple):
+            url_name, kwargs = item
+            return reverse(url_name, kwargs=kwargs)
         return reverse(item)
 
 

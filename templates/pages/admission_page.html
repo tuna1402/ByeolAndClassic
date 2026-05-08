@@ -1,0 +1,144 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+
+{% block title %}{{ page.title }}{% endblock %}
+{% block meta_description %}{{ page.meta_description }}{% endblock %}
+{% block body_class %}admission-page{% endblock %}
+{% block site_main_class %}admission-main{% endblock %}
+
+{% block content %}
+  <section
+    class="admission-hero"
+    style="--admission-hero-bg: url('{% static 'images/curriculum/curriculum-hero-piano.png' %}');"
+  >
+    <div class="container admission-container">
+      <div class="admission-hero-copy">
+        <p class="admission-kicker">{{ page.kicker }}</p>
+        <h1>{{ page.h1 }}</h1>
+        <p class="admission-hero-lead">{{ page.intro }}</p>
+        <div class="admission-hero-actions">
+          <a class="admission-btn admission-btn-primary" href="{% url cta_url_name %}">
+            입시 상담 신청
+            <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+          </a>
+          <a class="admission-btn admission-btn-secondary" href="{% url 'curriculum' %}">
+            커리큘럼 보기
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="admission-index-section" aria-labelledby="admission-index-title">
+    <div class="container admission-container">
+      <div class="admission-index-head">
+        <p class="admission-section-label">Admission Pages</p>
+        <h2 id="admission-index-title">입시 안내 바로가기</h2>
+      </div>
+      <div class="admission-index-grid">
+        {% for group in admission_nav_groups %}
+          <nav class="admission-index-group" aria-label="{{ group.title }}">
+            <h3>{{ group.title }}</h3>
+            <div class="admission-index-links">
+              {% for link in group.links %}
+                <a
+                  class="admission-index-link{% if link.slug == page.slug %} is-active{% endif %}"
+                  href="{% url 'admission_page' slug=link.slug %}"
+                  {% if link.slug == page.slug %}aria-current="page"{% endif %}
+                >
+                  {{ link.nav_label }}
+                </a>
+              {% endfor %}
+            </div>
+          </nav>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <section class="admission-overview-section" aria-labelledby="admission-overview-title">
+    <div class="container admission-container">
+      <div class="admission-overview-layout">
+        <article class="admission-overview-copy">
+          <p class="admission-section-label">Preparation Focus</p>
+          <h2 id="admission-overview-title">{{ page.overview_title }}</h2>
+          <p>{{ page.overview_body }}</p>
+          <a class="admission-text-link" href="{% url 'guide_info' %}?tab=admission">
+            입시 정보 확인하기
+            <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+          </a>
+        </article>
+
+        <div class="admission-focus-grid">
+          {% for area in page.focus_areas %}
+            <article class="admission-focus-card">
+              <span class="admission-focus-number">{{ forloop.counter|stringformat:"02d" }}</span>
+              <h3>{{ area.title }}</h3>
+              <p>{{ area.body }}</p>
+            </article>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="admission-process-section" aria-labelledby="admission-process-title">
+    <div class="container admission-container">
+      <div class="admission-section-heading">
+        <p class="admission-section-label">Lesson Process</p>
+        <h2 id="admission-process-title">레슨 진행 흐름</h2>
+        <p>진단, 목표 설정, 레퍼토리 구성, 실전 점검을 한 흐름으로 연결합니다.</p>
+      </div>
+      <div class="admission-process-grid">
+        {% for step in process_steps %}
+          <article class="admission-process-card">
+            <span class="admission-process-step">{{ forloop.counter|stringformat:"02d" }}</span>
+            <h3>{{ step.title }}</h3>
+            <p>{{ step.body }}</p>
+          </article>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <section class="admission-related-section" aria-labelledby="admission-related-title">
+    <div class="container admission-container">
+      <div class="admission-section-heading">
+        <p class="admission-section-label">Related Guide</p>
+        <h2 id="admission-related-title">함께 보면 좋은 입시 안내</h2>
+      </div>
+      <div class="admission-related-grid">
+        {% for related in related_pages %}
+          <a class="admission-related-link" href="{% url 'admission_page' slug=related.slug %}">
+            <span>{{ related.kicker }}</span>
+            <strong>{{ related.nav_label }}</strong>
+            <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+          </a>
+        {% endfor %}
+        <a class="admission-related-link admission-related-link--accent" href="{% url 'curriculum' %}">
+          <span>Curriculum</span>
+          <strong>전체 피아노 커리큘럼</strong>
+          <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="admission-cta-section">
+    <div class="container admission-container">
+      <div class="admission-cta">
+        <div>
+          <p class="admission-section-label">Consultation</p>
+          <h2>현재 실력과 목표 과정을 함께 점검합니다.</h2>
+          <p>
+            준비 중인 곡, 목표 학교, 남은 기간을 알려주시면 학생에게 필요한 레슨 방향을 차분히 안내합니다.
+          </p>
+        </div>
+        <a class="admission-btn admission-btn-primary" href="{% url cta_url_name %}">
+          상담 신청하기
+          <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+{% endblock %}
