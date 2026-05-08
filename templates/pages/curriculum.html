@@ -39,31 +39,30 @@
     </div>
   </section>
 
-  <section class="curriculum-tabs-section">
+  <section class="curriculum-goal-section" aria-labelledby="curriculum-goal-title">
     <div class="container">
-      <div class="curriculum-surface">
-        <div class="section-header text-center mb-4">
-          <h2 class="curriculum-section-title mb-2">목표 과정별 커리큘럼</h2>
-          <p class="curriculum-section-subtitle mb-0">준비 목표부터 실기, 이론, 준비 기간까지 입시 단계별로 안내합니다.</p>
+      <div class="curriculum-goal-panel">
+        <div class="curriculum-goal-heading">
+          <h2 id="curriculum-goal-title">목표 과정별 커리큘럼</h2>
+          <p>준비 목표부터 실기, 이론, 준비 기간까지 입시 단계별로 안내합니다.</p>
         </div>
-        <ul class="nav nav-pills curriculum-tabs mb-4" id="curriculumTab" role="tablist">
+
+        <div class="curriculum-goal-tabs" id="curriculumTab" role="tablist" aria-label="목표 과정 선택">
           {% for track in curriculum_tracks %}
-            <li class="nav-item" role="presentation">
-              <button
-                class="nav-link {% if track.key == default_track_key %}active{% endif %}"
-                id="track-{{ track.key }}-tab"
-                data-bs-toggle="tab"
-                data-bs-target="#track-{{ track.key }}"
-                type="button"
-                role="tab"
-                aria-controls="track-{{ track.key }}"
-                aria-selected="{% if track.key == default_track_key %}true{% else %}false{% endif %}"
-              >
-                {{ track.label }}
-              </button>
-            </li>
+            <button
+              class="curriculum-goal-tab {% if track.key == default_track_key %}active{% endif %}"
+              id="track-{{ track.key }}-tab"
+              data-bs-toggle="tab"
+              data-bs-target="#track-{{ track.key }}"
+              type="button"
+              role="tab"
+              aria-controls="track-{{ track.key }}"
+              aria-selected="{% if track.key == default_track_key %}true{% else %}false{% endif %}"
+            >
+              {{ track.label }}
+            </button>
           {% endfor %}
-        </ul>
+        </div>
 
         <div class="tab-content" id="curriculumTabContent">
           {% for track in curriculum_tracks %}
@@ -74,97 +73,102 @@
               aria-labelledby="track-{{ track.key }}-tab"
               tabindex="0"
             >
-              <div class="curriculum-tab-layout">
-                <div class="curriculum-tab-visual curriculum-image-card">
+              <div class="curriculum-goal-layout">
+                <article class="curriculum-goal-visual">
                   <img
                     src="{% static 'images/curriculum/score-analysis.png' %}"
                     alt="{{ track.label }} 피아노 입시곡 악보 분석 이미지"
+                    loading="lazy"
                   >
-                  <div class="curriculum-image-caption">
+                  <div class="curriculum-goal-visual-caption">
                     <span>{{ track.label }}</span>
                     <strong>목표 학교와 입시곡에 맞춘 세부 레슨 플랜</strong>
                   </div>
-                </div>
-                <div class="curriculum-track-grid">
-                  <article class="curriculum-card">
-                    <div class="curriculum-card-icon bc-icon-badge">
-                      <img
-                        class="bc-icon-img"
-                        src="{% static 'images/icons/checklist_icon_with_gold_accents.png' %}"
-                        alt="피아노 입시 로드맵 체크리스트 아이콘"
-                        width="72"
-                        height="72"
-                        loading="lazy"
-                      >
+                </article>
+
+                <div class="curriculum-goal-cards">
+                  <article class="curriculum-goal-card">
+                    <div class="curriculum-goal-card-head">
+                      <div class="curriculum-goal-icon">
+                        <img
+                          src="{% static 'images/icons/checklist_icon_with_gold_accents.png' %}"
+                          alt="문제 진단 아이콘"
+                          width="72"
+                          height="72"
+                          loading="lazy"
+                        >
+                      </div>
+                      <h3>문제 진단</h3>
                     </div>
-                    <div>
-                      <h3 class="curriculum-card-title">문제 진단</h3>
-                      <ul class="curriculum-list mb-0">
-                        {% for item in track.goal %}
-                          <li>{{ item }}</li>
-                        {% endfor %}
-                      </ul>
-                    </div>
+                    <div class="curriculum-goal-line" aria-hidden="true"></div>
+                    <ul>
+                      {% for item in track.goal %}
+                        <li>{{ item }}</li>
+                      {% endfor %}
+                    </ul>
                   </article>
-                  <article class="curriculum-card">
-                    <div class="curriculum-card-icon bc-icon-badge">
-                      <img
-                        class="bc-icon-img"
-                        src="{% static 'images/icons/minimalist_music_note_emblem.png' %}"
-                        alt="음악 해석 중심 지도 아이콘"
-                        width="72"
-                        height="72"
-                        loading="lazy"
-                      >
+
+                  <article class="curriculum-goal-card">
+                    <div class="curriculum-goal-card-head">
+                      <div class="curriculum-goal-icon">
+                        <img
+                          src="{% static 'images/icons/minimalist_music_note_emblem.png' %}"
+                          alt="실기 지도 아이콘"
+                          width="72"
+                          height="72"
+                          loading="lazy"
+                        >
+                      </div>
+                      <h3>실기 지도</h3>
                     </div>
-                    <div>
-                      <h3 class="curriculum-card-title">실기 지도</h3>
-                      <ul class="curriculum-list mb-0">
-                        {% for item in track.practice %}
-                          <li>{{ item }}</li>
-                        {% endfor %}
-                      </ul>
-                    </div>
+                    <div class="curriculum-goal-line" aria-hidden="true"></div>
+                    <ul>
+                      {% for item in track.practice %}
+                        <li>{{ item }}</li>
+                      {% endfor %}
+                    </ul>
                   </article>
-                  <article class="curriculum-card">
-                    <div class="curriculum-card-icon bc-icon-badge">
-                      <img
-                        class="bc-icon-img"
-                        src="{% static 'images/icons/navy_and_gold_star_emblem.png' %}"
-                        alt="피아노 입시 목표 달성 아이콘"
-                        width="72"
-                        height="72"
-                        loading="lazy"
-                      >
+
+                  <article class="curriculum-goal-card">
+                    <div class="curriculum-goal-card-head">
+                      <div class="curriculum-goal-icon">
+                        <img
+                          src="{% static 'images/icons/navy_and_gold_star_emblem.png' %}"
+                          alt="기본기 강화 아이콘"
+                          width="72"
+                          height="72"
+                          loading="lazy"
+                        >
+                      </div>
+                      <h3>기본기 강화</h3>
                     </div>
-                    <div>
-                      <h3 class="curriculum-card-title">기본기 강화</h3>
-                      <ul class="curriculum-list mb-0">
-                        {% for item in track.theory %}
-                          <li>{{ item }}</li>
-                        {% endfor %}
-                      </ul>
-                    </div>
+                    <div class="curriculum-goal-line" aria-hidden="true"></div>
+                    <ul>
+                      {% for item in track.theory %}
+                        <li>{{ item }}</li>
+                      {% endfor %}
+                    </ul>
                   </article>
-                  <article class="curriculum-card curriculum-card-period">
-                    <div class="curriculum-card-icon bc-icon-badge">
-                      <img
-                        class="bc-icon-img"
-                        src="{% static 'images/icons/navy_and_gold_piano_schedule_icon.png' %}"
-                        alt="피아노 입시 상담 일정 아이콘"
-                        width="72"
-                        height="72"
-                        loading="lazy"
-                      >
+
+                  <article class="curriculum-goal-card curriculum-goal-card--accent">
+                    <div class="curriculum-goal-card-head">
+                      <div class="curriculum-goal-icon">
+                        <img
+                          src="{% static 'images/icons/navy_and_gold_piano_schedule_icon.png' %}"
+                          alt="추천 레슨 아이콘"
+                          width="72"
+                          height="72"
+                          loading="lazy"
+                        >
+                      </div>
+                      <h3>추천 레슨</h3>
                     </div>
-                    <div>
-                      <h3 class="curriculum-card-title">추천 레슨</h3>
-                      <ul class="curriculum-list mb-0">
-                        {% for item in track.period %}
-                          <li>{{ item }}</li>
-                        {% endfor %}
-                      </ul>
-                    </div>
+                    <div class="curriculum-goal-line" aria-hidden="true"></div>
+                    <ul>
+                      {% for item in track.period %}
+                        <li>{{ item }}</li>
+                      {% endfor %}
+                    </ul>
                   </article>
                 </div>
               </div>
