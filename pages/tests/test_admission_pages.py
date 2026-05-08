@@ -1,7 +1,7 @@
 import pytest
 from django.urls import reverse
 
-from pages.admission_pages import ADMISSION_PAGE_LIST, ADMISSION_PAGE_SLUGS
+from pages.admission_pages import ADMISSION_PAGE_LIST
 
 pytestmark = pytest.mark.django_db
 
@@ -17,9 +17,15 @@ FORBIDDEN_PHRASES = [
 ]
 
 
+def admission_url(page):
+    if page.get("url_name"):
+        return reverse(page["url_name"])
+    return reverse("admission_page", kwargs={"slug": page["slug"]})
+
+
 @pytest.mark.parametrize("page", ADMISSION_PAGE_LIST, ids=[page["slug"] for page in ADMISSION_PAGE_LIST])
 def test_admission_pages_render_seo_content_and_links(client, page):
-    response = client.get(reverse("admission_page", kwargs={"slug": page["slug"]}))
+    response = client.get(admission_url(page))
 
     assert response.status_code == 200
     content = response.content.decode("utf-8")
@@ -28,8 +34,8 @@ def test_admission_pages_render_seo_content_and_links(client, page):
     assert f"<h1>{page['h1']}</h1>" in content
     assert page["intro"] in content
 
-    for slug in ADMISSION_PAGE_SLUGS:
-        assert reverse("admission_page", kwargs={"slug": slug}) in content
+    for link in ADMISSION_PAGE_LIST:
+        assert admission_url(link) in content
 
     for phrase in FORBIDDEN_PHRASES:
         assert phrase not in content

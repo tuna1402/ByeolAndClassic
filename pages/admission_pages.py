@@ -145,6 +145,7 @@ ADMISSION_PAGE_LIST = [
     },
     {
         "slug": "gwangju-arts-middle-piano-admission",
+        "url_name": "admission_yejung_piano",
         "nav_label": "광주 예중 피아노 입시",
         "title": "광주 예중 피아노 입시 레슨 | 별앤클래식",
         "meta_description": (
@@ -186,6 +187,7 @@ ADMISSION_PAGE_LIST = [
     },
     {
         "slug": "gwangju-arts-high-piano-admission",
+        "url_name": "admission_yego_piano",
         "nav_label": "광주 예고 피아노 입시",
         "title": "광주 예고 피아노 입시 레슨 | 별앤클래식",
         "meta_description": (
@@ -227,6 +229,7 @@ ADMISSION_PAGE_LIST = [
     },
     {
         "slug": "music-college-piano-admission",
+        "url_name": "admission_music_college_piano",
         "nav_label": "음대 피아노 입시",
         "title": "음대 피아노 입시 레슨 | 별앤클래식",
         "meta_description": (
@@ -268,6 +271,7 @@ ADMISSION_PAGE_LIST = [
     },
     {
         "slug": "piano-graduate-admission",
+        "url_name": "admission_graduate_piano",
         "nav_label": "피아노 대학원 입시",
         "title": "피아노 대학원 입시 레슨 | 별앤클래식",
         "meta_description": (

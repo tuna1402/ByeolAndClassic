@@ -1,18 +1,85 @@
-from django.http import FileResponse
-from pathlib import Path
+from xml.sax.saxutils import escape
+
 from django.contrib import admin
-from django.contrib.sitemaps.views import sitemap
-from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from django.http import HttpResponse
+from django.urls import path, include
+from django.utils import timezone
 
-from .sitemaps import sitemaps
+SITE_BASE_URL = "https://byeolclassica.pythonanywhere.com"
 
-BASE_DIR = Path(__file__).resolve().parents[1]
+ROBOTS_TXT = f"""User-agent: *
+Disallow:
+
+Sitemap: {SITE_BASE_URL}/sitemap.xml
+"""
+
+SITEMAP_STATIC_PATHS = [
+    "/",
+    "/curriculum/",
+    "/admission/yejung-piano/",
+    "/admission/yego-piano/",
+    "/admission/music-college-piano/",
+    "/admission/graduate-piano/",
+    "/admission/gwangju-piano-admission/",
+    "/admission/jeonnam-piano-admission/",
+    "/admission/gwangju-jeonnam-piano-admission/",
+    "/admission/gwangju-piano-graduate-admission/",
+    "/admission/jeonnam-piano-graduate-admission/",
+    "/about/greeting/",
+    "/about/profile/",
+    "/about/awards/",
+    "/news/info/",
+    "/news/notice/",
+    "/enroll/",
+    "/contact/",
+]
+
+
+def _absolute_url(path):
+    return f"{SITE_BASE_URL}{path}"
+
+
+def _sitemap_entry(location, lastmod=None):
+    lines = ["  <url>", f"    <loc>{escape(location)}</loc>"]
+    if lastmod:
+        lines.append(f"    <lastmod>{escape(lastmod)}</lastmod>")
+    lines.append("  </url>")
+    return "\n".join(lines)
 
 
 def robots_txt(request):
-    return FileResponse(open(BASE_DIR / "robots.txt", "rb"), content_type="text/plain")
+    return HttpResponse(ROBOTS_TXT, content_type="text/plain; charset=utf-8")
+
+
+def sitemap_xml(request):
+    entries = [_sitemap_entry(_absolute_url(path)) for path in SITEMAP_STATIC_PATHS]
+
+    try:
+        from news.models import Post
+
+        now = timezone.now()
+        posts = (
+            Post.objects.filter(is_published=True, published_at__lte=now)
+            .select_related("category")
+            .only("slug", "updated_at", "category__code")
+        )
+        for post in posts:
+            path = f"/news/{post.category.code}/{post.slug}/"
+            entries.append(_sitemap_entry(_absolute_url(path), post.updated_at.date().isoformat()))
+    except Exception:
+        # Keep the sitemap available even if optional dynamic post data is temporarily unavailable.
+        pass
+
+    entries_xml = "\n".join(entries)
+    xml = (
+        '<?xml version="1.0" encoding="UTF-8"?>\n'
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+        f"{entries_xml}\n"
+        "</urlset>\n"
+    )
+    return HttpResponse(xml, content_type="application/xml; charset=utf-8")
 
 
 urlpatterns = [
@@ -22,7 +89,7 @@ urlpatterns = [
     path("news/", include("news.urls")),
     path("contact/", include("contact.urls")),
     path("enroll/", include("enroll.urls")),
-    path("sitemap.xml", sitemap, {"sitemaps": sitemaps}, name="sitemap"),
+    path("sitemap.xml", sitemap_xml, name="sitemap"),
 ]
 
 if settings.DEBUG:

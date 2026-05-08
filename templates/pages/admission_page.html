@@ -43,7 +43,11 @@
               {% for link in group.links %}
                 <a
                   class="admission-index-link{% if link.slug == page.slug %} is-active{% endif %}"
+                  {% if link.url_name %}
+                    href="{% url link.url_name %}"
+                  {% else %}
                   href="{% url 'admission_page' slug=link.slug %}"
+                  {% endif %}
                   {% if link.slug == page.slug %}aria-current="page"{% endif %}
                 >
                   {{ link.nav_label }}
@@ -109,7 +113,14 @@
       </div>
       <div class="admission-related-grid">
         {% for related in related_pages %}
-          <a class="admission-related-link" href="{% url 'admission_page' slug=related.slug %}">
+          <a
+            class="admission-related-link"
+            {% if related.url_name %}
+              href="{% url related.url_name %}"
+            {% else %}
+              href="{% url 'admission_page' slug=related.slug %}"
+            {% endif %}
+          >
             <span>{{ related.kicker }}</span>
             <strong>{{ related.nav_label }}</strong>
             <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
