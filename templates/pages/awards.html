@@ -1,70 +1,167 @@
 {% extends "layouts/base.html" %}
+{% load static %}
 
-{% block meta_title %}수상내역 | 별앤클래식{% endblock %}
-{% block meta_description %}콩쿨 수상 및 입시 합격 성과를 통해 별앤클래식의 교육 결과를 확인할 수 있습니다.{% endblock %}
+{% block meta_title %}자격증 | 별앤클래식{% endblock %}
+{% block meta_description %}별앤클래식의 전문성과 교육 역량을 보여주는 인증 자료를 아카이브 형태로 정리했습니다.{% endblock %}
 {% block content %}
   <section class="about-page awards-page">
-    <div class="container about-container">
-      <div class="about-layout">
-        <aside class="about-sidebar">
-          <div class="about-subnav">
-            <div class="about-subnav-label">소개 서브메뉴</div>
-            <ul class="nav nav-pills about-nav" role="tablist">
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'greeting' %}">인사말</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'profile' %}">프로필</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="{% url 'awards' %}">자격증</a>
-              </li>
-            </ul>
+    <section
+      class="about-hero about-hero--certificates"
+      style="--about-hero-bg: url('{% static 'images/home/home-philosophy-piano.png' %}');"
+    >
+      <div class="container">
+        <div class="about-hero-card">
+          <div class="about-hero-copy">
+            <p class="about-eyebrow">CERTIFICATES</p>
+            <h1>자격증</h1>
+            <p>별앤클래식의 전문성과 교육 역량을 보여주는 인증 자료를 아카이브 형태로 정리했습니다.</p>
           </div>
-        </aside>
-
-        <div class="about-main">
-          <section class="about-hero awards-hero">
-            <div class="about-label">ABOUT</div>
-            <h1 class="about-title">자격증</h1>
-            <p class="about-summary awards-summary">
-              별앤클래식의 전문성과 교육 역량을 보여주는 인증 자료를 아카이브 형태로 정리했습니다.
-            </p>
-          </section>
-
-          <section class="about-content awards-content">
-            {% if award_certificates %}
-              <div class="awards-gallery">
-                {% for certificate in award_certificates %}
-                  <article class="awards-certificate-card awards-certificate-card-{{ forloop.counter }}">
-                    <div class="awards-certificate-frame">
-                      <img
-                        class="awards-certificate-image"
-                        src="{{ certificate.image.url }}"
-                        alt="{{ certificate.title|default:'별앤클래식 자격증' }}"
-                      >
-                    </div>
-                    <div class="awards-certificate-meta">
-                      <h2 class="awards-certificate-title">
-                        {% if certificate.title %}{{ certificate.title }}{% else %}별앤클래식 자격증{% endif %}
-                      </h2>
-                      {% if certificate.year %}
-                        <p class="awards-certificate-year">{{ certificate.year }}</p>
-                      {% endif %}
-                    </div>
-                  </article>
-                {% endfor %}
-              </div>
-            {% else %}
-              <div class="about-card card">
-                <div class="card-body p-4 p-md-5">
-                  <p class="mb-0">등록된 자격증 이미지가 없습니다.</p>
-                </div>
-              </div>
-            {% endif %}
-          </section>
+          <div class="about-hero-mark" aria-hidden="true">
+            BYEOL &amp; CLASSIC<br>ACADEMY
+          </div>
         </div>
       </div>
-    </div>
+    </section>
+
+    <nav class="about-local-nav" aria-label="소개 페이지 메뉴">
+      <a class="about-local-link" href="{% url 'greeting' %}">인삿말</a>
+      <a class="about-local-link" href="{% url 'profile' %}">프로필</a>
+      <a class="about-local-link is-active" aria-current="page" href="{% url 'awards' %}">자격증</a>
+    </nav>
+
+    <section class="about-certificates-main">
+      <div class="container">
+        <div class="certificate-value-strip">
+          <article>
+            <div class="cert-value-icon"><i class="fa-solid fa-award" aria-hidden="true"></i></div>
+            <h3>전문성 인증</h3>
+            <p>교육자 지도 역량을 공식적으로 인정받은 자료</p>
+          </article>
+          <article>
+            <div class="cert-value-icon"><i class="fa-solid fa-star" aria-hidden="true"></i></div>
+            <h3>실무 중심 경험</h3>
+            <p>현장 경험과 연수로 쌓아온 실질적 역량</p>
+          </article>
+          <article>
+            <div class="cert-value-icon"><i class="fa-solid fa-layer-group" aria-hidden="true"></i></div>
+            <h3>지속적인 성장</h3>
+            <p>꾸준한 학습과 세미나 참여로 발전하는 교육자</p>
+          </article>
+          <article>
+            <div class="cert-value-icon"><i class="fa-solid fa-shield-halved" aria-hidden="true"></i></div>
+            <h3>신뢰할 수 있는 교육</h3>
+            <p>검증된 역량으로 안심하고 맡길 수 있는 교육</p>
+          </article>
+        </div>
+
+        <div class="certificate-filter" role="group" aria-label="자격증 분류">
+          <button class="is-active" type="button" data-certificate-filter="all" aria-pressed="true">전체</button>
+          <button type="button" data-certificate-filter="course" aria-pressed="false">수료증</button>
+          <button type="button" data-certificate-filter="leader" aria-pressed="false">지도자 인증</button>
+          <button type="button" data-certificate-filter="award" aria-pressed="false">수상이력</button>
+        </div>
+
+        {% if award_certificates %}
+          <div class="certificate-grid">
+            {% for certificate in award_certificates %}
+              <article
+                class="certificate-card"
+                data-certificate-category="{% if '모차르트' in certificate.title %}award{% elif '우수지도' in certificate.title or '지도사' in certificate.title %}leader{% elif '콩쿨' in certificate.title or '콩쿠르' in certificate.title %}award{% else %}course{% endif %}"
+              >
+                <a href="{{ certificate.image.url }}" class="certificate-image" data-lightbox="certificates" aria-label="{{ certificate.title|default:'별앤클래식 자격증' }} 크게 보기">
+                  <img
+                    src="{{ certificate.image.url }}"
+                    alt="{{ certificate.title|default:'별앤클래식 자격증' }}"
+                  >
+                  <span class="certificate-zoom" aria-hidden="true"><i class="fa-solid fa-magnifying-glass-plus"></i></span>
+                </a>
+                <div class="certificate-card-body">
+                  <div class="certificate-title-row">
+                    <h3>{% if certificate.title %}{{ certificate.title }}{% else %}별앤클래식 자격증{% endif %}</h3>
+                    {% if certificate.year %}
+                      <span>{{ certificate.year }}</span>
+                    {% endif %}
+                  </div>
+                  {% if '모차르트' in certificate.title %}
+                    <p class="certificate-chip">수상이력</p>
+                  {% elif '우수지도' in certificate.title or '지도사' in certificate.title %}
+                    <p class="certificate-chip">지도자 인증</p>
+                  {% elif '콩쿨' in certificate.title or '콩쿠르' in certificate.title %}
+                    <p class="certificate-chip">수상이력</p>
+                  {% else %}
+                    <p class="certificate-chip">수료증</p>
+                  {% endif %}
+                  {% if '모차르트' in certificate.title %}
+                    <p>모차르트 레퍼토리 해석과 국제 무대 경험을 보여주는 피아노 콩쿨 수상 이력입니다.</p>
+                  {% elif '우수지도' in certificate.title %}
+                    <p>콩쿠르 준비 과정에서 학생의 무대 완성도와 성과를 이끌어낸 지도 역량을 확인하는 자료입니다.</p>
+                  {% elif '전남대학교' in certificate.title or '전남대' in certificate.title %}
+                    <p>대학 기반 피아노 전문 연구 과정을 통해 연주 해석, 교수법, 음악 이론을 심화한 수료 자료입니다.</p>
+                  {% elif '세종대학교' in certificate.title or '세종대' in certificate.title or '페다고지' in certificate.title %}
+                    <p>피아노 교수법, 교재·작품 연구, 전공 실기 지도법을 다루는 피아노 페다고지 과정 수료 자료입니다.</p>
+                  {% elif '지도사' in certificate.title %}
+                    <p>피아노 학습자의 수준과 목표에 맞춰 실기와 음악적 성장을 지도할 수 있는 교육 역량 인증 자료입니다.</p>
+                  {% else %}
+                    <p>별앤클래식의 교육 전문성과 지속적인 연구 과정을 보여주는 인증 자료입니다.</p>
+                  {% endif %}
+                </div>
+              </article>
+            {% endfor %}
+          </div>
+          <p class="certificate-filter-empty" hidden>선택한 분류에 등록된 인증 자료가 없습니다.</p>
+        {% else %}
+          <div class="certificate-empty-card">
+            <p>등록된 자격증 이미지가 없습니다.</p>
+          </div>
+        {% endif %}
+
+        <div class="certificate-signature-card">
+          <p>별앤클래식은 검증된 전문성과 지속적인 연구·학습을 바탕으로, 한 사람 한 사람의 음악적 성장을 진심으로 지원합니다.</p>
+          <div>
+            <span>피아니스트</span>
+            <strong>김 별</strong>
+          </div>
+        </div>
+      </div>
+    </section>
   </section>
+{% endblock %}
+
+{% block extra_scripts %}
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const buttons = document.querySelectorAll("[data-certificate-filter]");
+      const cards = document.querySelectorAll("[data-certificate-category]");
+      const emptyMessage = document.querySelector(".certificate-filter-empty");
+
+      if (!buttons.length || !cards.length) {
+        return;
+      }
+
+      buttons.forEach(function (button) {
+        button.addEventListener("click", function () {
+          const filter = button.dataset.certificateFilter;
+          let visibleCount = 0;
+
+          buttons.forEach(function (item) {
+            const isActive = item === button;
+            item.classList.toggle("is-active", isActive);
+            item.setAttribute("aria-pressed", isActive ? "true" : "false");
+          });
+
+          cards.forEach(function (card) {
+            const isVisible = filter === "all" || card.dataset.certificateCategory === filter;
+            card.hidden = !isVisible;
+            if (isVisible) {
+              visibleCount += 1;
+            }
+          });
+
+          if (emptyMessage) {
+            emptyMessage.hidden = visibleCount > 0;
+          }
+        });
+      });
+    });
+  </script>
 {% endblock %}

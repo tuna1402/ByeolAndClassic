@@ -1,59 +1,156 @@
 {% extends "layouts/base.html" %}
+{% load static %}
 
 {% block meta_title %}프로필 | 피아니스트 김별{% endblock %}
 {% block meta_description %}피아니스트 김별의 학력, 주요 이력, 연주 활동, 입시 지도 성과를 소개합니다.{% endblock %}
 {% block content %}
   <section class="about-page profile-page">
-    <div class="container about-container">
-      <div class="about-layout">
-        <aside class="about-sidebar">
-          <div class="about-subnav">
-            <div class="about-subnav-label">소개 서브메뉴</div>
-            <ul class="nav nav-pills about-nav" role="tablist">
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'greeting' %}">인사말</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="{% url 'profile' %}">프로필</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'awards' %}">자격증</a>
-              </li>
-            </ul>
+    <section
+      class="about-hero about-hero--profile"
+      style="--about-hero-bg: url('{% static 'images/home/home-philosophy-piano.png' %}');"
+    >
+      <div class="container">
+        <div class="about-hero-card">
+          <div class="about-hero-copy">
+            <p class="about-eyebrow">PROFILE</p>
+            <h1>{% if page and page.title %}{{ page.title }}{% else %}프로필{% endif %}</h1>
+            <p>연주자, 기획자, 교육자로서의 경험을 바탕으로 깊이 있는 연주 교육과 입시 지도를 이어가고 있습니다.</p>
           </div>
-        </aside>
-        <div class="about-main">
-          <section class="about-hero profile-hero">
-            <div class="profile-hero-kicker">PROFILE</div>
-            <h1 class="about-title profile-hero-title">{% if page and page.title %}{{ page.title }}{% else %}프로필{% endif %}</h1>
-            <p class="about-summary profile-hero-summary">
-              연주자, 기획자, 교육자로서의 경험을 바탕으로 깊이 있는 연주 교육과 입시 지도를 이어가고 있습니다.
-            </p>
-          </section>
+          <div class="about-hero-mark" aria-hidden="true">
+            BYEOL &amp; CLASSIC<br>ACADEMY
+          </div>
+        </div>
+      </div>
+    </section>
 
-          <section class="about-content profile-content">
+    <nav class="about-local-nav" aria-label="소개 페이지 메뉴">
+      <a class="about-local-link" href="{% url 'greeting' %}">인삿말</a>
+      <a class="about-local-link is-active" aria-current="page" href="{% url 'profile' %}">프로필</a>
+      <a class="about-local-link" href="{% url 'awards' %}">자격증</a>
+    </nav>
+
+    <section class="about-profile-main">
+      <div class="container">
+        <div class="profile-overview">
+          <div class="profile-photo">
+            <img src="{% static 'profile.png' %}" alt="피아니스트 김별 프로필 사진">
+          </div>
+
+          <div class="profile-summary">
+            <p class="profile-role">피아니스트</p>
+            <h2>김별</h2>
+            <p class="profile-lead">예중·예고·음대·대학원 피아노 입시 지도 전문</p>
+
+            <dl class="profile-facts">
+              <div>
+                <dt>전공</dt>
+                <dd>피아노 연주, 반주, 실내악, 음악이론, 음악사</dd>
+              </div>
+              <div>
+                <dt>지도 분야</dt>
+                <dd>예중·예고·음대·대학원 피아노 입시 전문 지도</dd>
+              </div>
+              <div>
+                <dt>강점</dt>
+                <dd>연주 경험 기반의 탄탄한 테크닉 지도와 섬세한 음악성 지도</dd>
+              </div>
+              <div>
+                <dt>교육 철학</dt>
+                <dd>기본기 위에 음악적 이해를 쌓고, 자기만의 음악을 만들도록 지도합니다.</dd>
+              </div>
+            </dl>
+          </div>
+        </div>
+
+        <div class="profile-highlight-grid">
+          <article>
+            <div class="profile-card-icon"><i class="fa-solid fa-graduation-cap" aria-hidden="true"></i></div>
+            <h3>학력</h3>
+            <p>전남예고 실기 우수 졸업, 전남대 음악학과 실기장학생, 숙명여대 피아노과 석사과정</p>
+          </article>
+          <article>
+            <div class="profile-card-icon"><i class="fa-solid fa-music" aria-hidden="true"></i></div>
+            <h3>연주 활동</h3>
+            <p>협연, 듀엣 앙상블, 반주, 실내악 무대 경험을 바탕으로 한 실전형 지도</p>
+          </article>
+          <article>
+            <div class="profile-card-icon"><i class="fa-solid fa-users" aria-hidden="true"></i></div>
+            <h3>교육 경력</h3>
+            <p>15년 이상 피아노 입시 및 실기 지도 경험과 콩쿠르 입상자 지도</p>
+          </article>
+          <article>
+            <div class="profile-card-icon"><i class="fa-solid fa-bullseye" aria-hidden="true"></i></div>
+            <h3>입시 지도</h3>
+            <p>예중·예고·음대·대학원 실기 완성도와 면접 대비를 함께 관리</p>
+          </article>
+        </div>
+
+        <section class="profile-story">
+          <p class="about-eyebrow">PROFILE STORY</p>
+          <h2>지도자의 길, 음악과 함께 걸어온 시간</h2>
+
+          {% if page and page.content %}
+            <div class="profile-story-copy">
+              {{ page.content|linebreaks }}
+            </div>
+          {% else %}
             <div class="profile-story-grid">
-              <article class="profile-story-card profile-story-article">
-                <div class="profile-story-icon"><i class="fa-solid fa-note-sticky" aria-hidden="true"></i></div>
-                <h2 class="profile-story-title">교육자 프로필</h2>
-                <p class="profile-story-text">
-                  피아니스트 김별은 전남예술고등학교를 실기 우수자로 졸업하며 일찍이 뛰어난 음악적 재능을 인정받았고, 재학 중 호남예술제 콩쿨에 입상하며 연주자로서의 두각을 나타냈다. 이후 전남대학교 음악학과에 실기장학생으로 입학하여 학문과 연주를 병행하였으며, 광주우수콩쿨, 피아노학회 콩쿠르 입상, 국제 모차르트 콩쿠르 2위 수상 등 다수의 대회에서 우수한 성과를 거두며 연주자로서의 전문성을 확립하였다.
+              <article class="profile-story-card">
+                <span class="profile-story-number">01</span>
+                <h3>연주의 깊이, 교육의 시작이 되다</h3>
+                <p>
+                  피아니스트 김별은 전남예술고등학교를 실기 우수자로 졸업하며 일찍이 뛰어난 음악적 재능을 인정받았고,
+                  전남대학교 음악학과 실기장학생으로 학문과 연주를 병행했습니다.
+                  광주우수콩쿨, 피아노학회 콩쿠르, 국제 모차르트 콩쿠르 등에서 성과를 거두며 연주자로서의 전문성을 쌓았습니다.
                 </p>
-                <p class="profile-story-text">
-                  현재 숙명여자대학교 피아노과 석사과정에 재학 중이며, 광명 필하모닉 오케스트라 협연을 비롯해 듀엣 앙상블 활동, 현 함평교회 피아노 반주자로서 다양한 무대에서 활발한 연주 활동을 이어가고 있다. 또한 앙상블 인의 대표로서 연주와 공연 기획을 병행하며 음악적 영역을 확장하고 있다.
+              </article>
+              <article class="profile-story-card">
+                <span class="profile-story-number">02</span>
+                <h3>기획과 연주, 넓은 시야로 교육하다</h3>
+                <p>
+                  숙명여자대학교 피아노과 석사과정에 재학 중이며 광명 필하모닉 오케스트라 협연,
+                  듀엣 앙상블 활동, 함평교회 피아노 반주자로 다양한 무대를 이어가고 있습니다.
+                  앙상블 인 대표로서 연주와 공연 기획도 병행하고 있습니다.
                 </p>
-                <p class="profile-story-text">
-                  문화예술 기획 분야에서도 활발한 행보를 이어가고 있다. 문화예술 기획 공연 단체 아트리움(ARTRIUM)을 운영하였으며, 광주문화재단 개인 기획 연주회 Inspiration(2025.8)을 개최하였다. 또한 전남대학교병원 정기 봉사 연주회(2023~2024)에 참여하며 지역사회와 함께하는 예술 활동을 실천하고 있다. 이와 함께 ‘낭만시대’ 문화예술 학술 모임을 기획·주관하고, 전공생을 위한 서양 음악사 특강을 진행하는 등 연구·학술 및 문화예술 확산에도 힘쓰고 있다.
+              </article>
+              <article class="profile-story-card">
+                <span class="profile-story-number">03</span>
+                <h3>문화예술 연구로 확장된 지도</h3>
+                <p>
+                  문화예술 기획 공연 단체 아트리움(ARTRIUM)을 운영했고, 광주문화재단 개인 기획 연주회 Inspiration을 개최했습니다.
+                  전남대학교병원 정기 봉사 연주회, 낭만시대 학술 모임, 서양 음악사 특강을 통해 음악을 폭넓게 연구하고 나눕니다.
                 </p>
-                <p class="profile-story-text">
-                  교육자로서도 풍부한 경험과 검증된 성과를 갖추고 있다. 피아노 지도 경력 15년을 바탕으로 국립목포대학교, 광신대학교 합격생을 배출하였으며, 2024학년도 광주예술중학교 합격생을 비롯해 다수의 콩쿠르 입상자를 지도하였다. 또한 전남대 피아노 지도사, 콩쿨 우수지도사, 음악 심리 지도사 자격증을 보유하고 있으며, 체계적인 커리큘럼과 밀도 높은 실기 지도를 통해 연주자와 교육자로서의 역량을 함께 펼쳐가고 있다.
+              </article>
+              <article class="profile-story-card">
+                <span class="profile-story-number">04</span>
+                <h3>15년의 지도, 신뢰로 이어지다</h3>
+                <p>
+                  국립목포대학교, 광신대학교 합격생과 2024학년도 광주예술중학교 합격생을 배출했으며,
+                  다수의 콩쿠르 입상자를 지도했습니다. 전남대 피아노 지도사, 콩쿨 우수지도사, 음악 심리 지도사 자격을 바탕으로
+                  체계적인 커리큘럼과 밀도 높은 실기 지도를 이어가고 있습니다.
                 </p>
               </article>
             </div>
-          </section>
+          {% endif %}
+        </section>
 
-        </div>
+        {% if page and page.attachment %}
+          <div class="about-attachment">
+            <a href="{{ page.attachment.url }}">첨부파일 다운로드</a>
+          </div>
+        {% endif %}
+
+        <section class="about-bottom-cta">
+          <div>
+            <h2>우리 아이의 음악 여정, 함께 만들어가겠습니다.</h2>
+            <p>1:1 맞춤 상담을 통해 학습 방향과 커리큘럼을 안내해드립니다.</p>
+          </div>
+          <div class="about-bottom-actions">
+            <a href="{% url 'enroll_form' %}" class="about-cta-primary">상담 신청하기</a>
+            <a href="{% url 'curriculum' %}" class="about-cta-secondary">커리큘럼 안내받기</a>
+          </div>
+        </section>
       </div>
-    </div>
+    </section>
   </section>
 {% endblock %}
