@@ -3,7 +3,7 @@ from xml.sax.saxutils import escape
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
-from django.http import HttpResponse
+from django.http import FileResponse, Http404, HttpResponse
 from django.urls import path, include
 from django.utils import timezone
 
@@ -53,6 +53,13 @@ def robots_txt(request):
     return HttpResponse(ROBOTS_TXT, content_type="text/plain; charset=utf-8")
 
 
+def favicon_ico(request):
+    favicon_path = settings.BASE_DIR / "static" / "favicon.ico"
+    if not favicon_path.exists():
+        raise Http404("favicon.ico not found")
+    return FileResponse(open(favicon_path, "rb"), content_type="image/x-icon")
+
+
 def sitemap_xml(request):
     entries = [_sitemap_entry(_absolute_url(path)) for path in SITEMAP_STATIC_PATHS]
 
@@ -83,6 +90,7 @@ def sitemap_xml(request):
 
 
 urlpatterns = [
+    path("favicon.ico", favicon_ico, name="favicon_ico"),
     path("robots.txt", robots_txt),
     path("admin/", admin.site.urls),
     path("", include("pages.urls")),

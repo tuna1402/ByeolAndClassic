@@ -54,3 +54,35 @@ def test_sitemap_admission_urls_render(client, path):
     response = client.get(path)
 
     assert response.status_code == 200
+
+
+def test_favicon_ico_is_available(client):
+    response = client.get("/favicon.ico")
+
+    assert response.status_code == 200
+    assert response["Content-Type"] == "image/x-icon"
+    assert b"".join(response.streaming_content)
+
+
+def test_base_template_includes_favicon_links(client):
+    response = client.get("/")
+
+    assert response.status_code == 200
+    body = response.content.decode("utf-8")
+    assert '<link rel="icon" href="/static/favicon.ico" sizes="any">' in body
+    assert (
+        '<link rel="icon" type="image/png" sizes="48x48" '
+        'href="/static/images/favicon/favicon-48x48.png">'
+    ) in body
+    assert (
+        '<link rel="icon" type="image/png" sizes="96x96" '
+        'href="/static/images/favicon/favicon-96x96.png">'
+    ) in body
+    assert (
+        '<link rel="icon" type="image/png" sizes="192x192" '
+        'href="/static/images/favicon/favicon-192x192.png">'
+    ) in body
+    assert (
+        '<link rel="apple-touch-icon" sizes="180x180" '
+        'href="/static/images/favicon/apple-touch-icon.png">'
+    ) in body
