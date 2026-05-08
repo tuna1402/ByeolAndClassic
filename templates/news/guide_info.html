@@ -1,0 +1,158 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+
+{% block body_class %}board-body guide-body{% endblock %}
+{% block site_main_class %}board-page guide-page-main{% endblock %}
+{% block meta_title %}콩쿨&입시 정보 | 별앤클래식 아카데미{% endblock %}
+{% block meta_description %}각종 콩쿨 정보와 입시 전략을 체계적으로 정리하여 성공적인 음악 여정을 안내해 드립니다.{% endblock %}
+
+{% block content %}
+  <section class="guide-page">
+    <section
+      class="board-hero board-hero--guide"
+      style="--board-hero-bg: url('{% static tab_config.hero_image %}');"
+    >
+      <div class="container">
+        <div class="board-hero-copy">
+          <p class="board-hero-label">GUIDE</p>
+          <h1>콩쿨&amp;입시 정보</h1>
+          <p>각종 콩쿨 정보와 입시 전략을 체계적으로 정리하여 성공적인 음악 여정을 안내해 드립니다.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="guide-content">
+      <div class="container guide-container">
+        <div class="guide-tabs" role="tablist" aria-label="콩쿨 및 입시 정보 탭">
+          <a
+            class="guide-tab{% if active_tab == 'competition' %} is-active{% endif %}"
+            href="{% url 'guide_info' %}?tab=competition"
+            role="tab"
+            {% if active_tab == 'competition' %}aria-selected="true" aria-current="page"{% else %}aria-selected="false"{% endif %}
+          >
+            <i class="fa-solid fa-trophy" aria-hidden="true"></i>
+            콩쿨
+          </a>
+          <a
+            class="guide-tab{% if active_tab == 'admission' %} is-active{% endif %}"
+            href="{% url 'guide_info' %}?tab=admission"
+            role="tab"
+            {% if active_tab == 'admission' %}aria-selected="true" aria-current="page"{% else %}aria-selected="false"{% endif %}
+          >
+            <i class="fa-solid fa-building-columns" aria-hidden="true"></i>
+            입시
+          </a>
+        </div>
+
+        <article class="guide-feature-card">
+          <div class="guide-feature-image">
+            {% if feature_post and feature_post.thumbnail %}
+              <img src="{{ feature_post.thumbnail.url }}" alt="{{ feature_post.title }} 대표 이미지">
+            {% else %}
+              <img src="{% static tab_config.feature_image %}" alt="{{ tab_config.label }} 정보 대표 이미지">
+            {% endif %}
+          </div>
+          <div class="guide-feature-copy">
+            <span class="guide-chip">{{ tab_config.label }} 핵심 가이드</span>
+            {% if feature_post %}
+              <h2>{{ feature_post.title }}</h2>
+              <p>{{ feature_post.content|striptags|truncatechars:150 }}</p>
+              <a class="guide-feature-link" href="{% url 'news_detail' category_code=feature_post.category.code slug=feature_post.slug %}">
+                자세히 보기 <span aria-hidden="true">→</span>
+              </a>
+            {% else %}
+              <h2>{{ tab_config.fallback_title }}</h2>
+              <p>{{ tab_config.fallback_description }}</p>
+              <a class="guide-feature-link" href="{% url 'enroll_form' %}">
+                상담으로 확인하기 <span aria-hidden="true">→</span>
+              </a>
+            {% endif %}
+          </div>
+        </article>
+
+        <form class="board-filter guide-filter" method="get" role="search">
+          <input type="hidden" name="tab" value="{{ active_tab }}">
+          <div class="board-filter-field">
+            <label class="visually-hidden" for="guide-search">검색어</label>
+            <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+            <input
+              id="guide-search"
+              name="q"
+              type="search"
+              value="{{ q }}"
+              placeholder="{{ tab_config.label }} 정보 검색"
+            >
+          </div>
+          <div class="board-filter-field board-filter-field--select">
+            <label class="visually-hidden" for="guide-sort">정렬</label>
+            <select id="guide-sort" name="sort">
+              <option value="latest" {% if sort != "oldest" %}selected{% endif %}>최신순</option>
+              <option value="oldest" {% if sort == "oldest" %}selected{% endif %}>오래된순</option>
+            </select>
+          </div>
+          <button type="submit">검색</button>
+        </form>
+
+        <div id="guide-list" class="guide-card-grid">
+          {% if page_obj.object_list %}
+            {% for post in page_obj %}
+              <a class="guide-info-card" href="{% url 'news_detail' category_code=post.category.code slug=post.slug %}">
+                <span class="guide-info-icon" aria-hidden="true">
+                  {% if active_tab == 'competition' %}
+                    <i class="fa-solid fa-medal"></i>
+                  {% else %}
+                    <i class="fa-solid fa-graduation-cap"></i>
+                  {% endif %}
+                </span>
+                <span class="guide-info-copy">
+                  <span class="guide-info-meta">
+                    {% if post.published_at %}
+                      {{ post.published_at|date:"Y.m.d" }}
+                    {% else %}
+                      {{ post.created_at|date:"Y.m.d" }}
+                    {% endif %}
+                  </span>
+                  <strong>{{ post.title }}</strong>
+                  <span>{{ post.content|striptags|truncatechars:90 }}</span>
+                </span>
+                <span class="guide-info-arrow" aria-hidden="true">
+                  <i class="fa-solid fa-arrow-right"></i>
+                </span>
+              </a>
+            {% endfor %}
+          {% else %}
+            {% for item in tab_config.fallback_cards %}
+              <a class="guide-info-card" href="{% url 'enroll_form' %}">
+                <span class="guide-info-icon" aria-hidden="true">
+                  <i class="{{ item.icon }}"></i>
+                </span>
+                <span class="guide-info-copy">
+                  <span class="guide-info-meta">{{ tab_config.label }} 안내</span>
+                  <strong>{{ item.title }}</strong>
+                  <span>{{ item.summary }}</span>
+                </span>
+                <span class="guide-info-arrow" aria-hidden="true">
+                  <i class="fa-solid fa-arrow-right"></i>
+                </span>
+              </a>
+            {% endfor %}
+          {% endif %}
+        </div>
+
+        <div class="guide-more-wrap">
+          {% if page_obj.has_next %}
+            <a class="guide-more-btn" href="?page={{ page_obj.next_page_number }}{% if querystring %}&{{ querystring }}{% endif %}">
+              더 많은 정보 보기
+              <i class="fa-solid fa-arrow-down" aria-hidden="true"></i>
+            </a>
+          {% else %}
+            <span class="guide-more-btn guide-more-btn--disabled">
+              모든 정보 확인 완료
+              <i class="fa-solid fa-check" aria-hidden="true"></i>
+            </span>
+          {% endif %}
+        </div>
+      </div>
+    </section>
+  </section>
+{% endblock %}

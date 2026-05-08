@@ -6,24 +6,7 @@
 {% block content %}
   <section class="about-page news-page">
     <div class="container about-container">
-      <div class="about-layout">
-        <aside class="about-sidebar">
-          <div class="about-subnav">
-            <div class="about-subnav-label">뉴스 서브메뉴</div>
-            <ul class="nav nav-pills about-nav" role="tablist">
-              <li class="nav-item">
-                <a class="nav-link {% if category.code == 'notice' %}active{% endif %}" href="{% url 'news_category' category_code='notice' %}">공지사항</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link {% if category.code == 'contest' %}active{% endif %}" href="{% url 'news_category' category_code='contest' %}">콩쿨정보</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link {% if category.code == 'admission' %}active{% endif %}" href="{% url 'news_category' category_code='admission' %}">입시정보</a>
-              </li>
-            </ul>
-          </div>
-        </aside>
-        <div class="about-main">
+      <div class="about-main news-list-main">
           <section class="about-hero">
             <div class="about-label">NEWS</div>
             <h1 class="about-title">{{ category.name }}</h1>
@@ -162,7 +145,6 @@
               </div>
             </div>
           </section>
-        </div>
       </div>
     </div>
   </section>

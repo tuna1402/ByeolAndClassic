@@ -54,46 +54,43 @@
         <i class="fas fa-bars ms-1"></i>
       </button>
       <div class="collapse navbar-collapse" id="navbarResponsive">
+        {% with url_name=request.resolver_match.url_name category_code=request.resolver_match.kwargs.category_code %}
         <ul class="navbar-nav text-uppercase mx-auto py-4 py-lg-0 nav-center">
-          <li class="nav-item dropdown">
+          <li class="nav-item">
             <a
-              class="nav-link dropdown-toggle"
-              href="#"
-              role="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
+              class="nav-link{% if url_name == 'greeting' or url_name == 'profile' or url_name == 'awards' %} active{% endif %}"
+              {% if url_name == 'greeting' or url_name == 'profile' or url_name == 'awards' %}aria-current="page"{% endif %}
+              href="{% url 'greeting' %}"
             >
               소개
             </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="{% url 'greeting' %}">인사말</a></li>
-              <li><a class="dropdown-item" href="{% url 'profile' %}">프로필</a></li>
-              <li><a class="dropdown-item" href="{% url 'awards' %}">자격증</a></li>
-            </ul>
           </li>
-          <li class="nav-item dropdown">
+          <li class="nav-item">
             <a
-              class="nav-link dropdown-toggle"
-              href="#"
-              role="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
+              class="nav-link{% if url_name == 'notice_list' or url_name == 'news_detail' and category_code == 'notice' or url_name == 'news_category' and category_code == 'notice' %} active{% endif %}"
+              {% if url_name == 'notice_list' or url_name == 'news_detail' and category_code == 'notice' or url_name == 'news_category' and category_code == 'notice' %}aria-current="page"{% endif %}
+              href="{% url 'notice_list' %}"
             >
-              뉴스
+              공지사항
             </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="{% url 'news_category' category_code='notice' %}">공지사항</a></li>
-              <li><a class="dropdown-item" href="{% url 'news_category' category_code='contest' %}">콩쿨정보</a></li>
-              <li><a class="dropdown-item" href="{% url 'news_category' category_code='admission' %}">입시정보</a></li>
-            </ul>
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link{% if url_name == 'guide_info' or url_name == 'news_detail' and category_code == 'contest' or url_name == 'news_detail' and category_code == 'admission' or url_name == 'news_category' and category_code == 'contest' or url_name == 'news_category' and category_code == 'admission' %} active{% endif %}"
+              {% if url_name == 'guide_info' or url_name == 'news_detail' and category_code == 'contest' or url_name == 'news_detail' and category_code == 'admission' or url_name == 'news_category' and category_code == 'contest' or url_name == 'news_category' and category_code == 'admission' %}aria-current="page"{% endif %}
+              href="{% url 'guide_info' %}"
+            >
+              콩쿨&amp;입시 정보
+            </a>
           </li>
           <li class="nav-item">
             <a class="nav-link{% if request.resolver_match.url_name == 'curriculum' %} active{% endif %}" href="{% url 'curriculum' %}">
               커리큘럼
             </a>
           </li>
-          <li class="nav-item nav-item-consult"><a class="nav-link nav-consult-link" href="{% url 'enroll_form' %}">상담신청</a></li>
+          <li class="nav-item nav-item-consult"><a class="nav-link nav-consult-link{% if url_name == 'enroll_form' %} active{% endif %}" href="{% url 'enroll_form' %}">상담신청</a></li>
         </ul>
+        {% endwith %}
       </div>
     </div>
   </nav>
@@ -118,15 +115,15 @@
             <div class="footer-title">바로가기</div>
             <a href="{% url 'greeting' %}">소개</a>
             <a href="{% url 'curriculum' %}">커리큘럼</a>
-            <a href="{% url 'news_category' category_code='admission' %}">입시정보</a>
-            <a href="{% url 'news_category' category_code='notice' %}">공지사항</a>
+            <a href="{% url 'guide_info' %}?tab=admission">콩쿨&amp;입시 정보</a>
+            <a href="{% url 'notice_list' %}">공지사항</a>
             <a href="{% url 'enroll_form' %}">상담신청</a>
           </nav>
 
           <nav class="footer-column" aria-label="입시 안내">
             <div class="footer-title">입시 안내</div>
             <a href="{% url 'curriculum' %}">입시 시스템</a>
-            <a href="{% url 'news_category' category_code='admission' %}">전형 안내</a>
+            <a href="{% url 'guide_info' %}?tab=admission">전형 안내</a>
             <a href="{% url 'awards' %}">합격 및 수상</a>
             <a href="{% url 'curriculum' %}">자주 묻는 질문</a>
           </nav>

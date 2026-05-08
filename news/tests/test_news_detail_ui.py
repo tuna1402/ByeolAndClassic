@@ -40,12 +40,27 @@ class NewsDetailUITests(TestCase):
 
     def test_detail_page_renders_premium_layout_for_each_news_category(self):
         cases = [
-            ("notice", "공지사항", "별앤클래식의 공지사항과 입시 관련 소식을 확인하세요."),
-            ("contest", "콩쿨정보", "피아노 콩쿨 일정과 준비에 필요한 정보를 확인하세요."),
-            ("admission", "입시정보", "예중·예고 피아노 입시 준비에 필요한 정보를 확인하세요."),
+            (
+                "notice",
+                "공지사항",
+                "별앤클래식의 공지사항과 입시 관련 소식을 확인하세요.",
+                "/news/notice/",
+            ),
+            (
+                "contest",
+                "콩쿨정보",
+                "피아노 콩쿨 일정과 준비에 필요한 정보를 확인하세요.",
+                "/news/info/?tab=competition",
+            ),
+            (
+                "admission",
+                "입시정보",
+                "예중·예고 피아노 입시 준비에 필요한 정보를 확인하세요.",
+                "/news/info/?tab=admission",
+            ),
         ]
 
-        for code, name, summary in cases:
+        for code, name, summary, back_href in cases:
             with self.subTest(code=code):
                 category = self.get_category(code, name)
                 post = self.create_post(
@@ -62,7 +77,7 @@ class NewsDetailUITests(TestCase):
                 self.assertIn('class="site-main news-detail-page"', html)
                 self.assertIn('href="/static/css/layout_overrides.css"', html)
                 self.assertIn("news-detail-hero", html)
-                self.assertIn("news-detail-category-card", html)
+                self.assertNotIn("news-detail-category-card", html)
                 self.assertIn("news-detail-article-card", html)
                 self.assertIn(summary, html)
                 self.assertIn(f"{name} 상세 테스트", html)
@@ -71,6 +86,7 @@ class NewsDetailUITests(TestCase):
                 self.assertIn("작성자 관리자", html)
                 self.assertIn("<h2>주요 안내</h2>", html)
                 self.assertIn("목록으로 돌아가기", html)
+                self.assertIn(f'href="{back_href}"', html)
                 self.assertNotIn("콘텐츠 작성 영역", html)
                 self.assertNotIn("게시글을 작성하거나 편집할 때 필요한 레이아웃 영역입니다.", html)
 

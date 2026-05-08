@@ -1,0 +1,165 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+
+{% block body_class %}board-body notice-body{% endblock %}
+{% block site_main_class %}board-page notice-page-main{% endblock %}
+{% block meta_title %}공지사항 | 별앤클래식 아카데미{% endblock %}
+{% block meta_description %}별앤클래식 아카데미의 중요한 소식과 안내 사항을 확인하실 수 있습니다.{% endblock %}
+
+{% block content %}
+  <section class="notice-page">
+    <section
+      class="board-hero board-hero--notice"
+      style="--board-hero-bg: url('{% static 'images/home/home-hero-piano.png' %}');"
+    >
+      <div class="container">
+        <div class="board-hero-copy">
+          <p class="board-hero-label">NOTICE</p>
+          <h1>공지사항</h1>
+          <p>별앤클래식 아카데미의 중요한 소식과 안내 사항을 확인하실 수 있습니다.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="board-content">
+      <div class="container board-container">
+        <article class="notice-feature-card">
+          <div class="notice-feature-icon" aria-hidden="true">
+            <i class="fa-regular fa-bell"></i>
+          </div>
+          <div class="notice-feature-copy">
+            <p class="notice-feature-kicker">주요 안내</p>
+            {% if featured_post %}
+              <h2>{{ featured_post.title }}</h2>
+              <p>{{ featured_post.content|striptags|truncatechars:96 }}</p>
+            {% else %}
+              <h2>2026학년도 피아노 입시 설명회 안내</h2>
+              <p>입시 변화와 준비 전략, 커리큘럼 안내 등 유익한 정보를 제공합니다.</p>
+            {% endif %}
+          </div>
+          {% if featured_post %}
+            <a class="notice-feature-link" href="{% url 'news_detail' category_code=featured_post.category.code slug=featured_post.slug %}">
+              자세히 보기 <span aria-hidden="true">→</span>
+            </a>
+          {% else %}
+            <a class="notice-feature-link" href="{% url 'enroll_form' %}">
+              상담 문의 <span aria-hidden="true">→</span>
+            </a>
+          {% endif %}
+          <i class="fa-regular fa-newspaper notice-feature-watermark" aria-hidden="true"></i>
+        </article>
+
+        <form class="board-filter" method="get" role="search">
+          <div class="board-filter-field">
+            <label class="visually-hidden" for="notice-search">검색어</label>
+            <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+            <input
+              id="notice-search"
+              name="q"
+              type="search"
+              value="{{ q }}"
+              placeholder="제목 또는 본문 검색"
+            >
+          </div>
+          <div class="board-filter-field board-filter-field--select">
+            <label class="visually-hidden" for="notice-sort">정렬</label>
+            <select id="notice-sort" name="sort">
+              <option value="latest" {% if sort != "oldest" %}selected{% endif %}>최신순</option>
+              <option value="oldest" {% if sort == "oldest" %}selected{% endif %}>오래된순</option>
+            </select>
+          </div>
+          <button type="submit">검색</button>
+        </form>
+
+        <div class="notice-table-wrap">
+          {% if page_obj.object_list %}
+            <table class="notice-table">
+              <thead>
+                <tr>
+                  <th scope="col">제목</th>
+                  <th scope="col">작성자</th>
+                  <th scope="col">작성일</th>
+                  <th scope="col"><span class="visually-hidden">바로가기</span></th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for post in page_obj %}
+                  <tr>
+                    <td class="notice-title-cell" data-label="제목">
+                      <a class="notice-title-link" href="{% url 'news_detail' category_code=category.code slug=post.slug %}">
+                        <span>{{ post.title }}</span>
+                        {% if post.id in new_post_ids %}
+                          <span class="board-new-badge">NEW</span>
+                        {% endif %}
+                      </a>
+                    </td>
+                    <td data-label="작성자">관리자</td>
+                    <td data-label="작성일">
+                      {% if post.published_at %}
+                        {{ post.published_at|date:"Y-m-d" }}
+                      {% else %}
+                        {{ post.created_at|date:"Y-m-d" }}
+                      {% endif %}
+                    </td>
+                    <td class="notice-row-arrow" data-label="바로가기">
+                      <a href="{% url 'news_detail' category_code=category.code slug=post.slug %}" aria-label="{{ post.title }} 상세 보기">
+                        <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                      </a>
+                    </td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          {% else %}
+            <div class="board-empty">
+              <i class="fa-regular fa-folder-open" aria-hidden="true"></i>
+              <p>등록된 공지사항이 없습니다.</p>
+            </div>
+          {% endif %}
+        </div>
+
+        {% if page_obj.paginator.num_pages > 1 %}
+          <nav class="board-pagination" aria-label="공지사항 페이지네이션">
+            <ul class="pagination">
+              {% if page_obj.has_previous %}
+                <li class="page-item">
+                  <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if querystring %}&{{ querystring }}{% endif %}" aria-label="이전">
+                    <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
+                  </a>
+                </li>
+              {% else %}
+                <li class="page-item disabled">
+                  <span class="page-link" aria-hidden="true"><i class="fa-solid fa-chevron-left"></i></span>
+                </li>
+              {% endif %}
+
+              {% for num in page_obj.paginator.page_range %}
+                {% if num == page_obj.number %}
+                  <li class="page-item active" aria-current="page">
+                    <span class="page-link">{{ num }}</span>
+                  </li>
+                {% else %}
+                  <li class="page-item">
+                    <a class="page-link" href="?page={{ num }}{% if querystring %}&{{ querystring }}{% endif %}">{{ num }}</a>
+                  </li>
+                {% endif %}
+              {% endfor %}
+
+              {% if page_obj.has_next %}
+                <li class="page-item">
+                  <a class="page-link" href="?page={{ page_obj.next_page_number }}{% if querystring %}&{{ querystring }}{% endif %}" aria-label="다음">
+                    <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+                  </a>
+                </li>
+              {% else %}
+                <li class="page-item disabled">
+                  <span class="page-link" aria-hidden="true"><i class="fa-solid fa-chevron-right"></i></span>
+                </li>
+              {% endif %}
+            </ul>
+          </nav>
+        {% endif %}
+      </div>
+    </section>
+  </section>
+{% endblock %}

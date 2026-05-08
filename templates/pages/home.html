@@ -523,7 +523,7 @@
               </div>
             {% endfor %}
           {% else %}
-            <a class="home-news-card-image-wrap" href="{% url 'news_category' category_code='notice' %}">
+            <a class="home-news-card-image-wrap" href="{% url 'notice_list' %}">
               <img
                 src="{% static 'images/home/home-news-notice.png' %}"
                 alt="공지사항 안내 이미지"
@@ -536,14 +536,14 @@
               </div>
 
               <h3 class="home-news-card-title">
-                <a href="{% url 'news_category' category_code='notice' %}">
+                <a href="{% url 'notice_list' %}">
                   2026 입시 상담 예약 안내
                 </a>
               </h3>
 
               <p class="home-news-card-summary">상담 가능 일정과 신청 방법을 안내드립니다.</p>
 
-              <a class="home-news-card-link" href="{% url 'news_category' category_code='notice' %}">
+              <a class="home-news-card-link" href="{% url 'notice_list' %}">
                 공지사항 보기 <span aria-hidden="true">→</span>
               </a>
             </div>
@@ -583,7 +583,7 @@
               </div>
             {% endfor %}
           {% else %}
-            <a class="home-news-card-image-wrap" href="{% url 'news_category' category_code='admission' %}">
+            <a class="home-news-card-image-wrap" href="{% url 'guide_info' %}?tab=admission">
               <img
                 src="{% static 'images/home/home-news-piano.png' %}"
                 alt="입시정보 안내 이미지"
@@ -596,14 +596,14 @@
               </div>
 
               <h3 class="home-news-card-title">
-                <a href="{% url 'news_category' category_code='admission' %}">
+                <a href="{% url 'guide_info' %}?tab=admission">
                   예중 피아노 입시 준비, 무엇부터 시작할까?
                 </a>
               </h3>
 
               <p class="home-news-card-summary">기초 진단부터 실기곡 방향 설정까지 핵심 포인트를 정리했습니다.</p>
 
-              <a class="home-news-card-link" href="{% url 'news_category' category_code='admission' %}">
+              <a class="home-news-card-link" href="{% url 'guide_info' %}?tab=admission">
                 입시정보 보기 <span aria-hidden="true">→</span>
               </a>
             </div>
@@ -643,7 +643,7 @@
               </div>
             {% endfor %}
           {% else %}
-            <a class="home-news-card-image-wrap" href="{% url 'news_category' category_code='contest' %}">
+            <a class="home-news-card-image-wrap" href="{% url 'guide_info' %}?tab=competition">
               <img
                 src="{% static 'images/home/home-news-award.png' %}"
                 alt="콩쿠르정보 안내 이미지"
@@ -656,14 +656,14 @@
               </div>
 
               <h3 class="home-news-card-title">
-                <a href="{% url 'news_category' category_code='contest' %}">
+                <a href="{% url 'guide_info' %}?tab=competition">
                   광주 지역 콩쿠르 일정 체크
                 </a>
               </h3>
 
               <p class="home-news-card-summary">실기 경험을 넓히는 무대 기회를 정리해드립니다.</p>
 
-              <a class="home-news-card-link" href="{% url 'news_category' category_code='contest' %}">
+              <a class="home-news-card-link" href="{% url 'guide_info' %}?tab=competition">
                 콩쿠르정보 보기 <span aria-hidden="true">→</span>
               </a>
             </div>
@@ -672,7 +672,7 @@
       </div>
 
       <div class="home-news-guide-footer">
-        <a class="home-news-guide-more" href="{% url 'news_category' category_code='admission' %}">
+        <a class="home-news-guide-more" href="{% url 'guide_info' %}?tab=admission">
           입시 정보 더 보기
           <span aria-hidden="true">→</span>
         </a>
